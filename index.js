@@ -181,9 +181,9 @@ const actions = {
     // context.forecast = apiCall(context.loc)
 
     ////////////////////////////////////////////////////
-    url += host + '&' + qid;
-    title = 'who is '+context.time+context.people+'in' + context.loc;
-    url += title+body+category;
+    url += host + '&' + qid + '&';
+    title = 'who is '+context.time+context.people+'in' + context.loc+ '&';
+    url += title+ '&' + body + '&' + category;
     http.get(url, (res) => {
       console.log(`Got response: ${res.statusCode}`);
       // consume response body
