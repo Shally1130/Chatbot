@@ -163,11 +163,11 @@ const actions = {
      // Retrieve the location entity and store it into a context field
     const loc = firstEntityValue(entities, 'location');
     const time = firstEntityValue(entities, 'time');
-    const people = firstEntityValue(entities,'people');
-    if (loc&&time&&people) {
+    const person = firstEntityValue(entities,'person');
+    if (loc&&time&&person) {
       context.loc = loc;
       context.time = time;
-      context.people = people;
+      context.person = person;
     }
     cb(context);
   },
@@ -182,7 +182,7 @@ const actions = {
 
     ////////////////////////////////////////////////////
     url += host + '&' + qid + '&';
-    title = 'who is '+context.time+context.people+'in' + context.loc+ '&';
+    title = 'who is '+context.time+context.person+'in' + context.loc+ '&';
     url += title+ '&' + body + '&' + category;
     http.get(url, (res) => {
       console.log(`Got response: ${res.statusCode}`);
