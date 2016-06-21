@@ -27,7 +27,7 @@ const Wit = require('node-wit').Wit
 const http = require('http');
 
 // Wit.ai parameters
-const WIT_TOKEN = process.env.WIT_TOKEN;     
+const WIT_TOKEN = 'YXZYW2IZTZS6D3VVEAN5KV4IDYKN63P6';     
 
 
 
