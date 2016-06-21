@@ -153,9 +153,10 @@ app.post('/webhook', function (req, res) {
                     // Now it's waiting for further messages to proceed.
                         console.log('Waiting for futher messages.');
                     }
+                    context0 = context;
                 }
             );
-            sendMessage(event.sender.id, {text: "reply: "+context.intro});
+            sendMessage(event.sender.id, {text: "reply: "+context0.intro});
         }
     }
     res.sendStatus(200);
