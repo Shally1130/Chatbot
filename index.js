@@ -170,7 +170,7 @@ function sendMessage(recipientId, message) {
             recipient: {id: recipientId},
             message: message,
         }
-    }, function(error, response, body) {
+    }, function(error, response, body) {    
         if (error) {
             console.log('Error sending message: ', error);
         } else if (response.body.error) {
