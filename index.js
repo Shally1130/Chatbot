@@ -118,13 +118,16 @@ const actions = {
          {
             tempintro = data.substring(beg + 9, beg+300);
             sendMessage(sessionId, {text: "reply: "+tempintro});
+            console.log("111111111111");
             for(var i=beg+301;(end-i)/300>=1;i=i+301)
             {
                 tempintro = data.substring(i, i+300);
                 sendMessage(sessionId, {text: tempintro});
+                console.log("22222222222222");
             }
             tempintro = data.substring(i-300, end);
             sendMessage(sessionId, {text: tempintro});
+            console.log("33333333333333");
          }
          else
          {
