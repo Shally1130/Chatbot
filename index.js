@@ -3,6 +3,14 @@ var bodyParser = require('body-parser');
 var request = require('request');
 var app = express();
 
+const StringDecoder = require('string_decoder').StringDecoder;
+const Wit = require('../').Wit;
+const http = require('http');
+
+// Wit.ai parameters
+const WIT_TOKEN = EAAV1xowEUIEBAC4LOoYzVxrZCCtE7oeXqMsSDTwG1QJwIVprgfKgBQCJaGmuVtx9Wxv8zszoOfa2o8wjoVSK1mefWlZB7r2MtLZCYrXB6dpZAMq7TG6uzlXeO1DiBkIPVU9MSRoZBjDMmVEYj5RiPqKgkeaZBkB8DLVXHwtX5jmwZDZD; 
+
+
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.listen((process.env.PORT || 3000));
@@ -21,17 +29,132 @@ app.get('/webhook', function (req, res) {
     }
 });
 
+
+const firstEntityValue = (entities, entity) => {
+  const val = entities && entities[entity] &&
+    Array.isArray(entities[entity]) &&
+    entities[entity].length > 0 &&
+    entities[entity][0].value
+    ;
+    if (!val) {
+      return null;
+  }
+  return typeof val === 'object' ? val.value : val;
+};
+
+
+//system parameter
+var qid =  '1'; //convert int to char
+var title;
+var body='Some%20additional%20information%20on%20the%20question';
+var category = 'Knowledge'
+var pathname;
+
+
+// Our bot actions
+const actions = {
+  say(sessionId, context, message, cb) {
+    console.log(message);
+    cb();
+  },
+  merge(sessionId, context, entities, message, cb) {
+     // Retrieve the location entity and store it into a context field
+    const loc = firstEntityValue(entities, 'location');
+
+    if (loc) {
+      context.loc = loc;
+      console.log('loc!!!!!!!!!!!!!');
+      //wait.miliseconds(100);
+    }
+
+
+    const person = firstEntityValue(entities,'person');
+    if(person){
+      context.person = person;
+      console.log('person!!!!!!!!!!!!!');
+      //wait.miliseconds(100);
+
+      }
+
+    const time = firstEntityValue(entities, 'time');
+    if(time)
+    {
+      context.time = time;
+      console.log('time!!!!!!!!!!!');
+      //wait.miliseconds(100);
+    }
+    cb(context);
+  },
+  error(sessionId, context, error) {
+    console.log(error.message);
+  },
+  // You should implement your custom actions here
+  // See https://wit.ai/docs/quickstart
+  ['Introduction-People'](sessionId, context, cb) {
+    // Here should go the api call, e.g.:
+    // context.forecast = apiCall(context.loc)
+
+    ////////////////////////////////////////////////////
+    pathname = '/?qid='+qid+'&title=';
+    title = 'who%20is%20'+context.time+'%20'+context.person+'%20of%20' + context.loc+ '&';
+    pathname += title+ '&body=' + body + '&category=' + category;
+        var options = {
+      host: 'carbonite.mathcs.emory.edu',
+      port: '8080',
+      path:  pathname
+    };
+    console.log(title);
+    var decoder = new StringDecoder();
+    http.get(options, (res) => {
+      console.log(`Got response: ${res.statusCode}`);
+      // consume response body
+      res.on('data', function (chunk) {
+        var data = decoder.write(chunk);
+         var beg = data.indexOf("<content>");
+         var end = data.indexOf("</content>");
+         console.log(data.substring(beg + 9, end));
+      });
+      context.intro = res;
+      res.resume();
+    }).on('error', (e) => {
+      console.log(`Got error: ${e.message}`);
+    });
+
+    
+    cb(context);
+  },
+
+};
+
+// Setting up our bot
+const wit = new Wit(WIT_TOKEN, actions);
+
+
 // handler receiving messages
 app.post('/webhook', function (req, res) {
     var events = req.body.entry[0].messaging;
+    const context0 = {};
     for (i = 0; i < events.length; i++) {
         var event = events[i];
         // if (event.message && event.message.text) {
         //     sendMessage(event.sender.id, {text: "Echo: " + event.message.text});
         // }
         if (event.message && event.message.text) {
-            
-            sendMessage(event.sender.id, {text: "Echo: " + event.message.text});
+            wit.runActions(
+                event.sender.id, // the user's current session
+                event.message.text, // the user's message 
+                context0, // the user's current session state
+                (error, context) => {
+                    if (error) {
+                        console.log('Oops! Got an error from Wit:', error);
+                    } else {
+                    // Our bot did everything it has to do.
+                    // Now it's waiting for further messages to proceed.
+                        console.log('Waiting for futher messages.');
+                    }
+                }
+            );
+            sendMessage(event.sender.id, {text: "reply: " + context.intro});
         }
     }
     res.sendStatus(200);
