@@ -57,7 +57,6 @@ const actions = {
   say(sessionId, context, message, cb) {
     console.log("Entering say");
     console.log(message);
-    sendMessage(sessionId, {text: "reply: "+context.intro});
     cb();
     console.log("Exiting say");    
   },
@@ -120,6 +119,7 @@ const actions = {
          var end = data.indexOf("</content>");
          console.log(data.substring(beg + 9, end));
          context.intro = res;
+         sendMessage(sessionId, {text: "reply: "+context.intro});
       });
       
       res.resume();
