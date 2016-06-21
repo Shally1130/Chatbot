@@ -116,7 +116,7 @@ const actions = {
          context.intro = res;
 
       });
-      sendMessage(sessionId, {text: "reply: "+context.intro});
+      sendMessage(sessionId, {text: "reply: "+context.loc});
       res.resume();
     }).on('error', (e) => {
       console.log(`Got error: ${e.message}`);
