@@ -116,12 +116,14 @@ const actions = {
          context.intro = res;
 
       });
-      sendMessage(sessionId, {text: "reply: "+context.intro});
+      
       res.resume();
     }).on('error', (e) => {
       console.log(`Got error: ${e.message}`);
     });
     cb(context);
+    sendMessage(sessionId, {text: "reply: "+context.intro});
+    sendMessage(sessionId, {text: "reply: "+context.preson});
     
   },
 
