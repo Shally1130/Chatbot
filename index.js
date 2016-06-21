@@ -119,17 +119,16 @@ const actions = {
          var end = data.indexOf("</content>");
          console.log(data.substring(beg + 9, end));
          context.intro = res;
-         sendMessage(sessionId, {text: "reply: "+res});
+
       });
       
       res.resume();
     }).on('error', (e) => {
       console.log(`Got error: ${e.message}`);
     });
-
-    
     cb(context);
     console.log("Exiting introducing");
+    sendMessage(sessionId, {text: "reply: "+context.intro});
   },
 
 };
