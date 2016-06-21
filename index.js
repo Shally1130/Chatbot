@@ -169,14 +169,14 @@ app.post('/webhook', function (req, res) {
                     console.log(context0);
                     console.log(context.intro);
                     console.log("Exiting callback");
-                    sendMessage(sessionId, {text: "reply: "+context0.intro});
-                    res.sendStatus(200);
+                    
+                    
                 }
             );
-            
+            sendMessage(sessionId, {text: "reply: "+context0.intro});
         }
     }
-    
+    res.sendStatus(200);
 });
 
 // generic function sending messages
