@@ -109,7 +109,7 @@ const actions = {
       console.log(`Got response: ${res.statusCode}`);
       // consume response body
       res.on('data', function (chunk) {
-        var data = decoder.write(chunk);
+        var data = decoder.write(chunk).trim();
          var beg = data.indexOf("<content>");
          var end = data.indexOf("</content>");
          console.log(data.substring(beg + 9, end));
