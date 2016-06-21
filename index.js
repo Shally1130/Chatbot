@@ -57,7 +57,7 @@ const actions = {
   say(sessionId, context, message, cb) {
     console.log("Entering say");
     console.log(message);
-    // sendMessage(sessionId, {text: "reply: "+context0.intro});
+    sendMessage(sessionId, {text: "reply: "+context.intro});
     cb();
     console.log("Exiting say");    
   },
@@ -168,7 +168,7 @@ app.post('/webhook', function (req, res) {
                         console.log(context0);
                         console.log(context.intro);
                         console.log("Exiting callback");
-                        sendMessage(event.sender.id, {text: "reply: "+context0.intro});
+                        //sendMessage(event.sender.id, {text: "reply: "+context0.intro});
                     }
                     
                 }
