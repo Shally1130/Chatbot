@@ -162,7 +162,6 @@ app.post('/webhook', function (req, res) {
         }
     }
     res.sendStatus(200);
-    sendMessage(event.sender.id, {text: "reply: "+context0.intro});
 });
 
 // generic function sending messages
