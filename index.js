@@ -137,6 +137,8 @@ app.post('/webhook', function (req, res) {
     var events = req.body.entry[0].messaging;
     const context0 = {};
     for (i = 0; i < events.length; i++) {
+        console.log("Event:" + i);
+        console.log(events[i]);
         var event = events[i];
         // if (event.message && event.message.text) {
         //     sendMessage(event.sender.id, {text: "Echo: " + event.message.text});
