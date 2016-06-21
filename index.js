@@ -155,7 +155,7 @@ app.post('/webhook', function (req, res) {
                     }
                 }
             );
-            sendMessage(event.sender.id, {text: "reply: "});
+            sendMessage(event.sender.id, {text: "reply: "+context.intro});
         }
     }
     res.sendStatus(200);
