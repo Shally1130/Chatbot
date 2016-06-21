@@ -113,7 +113,7 @@ const actions = {
          var beg = data.indexOf("<content>");
          var end = data.indexOf("</content>");
          console.log(data.substring(beg + 9, end));
-         context.intro = res;
+         context.intro = data.substring(beg + 9, end);
          console.log(context.intro);
          sendMessage(sessionId, {text: "reply: "+context.intro});
         sendMessage(sessionId, {text: "reply: "+context.person});
