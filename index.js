@@ -98,7 +98,7 @@ const actions = {
     pathname = '/?qid='+qid+'&title=';
     title = 'who%20is%20'+context.time+'%20'+context.person+'%20of%20' + context.loc+ '&';
     pathname += title+ '&body=' + body + '&category=' + category;
-        var options = {
+    var options = {
       host: 'carbonite.mathcs.emory.edu',
       port: '8080',
       path:  pathname
@@ -115,17 +115,17 @@ const actions = {
          console.log(data.substring(beg + 9, end));
          context.intro = res;
          sendMessage(sessionId, {text: "reply: "+context.intro});
-    sendMessage(sessionId, {text: "reply: "+context.preson});
+        sendMessage(sessionId, {text: "reply: "+context.person});
 
       });
-      
+      sendMessage(sessionId, {text: "reply2: "+context.intro});
+    sendMessage(sessionId, {text: "reply2: "+context.preson});
       res.resume();
     }).on('error', (e) => {
       console.log(`Got error: ${e.message}`);
     });
     cb(context);
-    sendMessage(sessionId, {text: "reply2: "+context.intro});
-    sendMessage(sessionId, {text: "reply2: "+context.preson});
+    
     
   },
 
