@@ -22,120 +22,120 @@ app.get('/webhook', function (req, res) {
     }
 });
 
-// const StringDecoder = require('string_decoder').StringDecoder;
-// const Wit = require('node-wit').Wit
-// const http = require('http');
+const StringDecoder = require('string_decoder').StringDecoder;
+const Wit = require('node-wit').Wit
+const http = require('http');
 
-// // Wit.ai parameters
-// const WIT_TOKEN = 'YXZYW2IZTZS6D3VVEAN5KV4IDYKN63P6';     
-
-
-
-// const firstEntityValue = (entities, entity) => {
-//   const val = entities && entities[entity] &&
-//     Array.isArray(entities[entity]) &&
-//     entities[entity].length > 0 &&
-//     entities[entity][0].value
-//     ;
-//     if (!val) {
-//       return null;
-//   }
-//   return typeof val === 'object' ? val.value : val;
-// };
+// Wit.ai parameters
+const WIT_TOKEN = 'YXZYW2IZTZS6D3VVEAN5KV4IDYKN63P6';     
 
 
-// //system parameter
-// var qid =  '1'; //convert int to char
-// var title;
-// var body='Some%20additional%20information%20on%20the%20question';
-// var category = 'Knowledge'
-// var pathname;
+
+const firstEntityValue = (entities, entity) => {
+  const val = entities && entities[entity] &&
+    Array.isArray(entities[entity]) &&
+    entities[entity].length > 0 &&
+    entities[entity][0].value
+    ;
+    if (!val) {
+      return null;
+  }
+  return typeof val === 'object' ? val.value : val;
+};
 
 
-// // Our bot actions
-// const actions = {
-//   say(sessionId, context, message, cb) {
-//     console.log("Entering say");
-//     console.log(message);
-//     // sendMessage(sessionId, {text: "reply: "+context0.intro});
-//     cb();
-//     console.log("Exiting say");    
-//   },
-//   merge(sessionId, context, entities, message, cb) {
-//     console.log("Entering merge");
-//      // Retrieve the location entity and store it into a context field
-//     const loc = firstEntityValue(entities, 'location');
-
-//     if (loc) {
-//       context.loc = loc;
-//       console.log('loc!!!!!!!!!!!!!');
-//       //wait.miliseconds(100);
-//     }
+//system parameter
+var qid =  '1'; //convert int to char
+var title;
+var body='Some%20additional%20information%20on%20the%20question';
+var category = 'Knowledge'
+var pathname;
 
 
-//     const person = firstEntityValue(entities,'person');
-//     if(person){
-//       context.person = person;
-//       console.log('person!!!!!!!!!!!!!');
-//       //wait.miliseconds(100);
+// Our bot actions
+const actions = {
+  say(sessionId, context, message, cb) {
+    console.log("Entering say");
+    console.log(message);
+    // sendMessage(sessionId, {text: "reply: "+context0.intro});
+    cb();
+    console.log("Exiting say");    
+  },
+  merge(sessionId, context, entities, message, cb) {
+    console.log("Entering merge");
+     // Retrieve the location entity and store it into a context field
+    const loc = firstEntityValue(entities, 'location');
 
-//       }
+    if (loc) {
+      context.loc = loc;
+      console.log('loc!!!!!!!!!!!!!');
+      //wait.miliseconds(100);
+    }
 
-//     const time = firstEntityValue(entities, 'time');
-//     if(time)
-//     {
-//       context.time = time;
-//       console.log('time!!!!!!!!!!!');
-//       //wait.miliseconds(100);
-//     }
-//     cb(context);
-//     console.log("Exiting merge");
-//   },
-//   error(sessionId, context, error) {
-//     console.log(error.message);
-//   },
-//   // You should implement your custom actions here
-//   // See https://wit.ai/docs/quickstart
-//   ['Introduction-People'](sessionId, context, cb) {
-//     // Here should go the api call, e.g.:
-//     // context.forecast = apiCall(context.loc)
-//     console.log("Entering introducing");
-//     ////////////////////////////////////////////////////
-//     pathname = '/?qid='+qid+'&title=';
-//     title = 'who%20is%20'+context.time+'%20'+context.person+'%20of%20' + context.loc+ '&';
-//     pathname += title+ '&body=' + body + '&category=' + category;
-//         var options = {
-//       host: 'carbonite.mathcs.emory.edu',
-//       port: '8080',
-//       path:  pathname
-//     };
-//     console.log(title);
-//     var decoder = new StringDecoder();
-//     http.get(options, (res) => {
-//       console.log(`Got response: ${res.statusCode}`);
-//       // consume response body
-//       res.on('data', function (chunk) {
-//         var data = decoder.write(chunk);
-//          var beg = data.indexOf("<content>");
-//          var end = data.indexOf("</content>");
-//          console.log(data.substring(beg + 9, end));
-//          context.intro = res;
-//       });
+
+    const person = firstEntityValue(entities,'person');
+    if(person){
+      context.person = person;
+      console.log('person!!!!!!!!!!!!!');
+      //wait.miliseconds(100);
+
+      }
+
+    const time = firstEntityValue(entities, 'time');
+    if(time)
+    {
+      context.time = time;
+      console.log('time!!!!!!!!!!!');
+      //wait.miliseconds(100);
+    }
+    cb(context);
+    console.log("Exiting merge");
+  },
+  error(sessionId, context, error) {
+    console.log(error.message);
+  },
+  // You should implement your custom actions here
+  // See https://wit.ai/docs/quickstart
+  ['Introduction-People'](sessionId, context, cb) {
+    // Here should go the api call, e.g.:
+    // context.forecast = apiCall(context.loc)
+    console.log("Entering introducing");
+    ////////////////////////////////////////////////////
+    pathname = '/?qid='+qid+'&title=';
+    title = 'who%20is%20'+context.time+'%20'+context.person+'%20of%20' + context.loc+ '&';
+    pathname += title+ '&body=' + body + '&category=' + category;
+        var options = {
+      host: 'carbonite.mathcs.emory.edu',
+      port: '8080',
+      path:  pathname
+    };
+    console.log(title);
+    var decoder = new StringDecoder();
+    http.get(options, (res) => {
+      console.log(`Got response: ${res.statusCode}`);
+      // consume response body
+      res.on('data', function (chunk) {
+        var data = decoder.write(chunk);
+         var beg = data.indexOf("<content>");
+         var end = data.indexOf("</content>");
+         console.log(data.substring(beg + 9, end));
+         context.intro = res;
+      });
       
-//       res.resume();
-//     }).on('error', (e) => {
-//       console.log(`Got error: ${e.message}`);
-//     });
+      res.resume();
+    }).on('error', (e) => {
+      console.log(`Got error: ${e.message}`);
+    });
 
     
-//     cb(context);
-//     console.log("Exiting introducing");
-//   },
+    cb(context);
+    console.log("Exiting introducing");
+  },
 
-// };
+};
 
-// // Setting up our bot
-// const wit = new Wit(WIT_TOKEN, actions);
+// Setting up our bot
+const wit = new Wit(WIT_TOKEN, actions);
 
 
 // handler receiving messages
@@ -150,30 +150,29 @@ app.post('/webhook', function (req, res) {
         //     sendMessage(event.sender.id, {text: "Echo: " + event.message.text});
         // }
         if (event.message && event.message.text) {
-            // wit.runActions(
-            //     event.sender.id, // the user's current session
-            //     event.message.text, // the user's message 
-            //     context0, // the user's current session state
-            //     (error, context) => {
-            //         console.log("Entering callback");
-            //         if (error) {
-            //             console.log('Oops! Got an error from Wit:', error);
-            //         } else {
-            //         // Our bot did everything it has to do.
-            //         // Now it's waiting for further messages to proceed.
-            //             console.log('Waiting for futher messages.');
-            //             context0 = context;
-            //             console.log("Context:");
-            //             console.log(context);
-            //             console.log(context0);
-            //             console.log(context.intro);
-            //             console.log("Exiting callback");
-                        
-            //         }
+            wit.runActions(
+                event.sender.id, // the user's current session
+                event.message.text, // the user's message 
+                context0, // the user's current session state
+                (error, context) => {
+                    console.log("Entering callback");
+                    if (error) {
+                        console.log('Oops! Got an error from Wit:', error);
+                    } else {
+                    // Our bot did everything it has to do.
+                    // Now it's waiting for further messages to proceed.
+                        console.log('Waiting for futher messages.');
+                        context0 = context;
+                        console.log("Context:");
+                        console.log(context);
+                        console.log(context0);
+                        console.log(context.intro);
+                        console.log("Exiting callback");
+                        sendMessage(event.sender.id, {text: "reply: "+context0.intro});
+                    }
                     
-            //     }
-            // );
-            sendMessage(event.sender.id, {text: "reply: "+context0.intro});
+                }
+            );
         }
     }
     res.sendStatus(200);
