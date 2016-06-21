@@ -116,16 +116,13 @@ const actions = {
          var tempintro;
          if(end-beg>320)
          {
-            tempintro = data.substring(beg + 9, beg+300);
-            sendMessage(sessionId, {text: "reply: "+tempintro});
-            console.log("111111111111");
-            for(var i=beg+301;(end-i)/310>=1;i=i+311)
+            for(var i=beg+9;(end-i)/300>=1;i=i+301)
             {
-                tempintro = data.substring(i, i+310);
+                tempintro = data.substring(i, i+300);
                 sendMessage(sessionId, {text: tempintro});
                 console.log("22222222222222");
             }
-            tempintro = data.substring(i-311, end);
+            tempintro = data.substring(i-301, end);
             sendMessage(sessionId, {text: tempintro});
             console.log("33333333333333");
          }
@@ -177,7 +174,7 @@ app.post('/webhook', function (req, res) {
                     } else {
                     // Our bot did everything it has to do.
                     // Now it's waiting for further messages to proceed.
-                        console.log('Waiting for futher messages.');
+                        // console.log('Waiting for futher messages.');
                         context0 = context;
                         console.log(context.intro);
                         console.log("Exiting callback");
