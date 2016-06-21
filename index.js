@@ -116,14 +116,15 @@ const actions = {
          var tempintro;
          if(end-beg>320)
          {
-            tempintro = data.substring(beg + 9, beg+310);
-            for(var i=beg+320;(end-i)/310>=1;i=i+311)
-            {
-                tempintro = data.substring(i, i+310);
-                sendMessage(sessionId, {text: "reply: "+tempintro});
-            }
-            tempintro = data.substring(i-310, end);
+            tempintro = data.substring(beg + 9, beg+300);
             sendMessage(sessionId, {text: "reply: "+tempintro});
+            for(var i=beg+301;(end-i)/300>=1;i=i+301)
+            {
+                tempintro = data.substring(i, i+300);
+                sendMessage(sessionId, {text: tempintro});
+            }
+            tempintro = data.substring(i-300, end);
+            sendMessage(sessionId, {text: tempintro});
          }
          else
          {
