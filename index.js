@@ -114,6 +114,7 @@ const actions = {
          var end = data.indexOf("</content>");
          console.log(data.substring(beg + 9, end));
          context.intro = res;
+         console.log(context.intro);
          sendMessage(sessionId, {text: "reply: "+context.intro});
         sendMessage(sessionId, {text: "reply: "+context.person});
 
