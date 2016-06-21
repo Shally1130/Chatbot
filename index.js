@@ -162,18 +162,18 @@ app.post('/webhook', function (req, res) {
                     // Our bot did everything it has to do.
                     // Now it's waiting for further messages to proceed.
                         console.log('Waiting for futher messages.');
+                        context0 = context;
+                        console.log("Context:");
+                        console.log(context);
+                        console.log(context0);
+                        console.log(context.intro);
+                        console.log("Exiting callback");
+                        sendMessage(event.sender.id, {text: "reply: "+context.intro});
                     }
-                    context0 = context;
-                    console.log("Context:");
-                    console.log(context);
-                    console.log(context0);
-                    console.log(context.intro);
-                    console.log("Exiting callback");
-                    
                     
                 }
             );
-            sendMessage(event.sender.id, {text: "reply: "+context.intro});
+            
         }
     }
     res.sendStatus(200);
