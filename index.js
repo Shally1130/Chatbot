@@ -55,11 +55,14 @@ var pathname;
 // Our bot actions
 const actions = {
   say(sessionId, context, message, cb) {
+    console.log("Entering say");
     console.log(message);
     console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!");
     cb();
+    console.log("Exiting say");    
   },
   merge(sessionId, context, entities, message, cb) {
+    console.log("Entering merge");
      // Retrieve the location entity and store it into a context field
     const loc = firstEntityValue(entities, 'location');
 
@@ -86,6 +89,7 @@ const actions = {
       //wait.miliseconds(100);
     }
     cb(context);
+    console.log("Exiting merge");
   },
   error(sessionId, context, error) {
     console.log(error.message);
@@ -95,7 +99,7 @@ const actions = {
   ['Introduction-People'](sessionId, context, cb) {
     // Here should go the api call, e.g.:
     // context.forecast = apiCall(context.loc)
-
+    console.log("Entering introducing");
     ////////////////////////////////////////////////////
     pathname = '/?qid='+qid+'&title=';
     title = 'who%20is%20'+context.time+'%20'+context.person+'%20of%20' + context.loc+ '&';
@@ -124,6 +128,7 @@ const actions = {
 
     
     cb(context);
+    console.log("Exiting introducing");
   },
 
 };
@@ -149,6 +154,7 @@ app.post('/webhook', function (req, res) {
                 event.message.text, // the user's message 
                 context0, // the user's current session state
                 (error, context) => {
+                    console.log("Entering callback");
                     if (error) {
                         console.log('Oops! Got an error from Wit:', error);
                     } else {
@@ -157,7 +163,11 @@ app.post('/webhook', function (req, res) {
                         console.log('Waiting for futher messages.');
                     }
                     context0 = context;
+                    console.log("Context:");
+                    console.log(context);
+                    console.log(context0);
                     console.log(context.intro);
+                    console.log("Exiting callback");
                 }
             );
             sendMessage(event.sender.id, {text: "reply: "+context0.intro});
