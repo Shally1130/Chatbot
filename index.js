@@ -3,13 +3,6 @@ var bodyParser = require('body-parser');
 var request = require('request');
 var app = express();
 
-const StringDecoder = require('string_decoder').StringDecoder;
-const Wit = require('../').Wit;
-const http = require('http');
-
-// Wit.ai parameters
-const WIT_TOKEN = EAAV1xowEUIEBAC4LOoYzVxrZCCtE7oeXqMsSDTwG1QJwIVprgfKgBQCJaGmuVtx9Wxv8zszoOfa2o8wjoVSK1mefWlZB7r2MtLZCYrXB6dpZAMq7TG6uzlXeO1DiBkIPVU9MSRoZBjDMmVEYj5RiPqKgkeaZBkB8DLVXHwtX5jmwZDZD; 
-
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
@@ -28,6 +21,14 @@ app.get('/webhook', function (req, res) {
         res.send('Invalid verify token');
     }
 });
+
+const StringDecoder = require('string_decoder').StringDecoder;
+const Wit = require('../').Wit;
+const http = require('http');
+
+// Wit.ai parameters
+const WIT_TOKEN = EAAV1xowEUIEBAC4LOoYzVxrZCCtE7oeXqMsSDTwG1QJwIVprgfKgBQCJaGmuVtx9Wxv8zszoOfa2o8wjoVSK1mefWlZB7r2MtLZCYrXB6dpZAMq7TG6uzlXeO1DiBkIPVU9MSRoZBjDMmVEYj5RiPqKgkeaZBkB8DLVXHwtX5jmwZDZD; 
+
 
 
 const firstEntityValue = (entities, entity) => {
