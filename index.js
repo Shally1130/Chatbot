@@ -115,9 +115,10 @@ const actions = {
          console.log(data.substring(beg + 9, end));
          context.intro = data.substring(beg + 9, end);
          console.log(context.intro);
-         sendMessage(sessionId, {text: context.time + context.person +"of"+context.loc+"is:"+context.intro});
+         sendMessage(sessionId, {text: "reply: "+context.intro});
 
       });
+    
       res.resume();
     }).on('error', (e) => {
       console.log(`Got error: ${e.message}`);
