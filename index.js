@@ -23,7 +23,7 @@ app.get('/webhook', function (req, res) {
 });
 
 var StringDecoder = require('string_decoder').StringDecoder;
-var Wit = require('../').Wit;
+var Wit = require('./').Wit;
 var http = require('http');
 
 // Wit.ai parameters
