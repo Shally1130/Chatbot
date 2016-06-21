@@ -117,7 +117,7 @@ const actions = {
          if(end-beg>320)
          {
             tempintro = data.substring(beg + 9, beg+310);
-            for(var i=beg+311;(end-beg)/310>=1;i=i+310)
+            for(var i=beg+320;(end-i)/310>=1;i=i+310)
             {
                 tempintro = data.substring(i, i+310);
                 sendMessage(sessionId, {text: "reply: "+tempintro});
