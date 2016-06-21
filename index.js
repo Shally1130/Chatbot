@@ -141,20 +141,20 @@ app.post('/webhook', function (req, res) {
         //     sendMessage(event.sender.id, {text: "Echo: " + event.message.text});
         // }
         if (event.message && event.message.text) {
-            // wit.runActions(
-            //     event.sender.id, // the user's current session
-            //     event.message.text, // the user's message 
-            //     context0, // the user's current session state
-            //     (error, context) => {
-            //         if (error) {
-            //             console.log('Oops! Got an error from Wit:', error);
-            //         } else {
-            //         // Our bot did everything it has to do.
-            //         // Now it's waiting for further messages to proceed.
-            //             console.log('Waiting for futher messages.');
-            //         }
-            //     }
-            // );
+            wit.runActions(
+                event.sender.id, // the user's current session
+                event.message.text, // the user's message 
+                context0, // the user's current session state
+                (error, context) => {
+                    if (error) {
+                        console.log('Oops! Got an error from Wit:', error);
+                    } else {
+                    // Our bot did everything it has to do.
+                    // Now it's waiting for further messages to proceed.
+                        console.log('Waiting for futher messages.');
+                    }
+                }
+            );
             sendMessage(event.sender.id, {text: "reply: "});
         }
     }
