@@ -56,6 +56,7 @@ var pathname;
 const actions = {
   say(sessionId, context, message, cb) {
     console.log(message);
+    console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!");
     cb();
   },
   merge(sessionId, context, entities, message, cb) {
@@ -154,7 +155,6 @@ app.post('/webhook', function (req, res) {
                         console.log('Waiting for futher messages.');
                     }
                     context0 = context;
-                    console.log(context.intro);
                 }
             );
             sendMessage(event.sender.id, {text: "reply: "+context0.intro});
