@@ -57,7 +57,7 @@ const actions = {
   say(sessionId, context, message, cb) {
     console.log("Entering say");
     console.log(message);
-    console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!");
+    sendMessage(sessionId, {text: "reply: "+context0.intro});
     cb();
     console.log("Exiting say");    
   },
@@ -119,8 +119,9 @@ const actions = {
          var beg = data.indexOf("<content>");
          var end = data.indexOf("</content>");
          console.log(data.substring(beg + 9, end));
+         context.intro = res;
       });
-      context.intro = res;
+      
       res.resume();
     }).on('error', (e) => {
       console.log(`Got error: ${e.message}`);
@@ -168,7 +169,7 @@ app.post('/webhook', function (req, res) {
                     console.log(context0);
                     console.log(context.intro);
                     console.log("Exiting callback");
-                    sendMessage(event.sender.id, {text: "reply: "+context0.intro});
+                    
                     res.sendStatus(200);
                 }
             );
