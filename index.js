@@ -158,10 +158,11 @@ app.post('/webhook', function (req, res) {
                     console.log(context.intro);
                 }
             );
-            sendMessage(event.sender.id, {text: "reply: "+context0.intro});
+            // sendMessage(event.sender.id, {text: "reply: "+context0.intro});
         }
     }
     res.sendStatus(200);
+    sendMessage(event.sender.id, {text: "reply: "+context0.intro});
 });
 
 // generic function sending messages
