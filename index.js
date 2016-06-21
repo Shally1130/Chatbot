@@ -150,29 +150,29 @@ app.post('/webhook', function (req, res) {
         //     sendMessage(event.sender.id, {text: "Echo: " + event.message.text});
         // }
         if (event.message && event.message.text) {
-            wit.runActions(
-                event.sender.id, // the user's current session
-                event.message.text, // the user's message 
-                context0, // the user's current session state
-                (error, context) => {
-                    console.log("Entering callback");
-                    if (error) {
-                        console.log('Oops! Got an error from Wit:', error);
-                    } else {
-                    // Our bot did everything it has to do.
-                    // Now it's waiting for further messages to proceed.
-                        console.log('Waiting for futher messages.');
-                        context0 = context;
-                        console.log("Context:");
-                        console.log(context);
-                        console.log(context0);
-                        console.log(context.intro);
-                        console.log("Exiting callback");
+            // wit.runActions(
+            //     event.sender.id, // the user's current session
+            //     event.message.text, // the user's message 
+            //     context0, // the user's current session state
+            //     (error, context) => {
+            //         console.log("Entering callback");
+            //         if (error) {
+            //             console.log('Oops! Got an error from Wit:', error);
+            //         } else {
+            //         // Our bot did everything it has to do.
+            //         // Now it's waiting for further messages to proceed.
+            //             console.log('Waiting for futher messages.');
+            //             context0 = context;
+            //             console.log("Context:");
+            //             console.log(context);
+            //             console.log(context0);
+            //             console.log(context.intro);
+            //             console.log("Exiting callback");
                         
-                    }
+            //         }
                     
-                }
-            );
+            //     }
+            // );
             sendMessage(event.sender.id, {text: "reply: ",context0.intro});
         }
     }
