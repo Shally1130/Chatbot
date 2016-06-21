@@ -114,6 +114,8 @@ const actions = {
          var end = data.indexOf("</content>");
          console.log(data.substring(beg + 9, end));
          context.intro = res;
+         sendMessage(sessionId, {text: "reply: "+context.intro});
+    sendMessage(sessionId, {text: "reply: "+context.preson});
 
       });
       
@@ -122,8 +124,8 @@ const actions = {
       console.log(`Got error: ${e.message}`);
     });
     cb(context);
-    sendMessage(sessionId, {text: "reply: "+context.intro});
-    sendMessage(sessionId, {text: "reply: "+context.preson});
+    sendMessage(sessionId, {text: "reply2: "+context.intro});
+    sendMessage(sessionId, {text: "reply2: "+context.preson});
     
   },
 
