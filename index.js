@@ -113,9 +113,27 @@ const actions = {
          var beg = data.indexOf("<content>");
          var end = data.indexOf("</content>");
          console.log(data.substring(beg + 9, end));
-         context.intro = data.substring(beg + 9, end);
-         console.log(context.intro);
-         sendMessage(sessionId, {text: "reply: "+context.intro});
+         var tempintro;
+         if(end-beg>320)
+         {
+            tempintro = data.substring(beg + 9, beg+310);
+            for(var i=beg+311;(end-beg)/310>=1;i=i+310)
+            {
+                tempintro = data.substring(i, i+310);
+                sendMessage(sessionId, {text: "reply: "+tempintro});
+            }
+            tempintro = data.substring(i-310, end);
+            sendMessage(sessionId, {text: "reply: "+tempintro});
+         }
+         else
+         {
+            context.intro = data.substring(beg + 9, end);
+            console.log(context.intro);
+            sendMessage(sessionId, {text: "reply: "+context.intro});  
+         }
+         // context.intro = data.substring(beg + 9, end);
+         // console.log(context.intro);
+         // sendMessage(sessionId, {text: "reply: "+context.intro});
 
       });
     
