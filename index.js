@@ -22,12 +22,12 @@ app.get('/webhook', function (req, res) {
     }
 });
 
-// const StringDecoder = require('string_decoder').StringDecoder;
-// const Wit = require('../').Wit;
-// const http = require('http');
+const StringDecoder = require('string_decoder').StringDecoder;
+const Wit = require('../').Wit;
+const http = require('http');
 
-// // Wit.ai parameters
-// const WIT_TOKEN = EAAV1xowEUIEBAC4LOoYzVxrZCCtE7oeXqMsSDTwG1QJwIVprgfKgBQCJaGmuVtx9Wxv8zszoOfa2o8wjoVSK1mefWlZB7r2MtLZCYrXB6dpZAMq7TG6uzlXeO1DiBkIPVU9MSRoZBjDMmVEYj5RiPqKgkeaZBkB8DLVXHwtX5jmwZDZD; 
+// Wit.ai parameters
+const WIT_TOKEN = EAAV1xowEUIEBAC4LOoYzVxrZCCtE7oeXqMsSDTwG1QJwIVprgfKgBQCJaGmuVtx9Wxv8zszoOfa2o8wjoVSK1mefWlZB7r2MtLZCYrXB6dpZAMq7TG6uzlXeO1DiBkIPVU9MSRoZBjDMmVEYj5RiPqKgkeaZBkB8DLVXHwtX5jmwZDZD; 
 
 
 
