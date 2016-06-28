@@ -32,6 +32,7 @@ const WIT_TOKEN = 'ZTDH4FZ7T7FWWTFR3Y5CXVYTCBE76OQS';
 // Our bot actions
 const actions = {
   say(sessionId, context, message, cb) {
+    console.log(message.answer)
     cb();   
   },
   merge(sessionId, context, entities, message, cb) {
@@ -51,17 +52,20 @@ const actions = {
         var data = decoder.write(chunk);
          var beg = data.indexOf("<content>");
          var end = data.indexOf("</content>");
-         //console.log(data.substring(beg + 9, end));
+         console.log(data.substring(beg + 9, end));
          context.answer = data.substring(beg + 9, end);
-          cb(context);
+         sendMessage(sessionId, {text: "reply: "+context.answer});
+         cb(context);
       });
       //res.resume();
     }).on('error', (e) => {
       console.log(`Got error: ${e.message}`);
     });
-
+  },
+  error(sessionId, context, error) {
+    console.log(error.message);
+  }
 };
-}
 
 // Setting up our bot
 const wit = new Wit(WIT_TOKEN, actions);
@@ -90,7 +94,7 @@ app.post('/webhook', function (req, res) {
                     // Now it's waiting for further messages to proceed.
                         // console.log('Waiting for futher messages.');
                         context0 = context;
-                        console.log(context.intro);
+                        console.log(context.answer);
                         console.log("Exiting callback");
                         //sendMessage(event.sender.id, {text: "reply: "+context0.intro});
                     }
