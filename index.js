@@ -29,19 +29,17 @@ const http = require('http');
 // Wit.ai parameters
 const WIT_TOKEN = 'YXZYW2IZTZS6D3VVEAN5KV4IDYKN63P6';     
 
-
-
 const firstEntityValue = (entities, entity) => {
   const val = entities && entities[entity] &&
     Array.isArray(entities[entity]) &&
     entities[entity].length > 0 &&
-    entities[entity][0].value;
-    if (!val) {
-      return null;
+    entities[entity][0].value
+  ;
+  if (!val) {
+    return null;
   }
   return typeof val === 'object' ? val.value : val;
 };
-
 
 //system parameter
 var qid =  '1'; //convert int to char
