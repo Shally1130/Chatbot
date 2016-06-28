@@ -55,10 +55,9 @@ const actions = {
         var end = data.indexOf("</content>");
         console.log(data.substring(beg + 9, end));
         context.answer = data.substring(beg + 9, end);
-        sendMessage(sessionId, {text: "reply: "+context.answer});
+        //sendMessage(sessionId, {text: "reply: "+context.answer});
         cb(context);
       });
-      res.resume();
     }).on('error', (e) => {
       console.log(`Got error: ${e.message}`);
     });
