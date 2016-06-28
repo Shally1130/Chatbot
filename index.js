@@ -64,7 +64,7 @@ const actions = {
   },
   error(sessionId, context, error) {
     console.log(error.message);
-  },
+  }
 };
 
 // Setting up our bot
