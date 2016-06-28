@@ -27,12 +27,12 @@ const Wit = require('node-wit').Wit
 const http = require('http');
 
 // Wit.ai parameters
-const WIT_TOKEN = 'AFBR6OI4JWKDUPVY4Q5AN2YW4SQZM2TJ';     
+const WIT_TOKEN = 'ZTDH4FZ7T7FWWTFR3Y5CXVYTCBE76OQS';     
 
 // Our bot actions
 const actions = {
   say(sessionId, context, message, cb) {
-    console.log(context.answer);
+    console.log(message);
     cb();   
   },
   merge(sessionId, context, entities, message, cb) {
@@ -56,7 +56,7 @@ const actions = {
         console.log(data.substring(beg + 9, end));
         context.answer = data.substring(beg + 9, end);
         //sendMessage(sessionId, {text: "reply: "+context.answer});
-        cb(context);
+        //cb(context);
       });
     }).on('error', (e) => {
       console.log(`Got error: ${e.message}`);
