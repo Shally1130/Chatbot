@@ -32,7 +32,7 @@ const WIT_TOKEN = 'ZTDH4FZ7T7FWWTFR3Y5CXVYTCBE76OQS';
 // Our bot actions
 const actions = {
   say(sessionId, context, message, cb) {
-    console.log(message.answer)
+    console.log(context.answer)
     cb();   
   },
   merge(sessionId, context, entities, message, cb) {
@@ -54,8 +54,9 @@ const actions = {
          var end = data.indexOf("</content>");
          console.log(data.substring(beg + 9, end));
          context.answer = data.substring(beg + 9, end);
-         sendMessage(sessionId, {text: "reply: "+context.answer});
+         
          cb(context);
+         sendMessage(sessionId, {text: "reply: "+context.answer});
       });
       //res.resume();
     }).on('error', (e) => {
