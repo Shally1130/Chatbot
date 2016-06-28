@@ -61,7 +61,7 @@ const actions = {
   merge(sessionId, context, entities, message, cb) {
      // Retrieve the location entity and store it into a context field
     const loc = firstEntityValue(entities, 'location');
-
+    console.log('firstEntityValue');
     if (loc) {
       context.loc = loc;
       console.log('loc!!!!!!!!!!!!!');
