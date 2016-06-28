@@ -27,7 +27,7 @@ const Wit = require('node-wit').Wit
 const http = require('http');
 
 // Wit.ai parameters
-const WIT_TOKEN = 'ZTDH4FZ7T7FWWTFR3Y5CXVYTCBE76OQS';     
+const WIT_TOKEN = 'AFBR6OI4JWKDUPVY4Q5AN2YW4SQZM2TJ';     
 
 // Our bot actions
 const actions = {
