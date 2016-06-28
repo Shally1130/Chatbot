@@ -62,6 +62,7 @@ const actions = {
      // Retrieve the location entity and store it into a context field
     const loc = firstEntityValue(entities, 'location');
     console.log('firstEntityValue');
+    console.log(loc);
     if (loc) {
       context.loc = loc;
       console.log('loc!!!!!!!!!!!!!');
@@ -70,6 +71,7 @@ const actions = {
 
 
     const person = firstEntityValue(entities,'person');
+    console.log(person);
     if(person){
       context.person = person;
       console.log('person!!!!!!!!!!!!!');
@@ -78,6 +80,7 @@ const actions = {
       }
 
     const time = firstEntityValue(entities, 'time');
+    console.log(time);
     if(time)
     {
       context.time = time;
