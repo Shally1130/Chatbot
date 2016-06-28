@@ -30,6 +30,7 @@ const http = require('http');
 const WIT_TOKEN = 'S4KLVFMHDN35E4URMQ4MMXD5CYYZA5DU';     
 
 const firstEntityValue = (entities, entity) => {
+  console.log('should be running');
   const val = entities && entities[entity] &&
     Array.isArray(entities[entity]) &&
     entities[entity].length > 0 &&
@@ -58,8 +59,8 @@ const actions = {
   merge(sessionId, context, entities, message, cb) {
      // Retrieve the location entity and store it into a context field
     const loc = firstEntityValue(entities, 'location');
-    console.log('firstEntityValue');
-    console.log('loc11111111');
+    // console.log('firstEntityValue');
+    // console.log('loc11111111');
     if (loc) {
       context.loc = loc;
       console.log('loc!!!!!!!!!!!!!');
@@ -67,23 +68,23 @@ const actions = {
     }
 
 
-    // const person = firstEntityValue(entities,'person');
-    // console.log(person);
-    // if(person){
-    //   context.person = person;
-    //   console.log('person!!!!!!!!!!!!!');
-    //   //wait.miliseconds(100);
+    const person = firstEntityValue(entities,'person');
+    console.log(person);
+    if(person){
+      context.person = person;
+      console.log('person!!!!!!!!!!!!!');
+      //wait.miliseconds(100);
 
-    //   }
+      }
 
-    // const time = firstEntityValue(entities, 'time');
-    // console.log(time);
-    // if(time)
-    // {
-    //   context.time = time;
-    //   console.log('time!!!!!!!!!!!');
-    //   //wait.miliseconds(100);
-    // }
+    const time = firstEntityValue(entities, 'time');
+    console.log(time);
+    if(time)
+    {
+      context.time = time;
+      console.log('time!!!!!!!!!!!');
+      //wait.miliseconds(100);
+    }
     cb(context);
   },
   error(sessionId, context, error) {
