@@ -81,6 +81,7 @@ app.post('/webhook', function (req, res) {
         //     sendMessage(event.sender.id, {text: "Echo: " + event.message.text});
         // }
         if (event.message && event.message.text) {
+          console.log("entering runActions");
             wit.runActions(
                 event.sender.id, // the user's current session
                 event.message.text, // the user's message 
@@ -101,6 +102,7 @@ app.post('/webhook', function (req, res) {
                     
                 }
             );
+            console.log("Exiting runActions");
         }
     }
     res.sendStatus(200);
