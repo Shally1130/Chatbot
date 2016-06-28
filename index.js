@@ -33,10 +33,10 @@ const WIT_TOKEN = 'ZTDH4FZ7T7FWWTFR3Y5CXVYTCBE76OQS';
 const actions = {
   say(sessionId, context, message, cb) {
     console.log(context.answer);
-    
     cb();   
   },
   merge(sessionId, context, entities, message, cb) {
+    console.log("merge!!!!!!!!!!!!!!!!!!!!!");
      // Retrieve the location entity and store it into a context field
     var pathname = '/?qid=1&title=' + encodeURIComponent(message)+ '&body=&category=Knowledge';
     var options = {
