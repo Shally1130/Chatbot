@@ -32,7 +32,8 @@ const WIT_TOKEN = 'ZTDH4FZ7T7FWWTFR3Y5CXVYTCBE76OQS';
 // Our bot actions
 const actions = {
   say(sessionId, context, message, cb) {
-    console.log(context.answer)
+    console.log(context.answer);
+    sendMessage(sessionId, {text: "reply: "+context.answer});
     cb();   
   },
   merge(sessionId, context, entities, message, cb) {
@@ -50,13 +51,11 @@ const actions = {
       // consume response body
       res.on('data', function (chunk) {
         var data = decoder.write(chunk);
-         var beg = data.indexOf("<content>");
-         var end = data.indexOf("</content>");
-         console.log(data.substring(beg + 9, end));
-         context.answer = data.substring(beg + 9, end);
-         
-         cb(context);
-         sendMessage(sessionId, {text: "reply: "+context.answer});
+        var beg = data.indexOf("<content>");
+        var end = data.indexOf("</content>");
+        console.log(data.substring(beg + 9, end));
+        context.answer = data.substring(beg + 9, end);
+        cb(context);
       });
       //res.resume();
     }).on('error', (e) => {
