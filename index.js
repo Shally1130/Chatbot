@@ -64,7 +64,7 @@ const actions = {
   },
   error(sessionId, context, error) {
     console.log(error.message);
-  }
+  },
 };
 
 // Setting up our bot
@@ -125,42 +125,42 @@ app.post('/webhook', function (req, res) {
 //     });
 // };
 
-function sendMessage(recipientId, message) {
-  var length = message.length;
-    var num = length/80;
-    for(var i=0;i<num;i++)
-    {
-      request({
-        url: 'https://graph.facebook.com/v2.6/me/messages',
-        qs: {access_token: process.env.PAGE_ACCESS_TOKEN},
-        method: 'POST',
-        json: {
-            recipient: {id: recipientId},
-            message: message.substring(i*80,(i+1)*80-1),
-        }
-      }, function(error, response, body) {    
-        if (error) {
-            console.log('Error sending message: ', error);
-        } else if (response.body.error) {
-            console.log('Error: ', response.body.error);
-        }
-      });
-    }
-    request({
-        url: 'https://graph.facebook.com/v2.6/me/messages',
-        qs: {access_token: process.env.PAGE_ACCESS_TOKEN},
-        method: 'POST',
-        json: {
-            recipient: {id: recipientId},
-            message: message.substring(num*80,length),
-        }
-      }, function(error, response, body) {    
-        if (error) {
-            console.log('Error sending message: ', error);
-        } else if (response.body.error) {
-            console.log('Error: ', response.body.error);
-        }
-      });
-};
+// function sendMessage(recipientId, message) {
+//   var length = message.length;
+//     var num = length/80;
+//     for(var i=0;i<num;i++)
+//     {
+//       request({
+//         url: 'https://graph.facebook.com/v2.6/me/messages',
+//         qs: {access_token: process.env.PAGE_ACCESS_TOKEN},
+//         method: 'POST',
+//         json: {
+//             recipient: {id: recipientId},
+//             message: message.substring(i*80,(i+1)*80-1),
+//         }
+//       }, function(error, response, body) {    
+//         if (error) {
+//             console.log('Error sending message: ', error);
+//         } else if (response.body.error) {
+//             console.log('Error: ', response.body.error);
+//         }
+//       });
+//     }
+//     request({
+//         url: 'https://graph.facebook.com/v2.6/me/messages',
+//         qs: {access_token: process.env.PAGE_ACCESS_TOKEN},
+//         method: 'POST',
+//         json: {
+//             recipient: {id: recipientId},
+//             message: message.substring(num*80,length),
+//         }
+//       }, function(error, response, body) {    
+//         if (error) {
+//             console.log('Error sending message: ', error);
+//         } else if (response.body.error) {
+//             console.log('Error: ', response.body.error);
+//         }
+//       });
+// };
 
 
