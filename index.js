@@ -67,23 +67,23 @@ const actions = {
     }
 
 
-    const person = firstEntityValue(entities,'person');
-    console.log(person);
-    if(person){
-      context.person = person;
-      console.log('person!!!!!!!!!!!!!');
-      //wait.miliseconds(100);
+    // const person = firstEntityValue(entities,'person');
+    // console.log(person);
+    // if(person){
+    //   context.person = person;
+    //   console.log('person!!!!!!!!!!!!!');
+    //   //wait.miliseconds(100);
 
-      }
+    //   }
 
-    const time = firstEntityValue(entities, 'time');
-    console.log(time);
-    if(time)
-    {
-      context.time = time;
-      console.log('time!!!!!!!!!!!');
-      //wait.miliseconds(100);
-    }
+    // const time = firstEntityValue(entities, 'time');
+    // console.log(time);
+    // if(time)
+    // {
+    //   context.time = time;
+    //   console.log('time!!!!!!!!!!!');
+    //   //wait.miliseconds(100);
+    // }
     cb(context);
   },
   error(sessionId, context, error) {
