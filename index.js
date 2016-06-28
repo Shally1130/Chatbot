@@ -129,7 +129,7 @@ app.post('/webhook', function (req, res) {
 function sendMessage(recipientId, message) {
   var length = message.length;
     var num = length/80;
-    for(i=0;i<num;i++)
+    for(var i=0;i<num;i++)
     {
       request({
         url: 'https://graph.facebook.com/v2.6/me/messages',
@@ -153,7 +153,7 @@ function sendMessage(recipientId, message) {
         method: 'POST',
         json: {
             recipient: {id: recipientId},
-            message: message.substring((i-1)*80,length),
+            message: message.substring(num*80,length),
         }
       }, function(error, response, body) {    
         if (error) {
