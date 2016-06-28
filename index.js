@@ -82,6 +82,8 @@ app.post('/webhook', function (req, res) {
         // }
         if (event.message && event.message.text) {
           console.log("entering runActions");
+          console.log("id"+event.sender.id);
+          console.log("text"+event.message.text);
             wit.runActions(
                 event.sender.id, // the user's current session
                 event.message.text, // the user's message 
