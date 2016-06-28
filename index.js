@@ -61,6 +61,7 @@ const actions = {
     }).on('error', (e) => {
       console.log(`Got error: ${e.message}`);
     });
+    cb(context);
   },
   error(sessionId, context, error) {
     console.log(error.message);
