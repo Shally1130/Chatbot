@@ -65,7 +65,7 @@ const actions = {
     if (loc) {
       context.loc = loc;
       console.log('loc!!!!!!!!!!!!!');
-      //wait.miliseconds(100);
+      //wait.miliseconds(100);    
     }
 
 
