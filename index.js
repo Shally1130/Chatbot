@@ -27,128 +27,41 @@ const Wit = require('node-wit').Wit
 const http = require('http');
 
 // Wit.ai parameters
-const WIT_TOKEN = 'S4KLVFMHDN35E4URMQ4MMXD5CYYZA5DU';     
-
-const firstEntityValue = (entities, entity) => {
-  console.log('should be running');
-  const val = entities && entities[entity] &&
-    Array.isArray(entities[entity]) &&
-    entities[entity].length > 0 &&
-    entities[entity][0].value
-  ;
-  if (!val) {
-    return null;
-  }
-  return typeof val === 'object' ? val.value : val;
-};
-
-//system parameter
-var qid =  '1'; //convert int to char
-var title;
-var body='Some%20additional%20information%20on%20the%20question';
-var category = 'Knowledge'
-var pathname;
-
+const WIT_TOKEN = 'ZTDH4FZ7T7FWWTFR3Y5CXVYTCBE76OQS';     
 
 // Our bot actions
 const actions = {
   say(sessionId, context, message, cb) {
-    console.log(message);
     cb();   
   },
   merge(sessionId, context, entities, message, cb) {
      // Retrieve the location entity and store it into a context field
-    const loc = firstEntityValue(entities, 'loc');
-    // console.log('firstEntityValue');
-    // console.log('loc11111111');
-    if (loc) {
-      context.loc = loc;
-      console.log('loc!!!!!!!!!!!!!');
-      //wait.miliseconds(100);    
-    }
-
-
-    const person = firstEntityValue(entities,'person');
-    console.log(person);
-    if(person){
-      context.person = person;
-      console.log('person!!!!!!!!!!!!!');
-      //wait.miliseconds(100);
-
-      }
-
-    const time = firstEntityValue(entities, 'time');
-    console.log(time);
-    if(time)
-    {
-      context.time = time;
-      console.log('time!!!!!!!!!!!');
-      //wait.miliseconds(100);
-    }
-    cb(context);
-  },
-  error(sessionId, context, error) {
-    console.log(error.message);
-  },
-  // You should implement your custom actions here
-  // See https://wit.ai/docs/quickstart
-  ['Introduction-People'](sessionId, context, cb) {
-    // Here should go the api call, e.g.:
-    // context.forecast = apiCall(context.loc)
-    ////////////////////////////////////////////////////
-    pathname = '/?qid='+qid+'&title=';
-    title = 'who%20is%20'+context.time+'%20'+context.person+'%20of%20' + context.loc+ '&';
-    pathname += title+ '&body=' + body + '&category=' + category;
+    var pathname = '/?qid=1&title=' + encodeURIComponent(message)+ '&body=&category=Knowledge';
     var options = {
       host: 'carbonite.mathcs.emory.edu',
       port: '8080',
       path:  pathname
     };
-    console.log(title);
+    console.log(pathname);
     var decoder = new StringDecoder();
     http.get(options, (res) => {
       console.log(`Got response: ${res.statusCode}`);
       // consume response body
       res.on('data', function (chunk) {
-        var data = decoder.write(chunk).trim();
+        var data = decoder.write(chunk);
          var beg = data.indexOf("<content>");
          var end = data.indexOf("</content>");
-         console.log(data.substring(beg + 9, end));
-         var tempintro;
-         // if(end-beg>320)
-         // {
-         //    for(var i=beg+9;(end-i)/300>=1;i=i+301)
-         //    {
-         //        tempintro = data.substring(i, i+300);
-         //        sendMessage(sessionId, {text: tempintro});
-         //        console.log("22222222222222");
-         //    }
-         //    tempintro = data.substring(i-301, end);
-         //    sendMessage(sessionId, {text: tempintro});
-         //    console.log("33333333333333");
-         // }
-         // else
-         // {
-         //    context.intro = data.substring(beg + 9, end);
-         //    console.log(context.intro);
-         //    sendMessage(sessionId, {text: "reply: "+context.intro});  
-         // }
-         context.intro = data.substring(beg + 9, end);
-         console.log(context.intro);
-         sendMessage(sessionId, {text: "reply: "+context.intro});
-
+         //console.log(data.substring(beg + 9, end));
+         context.answer = data.substring(beg + 9, end);
+          cb(context);
       });
-    
-      res.resume();
+      //res.resume();
     }).on('error', (e) => {
       console.log(`Got error: ${e.message}`);
     });
-    cb(context);
-    
-    
-  },
 
 };
+}
 
 // Setting up our bot
 const wit = new Wit(WIT_TOKEN, actions);
