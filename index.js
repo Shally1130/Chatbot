@@ -27,7 +27,28 @@ const Wit = require('node-wit').Wit
 const http = require('http');
 
 // Wit.ai parameters
-const WIT_TOKEN = 'ZTDH4FZ7T7FWWTFR3Y5CXVYTCBE76OQS';     
+const WIT_TOKEN = 'S4KLVFMHDN35E4URMQ4MMXD5CYYZA5DU';     
+
+const firstEntityValue = (entities, entity) => {
+  console.log('should be running');
+  const val = entities && entities[entity] &&
+    Array.isArray(entities[entity]) &&
+    entities[entity].length > 0 &&
+    entities[entity][0].value
+  ;
+  if (!val) {
+    return null;
+  }
+  return typeof val === 'object' ? val.value : val;
+};
+
+// //system parameter
+// var qid =  '1'; //convert int to char
+// var title;
+// var body='Some%20additional%20information%20on%20the%20question';
+// var category = 'Knowledge'
+// var pathname;
+
 
 // Our bot actions
 const actions = {
@@ -36,9 +57,27 @@ const actions = {
     cb();   
   },
   merge(sessionId, context, entities, message, cb) {
-    console.log("merge!!!!!!!!!!!!!!!!!!!!!");
      // Retrieve the location entity and store it into a context field
-    var pathname = '/?qid=1&title=' + encodeURIComponent(message)+ '&body=&category=Knowledge';
+    const q = firstEntityValue(entities, 'question');
+    // console.log('firstEntityValue');
+    // console.log('loc11111111');
+    if (q) {
+      context.question = q;
+      console.log('question!!!!!!!!!!!!!');
+      //wait.miliseconds(100);    
+    }
+    cb(context);
+  },
+  error(sessionId, context, error) {
+    console.log(error.message);
+  },
+  // You should implement your custom actions here
+  // See https://wit.ai/docs/quickstart
+  ['Query-Answer'](sessionId, context, cb) {
+    // Here should go the api call, e.g.:
+    // context.forecast = apiCall(context.loc)
+    ////////////////////////////////////////////////////
+    var pathname = '/?qid=1&title=' + encodeURIComponent(context.question)+ '&body=&category=Knowledge';
     var options = {
       host: 'carbonite.mathcs.emory.edu',
       port: '8080',
@@ -50,21 +89,42 @@ const actions = {
       console.log(`Got response: ${res.statusCode}`);
       // consume response body
       res.on('data', function (chunk) {
-        var data = decoder.write(chunk);
-        var beg = data.indexOf("<content>");
-        var end = data.indexOf("</content>");
-        console.log(data.substring(beg + 9, end));
-        context.answer = data.substring(beg + 9, end);
-        //sendMessage(sessionId, {text: "reply: "+context.answer});
-        cb(context);
+        var data = decoder.write(chunk).trim();
+         var beg = data.indexOf("<content>");
+         var end = data.indexOf("</content>");
+         console.log(data.substring(beg + 9, end));
+         //var tempintro;
+         // if(end-beg>320)
+         // {
+         //    for(var i=beg+9;(end-i)/300>=1;i=i+301)
+         //    {
+         //        tempintro = data.substring(i, i+300);
+         //        sendMessage(sessionId, {text: tempintro});
+         //        console.log("22222222222222");
+         //    }
+         //    tempintro = data.substring(i-301, end);
+         //    sendMessage(sessionId, {text: tempintro});
+         //    console.log("33333333333333");
+         // }
+         // else
+         // {
+         //    context.intro = data.substring(beg + 9, end);
+         //    console.log(context.intro);
+         //    sendMessage(sessionId, {text: "reply: "+context.intro});  
+         // }
+         context.intro = data.substring(beg + 9, end);
+         console.log(context.intro);
+         sendMessage(sessionId, {text: "reply: "+context.intro});
+
       });
+    
+      res.resume();
     }).on('error', (e) => {
       console.log(`Got error: ${e.message}`);
     });
+    cb(context);
   },
-  error(sessionId, context, error) {
-    console.log(error.message);
-  }
+
 };
 
 // Setting up our bot
@@ -81,9 +141,6 @@ app.post('/webhook', function (req, res) {
         //     sendMessage(event.sender.id, {text: "Echo: " + event.message.text});
         // }
         if (event.message && event.message.text) {
-          console.log("entering runActions");
-          console.log("id"+event.sender.id);
-          console.log("text"+event.message.text);
             wit.runActions(
                 event.sender.id, // the user's current session
                 event.message.text, // the user's message 
@@ -97,74 +154,34 @@ app.post('/webhook', function (req, res) {
                     // Now it's waiting for further messages to proceed.
                         // console.log('Waiting for futher messages.');
                         context0 = context;
-                        console.log(context.answer);
+                        console.log(context.intro);
                         console.log("Exiting callback");
                         //sendMessage(event.sender.id, {text: "reply: "+context0.intro});
                     }
                     
                 }
             );
-            console.log("Exiting runActions");
         }
     }
     res.sendStatus(200);
 });
 
-// // generic function sending messages
-// function sendMessage(recipientId, message) {
-//     request({
-//         url: 'https://graph.facebook.com/v2.6/me/messages',
-//         qs: {access_token: process.env.PAGE_ACCESS_TOKEN},
-//         method: 'POST',
-//         json: {
-//             recipient: {id: recipientId},
-//             message: message,
-//         }
-//     }, function(error, response, body) {    
-//         if (error) {
-//             console.log('Error sending message: ', error);
-//         } else if (response.body.error) {
-//             console.log('Error: ', response.body.error);
-//         }
-//     });
-// };
-
-// function sendMessage(recipientId, message) {
-//   var length = message.length;
-//     var num = length/80;
-//     for(var i=0;i<num;i++)
-//     {
-//       request({
-//         url: 'https://graph.facebook.com/v2.6/me/messages',
-//         qs: {access_token: process.env.PAGE_ACCESS_TOKEN},
-//         method: 'POST',
-//         json: {
-//             recipient: {id: recipientId},
-//             message: message.substring(i*80,(i+1)*80-1),
-//         }
-//       }, function(error, response, body) {    
-//         if (error) {
-//             console.log('Error sending message: ', error);
-//         } else if (response.body.error) {
-//             console.log('Error: ', response.body.error);
-//         }
-//       });
-//     }
-//     request({
-//         url: 'https://graph.facebook.com/v2.6/me/messages',
-//         qs: {access_token: process.env.PAGE_ACCESS_TOKEN},
-//         method: 'POST',
-//         json: {
-//             recipient: {id: recipientId},
-//             message: message.substring(num*80,length),
-//         }
-//       }, function(error, response, body) {    
-//         if (error) {
-//             console.log('Error sending message: ', error);
-//         } else if (response.body.error) {
-//             console.log('Error: ', response.body.error);
-//         }
-//       });
-// };
-
+// generic function sending messages
+function sendMessage(recipientId, message) {
+    request({
+        url: 'https://graph.facebook.com/v2.6/me/messages',
+        qs: {access_token: process.env.PAGE_ACCESS_TOKEN},
+        method: 'POST',
+        json: {
+            recipient: {id: recipientId},
+            message: message,
+        }
+    }, function(error, response, body) {    
+        if (error) {
+            console.log('Error sending message: ', error);
+        } else if (response.body.error) {
+            console.log('Error: ', response.body.error);
+        }
+    });
+};
 
