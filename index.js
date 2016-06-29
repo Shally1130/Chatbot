@@ -58,12 +58,10 @@ const actions = {
     var num = length/320;
     for(var i=0;i<num;i++)
     {
-      sendMessage(sessionId, {text: "reply: "+(i+1).toString()+'\r\n'+context.answer.substring(i*320,(i+1)*320-1)});
-      if(i==num-1)
-      {
-        sendMessage(sessionId, {text: "reply: "+(num+1).toString()+'\r\n'+context.answer.substring(num*320,length)});
-      }
+      sendMessage(sessionId, {text: "reply: "+(i+1).toString()+'\r\n'+context.answer.substring(i*320,(i+1)*320-1).trim()});
+        
     }
+    sendMessage(sessionId, {text: "reply: "+(num+1).toString()+'\r\n'+context.answer.substring(num*320,length).trim()});
     cb();   
   },
   merge(sessionId, context, entities, message, cb) {
