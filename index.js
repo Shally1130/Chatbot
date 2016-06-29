@@ -56,12 +56,11 @@ const actions = {
         console.log(data.substring(beg + 9, end));
         context.answer = data.substring(beg + 9, end);
         //sendMessage(sessionId, {text: "reply: "+context.answer});
-        //cb(context);
+        cb(context);
       });
     }).on('error', (e) => {
       console.log(`Got error: ${e.message}`);
     });
-    cb(context);
   },
   error(sessionId, context, error) {
     console.log(error.message);
