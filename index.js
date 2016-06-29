@@ -159,7 +159,6 @@ var messageLength=310;
 
 //generic function sending messages
 function sendMessage(recipientId, message) {
-
     if (message.length == 0) return;
     messageLength -= message.substring(0, 310).lastIndexOf(' ');
     console.log('length!!!!!!!!!!!!!!'+messageLength);
