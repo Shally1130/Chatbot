@@ -154,31 +154,38 @@ app.post('/webhook', function (req, res) {
     res.sendStatus(200);
 });
 
+var messageLeft = "";
+
 //generic function sending messages
 function sendMessage(recipientId, message) {
-    var length = message.length;
-    var num = length/310;
-    var result;
-    for(var i=0;i<num;i++)
-    {
-      //sendMessage(sessionId, {text: "reply: "+(i+1).toString()+'\r\n'+context.answer.substring(i*310,(i+1)*310-1)});
-      result={text: "reply "+(i+1).toString()+': '+'\r\n'+message.substring(i*310,(i+1)*310-1)};
-      request({
-        url: 'https://graph.facebook.com/v2.6/me/messages',
-        qs: {access_token: process.env.PAGE_ACCESS_TOKEN},
-        method: 'POST',
-        json: {
-            recipient: {id: recipientId},
-            message: result,
+    if (message.length == 0) return;
+
+    var toSend = message.substring(0, 310);
+
+    //sendMessage(sessionId, {text: "reply: "+(i+1).toString()+'\r\n'+context.answer.substring(i*310,(i+1)*310-1)});
+    result={text: "reply "+(i+1).toString()+': '+'\r\n'+toSend};
+    request({
+      url: 'https://graph.facebook.com/v2.6/me/messages',
+      qs: {access_token: process.env.PAGE_ACCESS_TOKEN},
+      method: 'POST',
+      json: {
+          recipient: {id: recipientId},
+          message: result,
+      }
+    }, function(error, response, body) {    
+        if (error) {
+            console.log('Error sending message: ', error);
+        } else if (response.body.error) {
+            console.log('Error: ', response.body.error);
         }
-      }, function(error, response, body) {    
-          if (error) {
-              console.log('Error sending message: ', error);
-          } else if (response.body.error) {
-              console.log('Error: ', response.body.error);
-          }
-      });
-    }
+        else
+        {
+            if (message.length > 310) {
+              var messageLeft = message.substring(310);  // from 310 to the end
+              sendMessage(recipientId, messageLeft);
+            }
+        }
+    });
     
 };
 
