@@ -54,6 +54,7 @@ const firstEntityValue = (entities, entity) => {
 const actions = {
   say(sessionId, context, message, cb) {
     //console.log(message);
+    sendMessage(sessionId, {text: "reply: "+context.answer});
     cb();   
   },
   merge(sessionId, context, entities, message, cb) {
@@ -115,7 +116,6 @@ const actions = {
          // }
          context.answer = data.substring(beg + 9, end);
          //console.log(context.answer);
-         sendMessage(sessionId, {text: "reply: "+context.answer});
          cb(context);
       });
       res.resume();
