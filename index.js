@@ -53,7 +53,7 @@ const firstEntityValue = (entities, entity) => {
 // Our bot actions
 const actions = {
   say(sessionId, context, message, cb) {
-    console.log(message);
+    //console.log(message);
     cb();   
   },
   merge(sessionId, context, entities, message, cb) {
@@ -93,7 +93,7 @@ const actions = {
         var data = decoder.write(chunk).trim();
          var beg = data.indexOf("<content>");
          var end = data.indexOf("</content>");
-         console.log(data.substring(beg + 9, end));
+         //console.log(data.substring(beg + 9, end));
          //var tempintro;
          // if(end-beg>320)
          // {
@@ -114,16 +114,15 @@ const actions = {
          //    sendMessage(sessionId, {text: "reply: "+context.intro});  
          // }
          context.answer = data.substring(beg + 9, end);
-         console.log(context.answer);
+         //console.log(context.answer);
          sendMessage(sessionId, {text: "reply: "+context.answer});
-
+         cb(context);
       });
-    
       res.resume();
     }).on('error', (e) => {
       console.log(`Got error: ${e.message}`);
     });
-    cb(context);
+    // cb(context);
   },
 
 };
@@ -155,7 +154,7 @@ app.post('/webhook', function (req, res) {
                     // Now it's waiting for further messages to proceed.
                         // console.log('Waiting for futher messages.');
                         context0 = context;
-                        console.log(context.answer);
+                        //console.log(context.answer);
                         console.log("Exiting callback");
                         //sendMessage(event.sender.id, {text: "reply: "+context0.intro});
                     }
