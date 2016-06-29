@@ -164,7 +164,7 @@ function sendMessage(recipientId, message) {
     //messageLength -= message.substring(0, 310).lastIndexOf(' ');
     //console.log('length!!!!!!!!!!!!!!'+messageLength);
     while(message.substring(0, 310).charAt(messageLength)!=' ')
-         messageLength--;  
+         messageLength--;    
     toSend = message.substring(0, messageLength)
     //sendMessage(sessionId, {text: "reply: "+(i+1).toString()+'\r\n'+context.answer.substring(i*310,(i+1)*310-1)});
     result={text: "reply: \r\n"+toSend};
