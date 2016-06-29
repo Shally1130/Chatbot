@@ -112,9 +112,9 @@ const actions = {
          //    console.log(context.intro);
          //    sendMessage(sessionId, {text: "reply: "+context.intro});  
          // }
-         context.intro = data.substring(beg + 9, end);
-         console.log(context.intro);
-         sendMessage(sessionId, {text: "reply: "+context.intro});
+         context.answer = data.substring(beg + 9, end);
+         console.log(context.answer);
+         sendMessage(sessionId, {text: "reply: "+context.answer});
 
       });
     
@@ -154,7 +154,7 @@ app.post('/webhook', function (req, res) {
                     // Now it's waiting for further messages to proceed.
                         // console.log('Waiting for futher messages.');
                         context0 = context;
-                        console.log(context.intro);
+                        console.log(context.answer);
                         console.log("Exiting callback");
                         //sendMessage(event.sender.id, {text: "reply: "+context0.intro});
                     }
