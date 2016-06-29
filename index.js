@@ -161,10 +161,10 @@ var messageLeft = "";
 function sendMessage(recipientId, message) {
     var messageLength=310;
     if (message.length == 0) return;
-    messageLength -= message.substring(0, 310).lastIndexOf(' ');
+    //messageLength -= message.substring(0, 310).lastIndexOf(' ');
     //console.log('length!!!!!!!!!!!!!!'+messageLength);
-    // while(message.charAt(messageLength).isLetter())
-    //     messageLength--;  
+    while(message.substring(0, 310).charAt(messageLength)!=' ')
+         messageLength--;  
     toSend = message.substring(0, messageLength)
     //sendMessage(sessionId, {text: "reply: "+(i+1).toString()+'\r\n'+context.answer.substring(i*310,(i+1)*310-1)});
     result={text: "reply: \r\n"+toSend};
