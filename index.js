@@ -155,12 +155,13 @@ app.post('/webhook', function (req, res) {
 });
 
 var messageLeft = "";
-var messageLength=310;
+
 
 //generic function sending messages
 function sendMessage(recipientId, message) {
+    var messageLength=310;
     if (message.length == 0) return;
-    //messageLength -= message.substring(0, 310).lastIndexOf(' ');
+    messageLength -= message.substring(0, 310).lastIndexOf(' ');
     //console.log('length!!!!!!!!!!!!!!'+messageLength);
     // while(message.charAt(messageLength).isLetter())
     //     messageLength--;  
