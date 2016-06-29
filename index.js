@@ -163,7 +163,7 @@ function sendMessage(recipientId, message) {
     if (message.length == 0) return;
     messageLength=310;
     //var toSend = message.substring(0, messageLength);
-    while(message.indexOf(messageLength)!=' ')
+    while(!message.indexOf(messageLength).equals(' '))
       messageLength--;
     var toSend = message.substring(0, messageLength)
     //sendMessage(sessionId, {text: "reply: "+(i+1).toString()+'\r\n'+context.answer.substring(i*310,(i+1)*310-1)});
