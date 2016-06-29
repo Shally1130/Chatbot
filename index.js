@@ -159,8 +159,6 @@ function sendMessage(recipientId, message) {
     var length = message.length;
     var num = length/310;
     var result;
-    if(num>0)
-    {
       result={text: "Reply: "+'\r\n'+message.substring(0,309)};
       for(var i=1;i<num;i++)
       {
@@ -182,8 +180,6 @@ function sendMessage(recipientId, message) {
           }
         });
       }
-    }
-    
 };
 
 
