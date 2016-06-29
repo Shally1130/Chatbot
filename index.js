@@ -189,7 +189,12 @@ function sendMessage(recipientId, message) {
               messageLeft = message.substring(messageLength);  // from 310 to the end
               sendMessage(recipientId, messageLeft);
             }
-            console.log("else!!!!!!!!!!!!!");
+            else
+            {  
+              console.log("else!!!!!!!!!!!!!");
+              return;
+            }
+            
         }
     });
     
