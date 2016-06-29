@@ -66,6 +66,7 @@ const actions = {
     //   console.log('question!!!!!!!!!!!!!');
     //   //wait.miliseconds(100);    
     // }
+    context.query = message;
     cb(context);
   },
   error(sessionId, context, error) {
@@ -73,11 +74,11 @@ const actions = {
   },
   // You should implement your custom actions here
   // See https://wit.ai/docs/quickstart
-  ['Query-Answer'](sessionId, context, message,cb) {
+  ['Query-Answer'](sessionId, context,cb) {
     // Here should go the api call, e.g.:
     // context.forecast = apiCall(context.loc)
     ////////////////////////////////////////////////////
-    var pathname = '/?qid=1&title=' + encodeURIComponent(message)+ '&body=Some%20additional%20information%20on%20the%20question&category=Knowledge';
+    var pathname = '/?qid=1&title=' + encodeURIComponent(context.query)+ '&body=Some%20additional%20information%20on%20the%20question&category=Knowledge';
     var options = {
       host: 'carbonite.mathcs.emory.edu',
       port: '8080',
