@@ -158,12 +158,14 @@ var messageLeft = "";
 
 //generic function sending messages
 function sendMessage(recipientId, message) {
+
     if (message.length == 0) return;
 
     var toSend = message.substring(0, 310);
 
     //sendMessage(sessionId, {text: "reply: "+(i+1).toString()+'\r\n'+context.answer.substring(i*310,(i+1)*310-1)});
-    result={text: "reply "+(i+1).toString()+': '+'\r\n'+toSend};
+    result={text: "reply: "+'\r\n'+toSend};
+    console.log(result);
     request({
       url: 'https://graph.facebook.com/v2.6/me/messages',
       qs: {access_token: process.env.PAGE_ACCESS_TOKEN},
@@ -184,6 +186,7 @@ function sendMessage(recipientId, message) {
               var messageLeft = message.substring(310);  // from 310 to the end
               sendMessage(recipientId, messageLeft);
             }
+            console.log("else!!!!!!!!!!!!!");
         }
     });
     
