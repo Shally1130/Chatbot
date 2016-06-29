@@ -54,13 +54,14 @@ const firstEntityValue = (entities, entity) => {
 const actions = {
   say(sessionId, context, message, cb) {
     //console.log(message);
-    var length = context.answer.length;
-    var num = length/310;
-    for(var i=0;i<num;i++)
-    {
-      sendMessage(sessionId, {text: "reply: "+(i+1).toString()+'\r\n'+context.answer.substring(i*310,(i+1)*310-1)});
-    }
+    // var length = context.answer.length;
+    // var num = length/310;
+    // for(var i=0;i<num;i++)
+    // {
+    //   sendMessage(sessionId, {text: "reply: "+(i+1).toString()+'\r\n'+context.answer.substring(i*310,(i+1)*310-1)});
+    // }
     //sendMessage(sessionId, {text: "reply: "+(num+1).toString()+'\r\n'+context.answer.substring(num*310,length)});
+    sendMessage(sessionId,context.answer);
     cb();   
   },
   merge(sessionId, context, entities, message, cb) {
@@ -155,21 +156,30 @@ app.post('/webhook', function (req, res) {
 
 //generic function sending messages
 function sendMessage(recipientId, message) {
-    request({
+    var length = message.length;
+    var num = length/310;
+    var result;
+    for(var i=0;i<num;i++)
+    {
+      //sendMessage(sessionId, {text: "reply: "+(i+1).toString()+'\r\n'+context.answer.substring(i*310,(i+1)*310-1)});
+      result={text: "reply: "+(i+1).toString()+'\r\n'+context.answer.substring(i*310,(i+1)*310-1)}}
+      request({
         url: 'https://graph.facebook.com/v2.6/me/messages',
         qs: {access_token: process.env.PAGE_ACCESS_TOKEN},
         method: 'POST',
         json: {
             recipient: {id: recipientId},
-            message: message,
+            message: result,
         }
-    }, function(error, response, body) {    
-        if (error) {
-            console.log('Error sending message: ', error);
-        } else if (response.body.error) {
-            console.log('Error: ', response.body.error);
-        }
-    });
+      }, function(error, response, body) {    
+          if (error) {
+              console.log('Error sending message: ', error);
+          } else if (response.body.error) {
+              console.log('Error: ', response.body.error);
+          }
+      });
+    }
+    
 };
 
 
