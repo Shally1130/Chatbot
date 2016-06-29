@@ -161,7 +161,7 @@ var messageLeft = "";
 function sendMessage(recipientId, message) {
     var messageLength=310;
     if (message.length == 0) return;
-    messageLength -= message.substring(0, 310).lastIndexOf(' ');
+    //messageLength -= message.substring(0, 310).lastIndexOf(' ');
     //console.log('length!!!!!!!!!!!!!!'+messageLength);
     // while(message.substring(0, 310).charAt(messageLength)!=' ')
     //      messageLength--;    
