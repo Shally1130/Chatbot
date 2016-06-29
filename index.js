@@ -77,7 +77,7 @@ const actions = {
     // Here should go the api call, e.g.:
     // context.forecast = apiCall(context.loc)
     ////////////////////////////////////////////////////
-    var pathname = '/?qid=1&title=' + encodeURIComponent(context.question)+ '&body=&category=Knowledge';
+    var pathname = '/?qid=1&title=' + encodeURIComponent(context.question)+ '&body=Some%20additional%20information%20on%20the%20question&category=Knowledge';
     var options = {
       host: 'carbonite.mathcs.emory.edu',
       port: '8080',
