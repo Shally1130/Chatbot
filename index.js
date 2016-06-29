@@ -155,14 +155,17 @@ app.post('/webhook', function (req, res) {
 });
 
 var messageLeft = "";
+var messageLength=310;
 
 //generic function sending messages
 function sendMessage(recipientId, message) {
 
     if (message.length == 0) return;
-
-    var toSend = message.substring(0, 310);
-
+    messageLength=310;
+    //var toSend = message.substring(0, messageLength);
+    while(toSend.indexOf(messageLength)!=' ')
+      messageLength--;
+    var toSend = message.substring(0, messageLength)
     //sendMessage(sessionId, {text: "reply: "+(i+1).toString()+'\r\n'+context.answer.substring(i*310,(i+1)*310-1)});
     result={text: "reply: "+'\r\n'+toSend};
     console.log(result);
@@ -182,8 +185,8 @@ function sendMessage(recipientId, message) {
         }
         else
         {
-            if (message.length > 310) {
-              var messageLeft = message.substring(310);  // from 310 to the end
+            if (message.length > messageLength) {
+              messageLeft = message.substring(messageLength);  // from 310 to the end
               sendMessage(recipientId, messageLeft);
             }
             console.log("else!!!!!!!!!!!!!");
