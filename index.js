@@ -116,13 +116,13 @@ const actions = {
          context.answer = data.substring(beg + 9, end);
          //console.log(context.answer);
          sendMessage(sessionId, {text: "reply: "+context.answer});
-         //cb(context);
+         cb(context);
       });
       res.resume();
     }).on('error', (e) => {
       console.log(`Got error: ${e.message}`);
     });
-    cb(context);
+    //cb(context);
   },
 
 };
