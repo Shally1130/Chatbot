@@ -162,7 +162,7 @@ function sendMessage(recipientId, message) {
 
     if (message.length == 0) return;
     else
-    {
+    { 
       messageLength=310;
     //var toSend = message.substring(0, messageLength);
     while(message.charAt(messageLength)!=' ')
