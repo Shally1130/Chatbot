@@ -55,13 +55,13 @@ const actions = {
   say(sessionId, context, message, cb) {
     //console.log(message);
     var length = context.answer.length;
-    var num = length/80;
+    var num = length/320;
     for(var i=0;i<num;i++)
     {
-      sendMessage(sessionId, {text: "reply: "+(i+1).toString()+'\r\n'+context.answer.substring(i*80,(i+1)*80-1)});
+      sendMessage(sessionId, {text: "reply: "+(i+1).toString()+'\r\n'+context.answer.substring(i*320,(i+1)*320-1)});
       if(i==num-1)
       {
-        sendMessage(sessionId, {text: "reply: "+(num+1).toString()+'\r\n'+context.answer.substring(num*80,length)});
+        sendMessage(sessionId, {text: "reply: "+(num+1).toString()+'\r\n'+context.answer.substring(num*320,length)});
       }
     }
     cb();   
