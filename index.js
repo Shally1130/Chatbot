@@ -55,14 +55,12 @@ const actions = {
   say(sessionId, context, message, cb) {
     //console.log(message);
     var length = context.answer.length;
-    var num = length/320;
-    var i=0;
-    while(i<num)
+    var num = length/310;
+    for(var i=0;i<num;i++)
     {
-      sendMessage(sessionId, {text: "reply: "+(i+1).toString()+'\r\n'+context.answer.substring(i*320,(i+1)*320-1)});
-      i++;
+      sendMessage(sessionId, {text: "reply: "+(i+1).toString()+'\r\n'+context.answer.substring(i*310,(i+1)*310-1)});
     }
-    sendMessage(sessionId, {text: "reply: "+(num+1).toString()+'\r\n'+context.answer.substring(num*320,length)});
+    sendMessage(sessionId, {text: "reply: "+(num+1).toString()+'\r\n'+context.answer.substring(num*310,length)});
     cb();   
   },
   merge(sessionId, context, entities, message, cb) {
