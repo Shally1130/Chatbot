@@ -56,12 +56,13 @@ const actions = {
     //console.log(message);
     var length = context.answer.length;
     var num = length/320;
-    for(var i=0;i<num;i++)
+    var i=0;
+    while(i<num)
     {
-      sendMessage(sessionId, {text: "reply: "+(i+1).toString()+'\r\n'+context.answer.substring(i*320,(i+1)*320-1).trim()});
-        
+      sendMessage(sessionId, {text: "reply: "+(i+1).toString()+'\r\n'+context.answer.substring(i*320,(i+1)*320-1)});
+      i++;
     }
-    sendMessage(sessionId, {text: "reply: "+(num+1).toString()+'\r\n'+context.answer.substring(num*320,length).trim()});
+    sendMessage(sessionId, {text: "reply: "+(num+1).toString()+'\r\n'+context.answer.substring(num*320,length)});
     cb();   
   },
   merge(sessionId, context, entities, message, cb) {
@@ -102,7 +103,7 @@ const actions = {
          var beg = data.indexOf("<content>");
          var end = data.indexOf("</content>");
          //console.log(data.substring(beg + 9, end));
-         context.answer = data.substring(beg + 9, end);
+         context.answer = data.substring(beg + 9, end).trim();
          //console.log(context.answer);
          cb(context);
       });
