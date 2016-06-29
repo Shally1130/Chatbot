@@ -58,10 +58,10 @@ const actions = {
     var num = length/80;
     for(var i=0;i<num;i++)
     {
-      sendMessage(sessionId, {text: "reply: "+i+1+context.answer.substring(i*80,(i+1)*80-1)});
+      sendMessage(sessionId, {text: "reply: "+(i+1).toString()+'\r\n'+context.answer.substring(i*80,(i+1)*80-1)});
       if(i==num-1)
       {
-        sendMessage(sessionId, {text: "reply: "+num+1+context.answer.substring(num*80,length)});
+        sendMessage(sessionId, {text: "reply: "+(num+1).toString()+'\r\n'+context.answer.substring(num*80,length)});
       }
     }
     cb();   
