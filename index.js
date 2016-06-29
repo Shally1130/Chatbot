@@ -161,12 +161,10 @@ var messageLength=310;
 function sendMessage(recipientId, message) {
 
     if (message.length == 0) return;
-    else
-    { 
-      messageLength=310;
+    messageLength=310;
     //var toSend = message.substring(0, messageLength);
-    while(message.charAt(messageLength)!=' ')
-       messageLength--;  
+    // while(message.charAt(messageLength)!=' ')
+    //    messageLength--;  
     var toSend = message.substring(0, messageLength)
     //sendMessage(sessionId, {text: "reply: "+(i+1).toString()+'\r\n'+context.answer.substring(i*310,(i+1)*310-1)});
     result={text: "reply: \r\n"+toSend};
@@ -199,8 +197,6 @@ function sendMessage(recipientId, message) {
             
         }
     });
-    }
-    
     
 };
 
