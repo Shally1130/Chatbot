@@ -54,7 +54,13 @@ const firstEntityValue = (entities, entity) => {
 const actions = {
   say(sessionId, context, message, cb) {
     //console.log(message);
-    sendMessage(sessionId, {text: "reply: "+context.answer});
+    var length = context.answer.length;
+    var num = length/80;
+    for(var i=0;i<num;i++)
+    {
+      sendMessage(sessionId, {text: "reply: "+i+1+context.answer.substring(i*80,(i+1)*80-1)});
+    }
+    sendMessage(sessionId, {text: "reply: "+num+1+context.answer.substring(num*80,length)});
     cb();   
   },
   merge(sessionId, context, entities, message, cb) {
@@ -95,25 +101,6 @@ const actions = {
          var beg = data.indexOf("<content>");
          var end = data.indexOf("</content>");
          //console.log(data.substring(beg + 9, end));
-         //var tempintro;
-         // if(end-beg>320)
-         // {
-         //    for(var i=beg+9;(end-i)/300>=1;i=i+301)
-         //    {
-         //        tempintro = data.substring(i, i+300);
-         //        sendMessage(sessionId, {text: tempintro});
-         //        console.log("22222222222222");
-         //    }
-         //    tempintro = data.substring(i-301, end);
-         //    sendMessage(sessionId, {text: tempintro});
-         //    console.log("33333333333333");
-         // }
-         // else
-         // {
-         //    context.intro = data.substring(beg + 9, end);
-         //    console.log(context.intro);
-         //    sendMessage(sessionId, {text: "reply: "+context.intro});  
-         // }
          context.answer = data.substring(beg + 9, end);
          //console.log(context.answer);
          cb(context);
