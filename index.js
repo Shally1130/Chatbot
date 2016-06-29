@@ -27,7 +27,7 @@ const Wit = require('node-wit').Wit
 const http = require('http');
 
 // Wit.ai parameters
-const WIT_TOKEN = 'S4KLVFMHDN35E4URMQ4MMXD5CYYZA5DU';     
+const WIT_TOKEN = 'ZTDH4FZ7T7FWWTFR3Y5CXVYTCBE76OQS';     
 
 const firstEntityValue = (entities, entity) => {
   console.log('should be running');
