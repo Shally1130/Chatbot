@@ -224,7 +224,7 @@ function showMoreMessage(recipientId, text, url) {
 //var messageLeft = "";
 
 
-generic function sending messages
+//generic function sending messages
 function sendMessage(recipientId, message) {
     var messageLength=310;
     if (message.length == 0) return;
