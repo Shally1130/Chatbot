@@ -53,28 +53,12 @@ const firstEntityValue = (entities, entity) => {
 // Our bot actions
 const actions = {
   say(sessionId, context, message, cb) {
-    //console.log(message);
-    // var length = context.answer.length;
-    // var num = length/310;
-    // for(var i=0;i<num;i++)
-    // {
-    //   sendMessage(sessionId, {text: "reply: "+(i+1).toString()+'\r\n'+context.answer.substring(i*310,(i+1)*310-1)});
-    // }
-    //sendMessage(sessionId, {text: "reply: "+(num+1).toString()+'\r\n'+context.answer.substring(num*310,length)});
     showMoreMessage(sessionId,context.answer,context.url);
     console.log('say..........');
     cb();   
   },
   merge(sessionId, context, entities, message, cb) {
      // Retrieve the location entity and store it into a context field
-    // const q = firstEntityValue(entities, 'question');
-    // // console.log('firstEntityValue');
-    // // console.log('loc11111111');
-    // if (q) {
-    //   context.question = q;
-    //   console.log('question!!!!!!!!!!!!!');
-    //   //wait.miliseconds(100);    
-    // }
     context.query = message;
     cb(context);
   },
