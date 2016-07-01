@@ -105,7 +105,7 @@ const actions = {
          //console.log(data.substring(beg + 9, end));
          context.answer = data.substring(beg + 9, end).trim();
          context.url = 'http://carbonite.mathcs.emory.edu:8080'+pathname;
-         console.log('answer:'context.answer);
+         console.log('answer:'+context.answer);
          console.log('url'+context.url);
          cb(context);
       });
