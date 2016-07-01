@@ -155,7 +155,7 @@ app.post('/webhook', function (req, res) {
     res.sendStatus(200);
 });
 
-var messageLeft = "";
+//var messageLeft = "";
 
 
 //generic function sending messages
@@ -201,6 +201,7 @@ var messageLeft = "";
 // };
 
 function showMoreMessage(recipientId, text, url) {
+  console.log('show more message...........');
 
   var message = {
                 "attachment": {
@@ -219,7 +220,9 @@ function showMoreMessage(recipientId, text, url) {
                     }
                 }
             };
-    sendMessage(recipientId, message);
+  console.log('exit show more message...........');
+
+  sendMessage(recipientId, message);
 
 }
 
@@ -228,6 +231,7 @@ function showMoreMessage(recipientId, text, url) {
 
 // generic function sending messages
 function sendMessage(recipientId, message) {
+  console.log('send message..................');
     request({
         url: 'https://graph.facebook.com/v2.6/me/messages',
         qs: {access_token: process.env.PAGE_ACCESS_TOKEN},
@@ -243,4 +247,5 @@ function sendMessage(recipientId, message) {
             console.log('Error: ', response.body.error);
         }
     });
+  console.log('exit send message..................');
 };
