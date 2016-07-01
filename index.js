@@ -209,7 +209,7 @@ function showMoreMessage(recipientId, text, url) {
                 "attachment": {
                     "type": "template",
                     "payload": {
-                        "template_type": "generic",
+                        "template_type": "button",
                         "elements": [{
                             "title": text.substring(0,40)+'.......',
                             //"subtitle": "Cute kitten picture",
