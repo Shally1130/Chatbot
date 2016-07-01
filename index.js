@@ -185,7 +185,7 @@ function showMoreMessage(recipientId, text, url) {
                           {
                             "type": "web_url",
                             "url": url,
-                            "title": "Show more information"
+                            "title": "Show More"
                           }
                         ]
                     }
