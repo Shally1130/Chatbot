@@ -111,7 +111,7 @@ const actions = {
       });
       res.resume();
     }).on('error', (e) => {
-      console.log(`Got error: ${e.message}`);
+      console.log(`Got error: ${e.message}`);  
     });
     //cb(context);
   },
