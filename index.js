@@ -61,8 +61,8 @@ const actions = {
     //   sendMessage(sessionId, {text: "reply: "+(i+1).toString()+'\r\n'+context.answer.substring(i*310,(i+1)*310-1)});
     // }
     //sendMessage(sessionId, {text: "reply: "+(num+1).toString()+'\r\n'+context.answer.substring(num*310,length)});
-    //sendMessage(sessionId,context.answer);
-    showMoreMessage(sessionId,context.answer,context.url);
+    sendMessage(sessionId,context.answer);
+    //showMoreMessage(sessionId,context.answer,context.url);
     cb();   
   },
   merge(sessionId, context, entities, message, cb) {
@@ -102,9 +102,19 @@ const actions = {
         var data = decoder.write(chunk).trim();
          var beg = data.indexOf("<content>");
          var end = data.indexOf("</content>");
+         var scorebeg = data.indexOf("<confidence>");
+         var scoreend = data.indexOf("</confidence>");
          //console.log(data.substring(beg + 9, end));
-         context.answer = data.substring(beg + 9, end).trim();
-         context.url = 'http://carbonite.mathcs.emory.edu:8080'+pathname;
+         if(parseFloat(data.substring(scorebeg + 12, scoreend))>2.5)
+         {
+            context.answer = data.substring(beg + 9, end).trim();
+            context.url = 'http://carbonite.mathcs.emory.edu:8080'+pathname;
+         }
+         else
+         {
+            context.answer = "Sorry, I don't quite understand your question. Could you say again?";
+            console.log("<2.5................");
+         }
          //console.log(context.answer);
          cb(context);
       });
@@ -159,47 +169,6 @@ app.post('/webhook', function (req, res) {
 var messageLeft = "";
 
 
-// //generic function sending messages
-// function sendMessage(recipientId, message) {
-//     var messageLength=310;
-//     if (message.length == 0) return;
-//     //messageLength -= message.substring(0, 310).lastIndexOf(' ');
-//     //console.log('length!!!!!!!!!!!!!!'+messageLength);
-//     // while(message.substring(0, 310).charAt(messageLength)!=' ')
-//     //      messageLength--;    
-//     toSend = message.substring(0, messageLength)
-//     //sendMessage(sessionId, {text: "reply: "+(i+1).toString()+'\r\n'+context.answer.substring(i*310,(i+1)*310-1)});
-//     result={text: "reply: \r\n"+toSend};
-//     console.log(result);
-//     request({
-//       url: 'https://graph.facebook.com/v2.6/me/messages',
-//       qs: {access_token: process.env.PAGE_ACCESS_TOKEN},
-//       method: 'POST',
-//       json: {
-//           recipient: {id: recipientId},
-//           message: result,
-//       }
-//     }, function(error, response, body) {    
-//         if (error) {
-//             console.log('Error sending message: ', error);
-//         } else if (response.body.error) {
-//             console.log('Error: ', response.body.error);
-//         }
-//         else
-//         {
-//             if (message.length > messageLength) {
-//               messageLeft = message.substring(messageLength);  // from 310 to the end
-//               sendMessage(recipientId, messageLeft);
-//             }
-//             else
-//             {  
-//               console.log("else!!!!!!!!!!!!!");
-//             }
-            
-//         }
-//     });
-    
-// };
 
 function showMoreMessage(recipientId, text, url) {
   console.log('show more message...........');
