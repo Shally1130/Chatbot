@@ -61,7 +61,8 @@ const actions = {
     //   sendMessage(sessionId, {text: "reply: "+(i+1).toString()+'\r\n'+context.answer.substring(i*310,(i+1)*310-1)});
     // }
     //sendMessage(sessionId, {text: "reply: "+(num+1).toString()+'\r\n'+context.answer.substring(num*310,length)});
-    sendMessage(sessionId,context.answer);
+    //sendMessage(sessionId,context.answer);
+    showMoreMessage(sessionId,context.answer,context.url);
     cb();   
   },
   merge(sessionId, context, entities, message, cb) {
@@ -103,6 +104,7 @@ const actions = {
          var end = data.indexOf("</content>");
          //console.log(data.substring(beg + 9, end));
          context.answer = data.substring(beg + 9, end).trim();
+         context.url = 'http://carbonite.mathcs.emory.edu:8080'+pathname;
          //console.log(context.answer);
          cb(context);
       });
@@ -157,47 +159,98 @@ app.post('/webhook', function (req, res) {
 var messageLeft = "";
 
 
-//generic function sending messages
-function sendMessage(recipientId, message) {
-    var messageLength=310;
-    if (message.length == 0) return;
-    //messageLength -= message.substring(0, 310).lastIndexOf(' ');
-    //console.log('length!!!!!!!!!!!!!!'+messageLength);
-    // while(message.substring(0, 310).charAt(messageLength)!=' ')
-    //      messageLength--;    
-    toSend = message.substring(0, messageLength)
-    //sendMessage(sessionId, {text: "reply: "+(i+1).toString()+'\r\n'+context.answer.substring(i*310,(i+1)*310-1)});
-    result={text: "reply: \r\n"+toSend};
-    console.log(result);
+// //generic function sending messages
+// function sendMessage(recipientId, message) {
+//     var messageLength=310;
+//     if (message.length == 0) return;
+//     //messageLength -= message.substring(0, 310).lastIndexOf(' ');
+//     //console.log('length!!!!!!!!!!!!!!'+messageLength);
+//     // while(message.substring(0, 310).charAt(messageLength)!=' ')
+//     //      messageLength--;    
+//     toSend = message.substring(0, messageLength)
+//     //sendMessage(sessionId, {text: "reply: "+(i+1).toString()+'\r\n'+context.answer.substring(i*310,(i+1)*310-1)});
+//     result={text: "reply: \r\n"+toSend};
+//     console.log(result);
+//     request({
+//       url: 'https://graph.facebook.com/v2.6/me/messages',
+//       qs: {access_token: process.env.PAGE_ACCESS_TOKEN},
+//       method: 'POST',
+//       json: {
+//           recipient: {id: recipientId},
+//           message: result,
+//       }
+//     }, function(error, response, body) {    
+//         if (error) {
+//             console.log('Error sending message: ', error);
+//         } else if (response.body.error) {
+//             console.log('Error: ', response.body.error);
+//         }
+//         else
+//         {
+//             if (message.length > messageLength) {
+//               messageLeft = message.substring(messageLength);  // from 310 to the end
+//               sendMessage(recipientId, messageLeft);
+//             }
+//             else
+//             {  
+//               console.log("else!!!!!!!!!!!!!");
+//             }
+            
+//         }
+//     });
+    
+// };
+
+function showMoreMessage(recipientId, text, url) {
+  console.log('show more message...........');
+
+  var message = {
+                "attachment": {
+                    "type": "template",
+                    "payload": {
+                        "template_type": "button",
+                        "text": text.substring(0,40)+'.......', 
+                        //"subtitle": "Cute kitten picture",
+                        "buttons": [
+                          {
+                            "type": "web_url",
+                            "url": url,
+                            "title": "Show more information"
+                          }
+                        ]
+                    }
+                }
+            };
+  console.log('exit show more message...........');
+
+  sendMessage(recipientId, message);
+
+}
+
+
+
+
+// generic function sending messages
+function sendMessage(recipientId, message) { 
+  console.log('send message..................');
     request({
-      url: 'https://graph.facebook.com/v2.6/me/messages',
-      qs: {access_token: process.env.PAGE_ACCESS_TOKEN},
-      method: 'POST',
-      json: {
-          recipient: {id: recipientId},
-          message: result,
-      }
+        url: 'https://graph.facebook.com/v2.6/me/messages',
+        qs: {access_token: process.env.PAGE_ACCESS_TOKEN},
+        method: 'POST',
+        json: {
+            recipient: {id: recipientId},
+            message: message,
+        }
     }, function(error, response, body) {    
         if (error) {
             console.log('Error sending message: ', error);
         } else if (response.body.error) {
             console.log('Error: ', response.body.error);
         }
-        else
-        {
-            if (message.length > messageLength) {
-              messageLeft = message.substring(messageLength);  // from 310 to the end
-              sendMessage(recipientId, messageLeft);
-            }
-            else
-            {  
-              console.log("else!!!!!!!!!!!!!");
-            }
-            
-        }
     });
-    
+  console.log('exit send message..................');
 };
+
 
 
 
