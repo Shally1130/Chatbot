@@ -216,7 +216,7 @@ function showMoreMessage(recipientId, text, url) {
 
 
 // generic function sending messages
-function sendMessage(recipientId, message) {
+function sendMessage(recipientId, message) { 
   console.log('send message..................');
     request({
         url: 'https://graph.facebook.com/v2.6/me/messages',
