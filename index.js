@@ -62,6 +62,7 @@ const actions = {
     // }
     //sendMessage(sessionId, {text: "reply: "+(num+1).toString()+'\r\n'+context.answer.substring(num*310,length)});
     showMoreMessage(sessionId,context.answer,context.url);
+    console.log('say..........');
     cb();   
   },
   merge(sessionId, context, entities, message, cb) {
@@ -104,7 +105,8 @@ const actions = {
          //console.log(data.substring(beg + 9, end));
          context.answer = data.substring(beg + 9, end).trim();
          context.url = 'http://carbonite.mathcs.emory.edu:8080'+pathname;
-         //console.log(context.answer);
+         console.log('answer:'context.answer);
+         console.log('url'+context.url);
          cb(context);
       });
       res.resume();
