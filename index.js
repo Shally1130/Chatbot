@@ -53,12 +53,27 @@ const firstEntityValue = (entities, entity) => {
 // Our bot actions
 const actions = {
   say(sessionId, context, message, cb) {
-    showMoreMessage(sessionId,context.answer,context.url);
-    console.log('say..........');
+    //console.log(message);
+    // var length = context.answer.length;
+    // var num = length/310;
+    // for(var i=0;i<num;i++)
+    // {
+    //   sendMessage(sessionId, {text: "reply: "+(i+1).toString()+'\r\n'+context.answer.substring(i*310,(i+1)*310-1)});
+    // }
+    //sendMessage(sessionId, {text: "reply: "+(num+1).toString()+'\r\n'+context.answer.substring(num*310,length)});
+    sendMessage(sessionId,context.answer);
     cb();   
   },
   merge(sessionId, context, entities, message, cb) {
      // Retrieve the location entity and store it into a context field
+    // const q = firstEntityValue(entities, 'question');
+    // // console.log('firstEntityValue');
+    // // console.log('loc11111111');
+    // if (q) {
+    //   context.question = q;
+    //   console.log('question!!!!!!!!!!!!!');
+    //   //wait.miliseconds(100);    
+    // }
     context.query = message;
     cb(context);
   },
@@ -88,14 +103,12 @@ const actions = {
          var end = data.indexOf("</content>");
          //console.log(data.substring(beg + 9, end));
          context.answer = data.substring(beg + 9, end).trim();
-         context.url = 'http://carbonite.mathcs.emory.edu:8080'+pathname;
-         console.log('answer:'+context.answer);
-         console.log('url:'+context.url);
+         //console.log(context.answer);
          cb(context);
       });
       res.resume();
     }).on('error', (e) => {
-      console.log(`Got error: ${e.message}`);  
+      console.log(`Got error: ${e.message}`);
     });
     //cb(context);
   },
@@ -141,10 +154,10 @@ app.post('/webhook', function (req, res) {
     res.sendStatus(200);
 });
 
-//var messageLeft = "";
+var messageLeft = "";
 
 
-//generic function sending messages
+// //generic function sending messages
 // function sendMessage(recipientId, message) {
 //     var messageLength=310;
 //     if (message.length == 0) return;
@@ -186,35 +199,6 @@ app.post('/webhook', function (req, res) {
     
 // };
 
-function showMoreMessage(recipientId, text, url) {
-  console.log('show more message...........');
-
-  var message = {
-                "attachment": {
-                    "type": "template",
-                    "payload": {
-                        "template_type": "button",
-                        "text": text.substring(0,40)+'.......', 
-                        //"subtitle": "Cute kitten picture",
-                        "buttons": [
-                          {
-                            "type": "web_url",
-                            "url": url,
-                            "title": "Show more information"
-                          }
-                        ]
-                    }
-                }
-            };
-  console.log('exit show more message...........');
-
-  sendMessage(recipientId, message);
-
-}
-
-
-
-
 // generic function sending messages
 function sendMessage(recipientId, message) { 
   console.log('send message..................');
@@ -224,7 +208,7 @@ function sendMessage(recipientId, message) {
         method: 'POST',
         json: {
             recipient: {id: recipientId},
-            message: message,
+            message: {text: "reply: "+message},
         }
     }, function(error, response, body) {    
         if (error) {
@@ -235,3 +219,5 @@ function sendMessage(recipientId, message) {
     });
   console.log('exit send message..................');
 };
+
+
