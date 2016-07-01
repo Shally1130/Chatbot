@@ -114,7 +114,7 @@ const actions = {
          else
          {
             context.answer = "Sorry, I don't quite understand your question. Could you say again?";
-            console.log("<2.5................");
+            console.log("<2.5................"); 
          }
          //console.log(context.answer);
          cb(context);
