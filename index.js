@@ -157,67 +157,47 @@ app.post('/webhook', function (req, res) {
 var messageLeft = "";
 
 
-// //generic function sending messages
-// function sendMessage(recipientId, message) {
-//     var messageLength=310;
-//     if (message.length == 0) return;
-//     //messageLength -= message.substring(0, 310).lastIndexOf(' ');
-//     //console.log('length!!!!!!!!!!!!!!'+messageLength);
-//     // while(message.substring(0, 310).charAt(messageLength)!=' ')
-//     //      messageLength--;    
-//     toSend = message.substring(0, messageLength)
-//     //sendMessage(sessionId, {text: "reply: "+(i+1).toString()+'\r\n'+context.answer.substring(i*310,(i+1)*310-1)});
-//     result={text: "reply: \r\n"+toSend};
-//     console.log(result);
-//     request({
-//       url: 'https://graph.facebook.com/v2.6/me/messages',
-//       qs: {access_token: process.env.PAGE_ACCESS_TOKEN},
-//       method: 'POST',
-//       json: {
-//           recipient: {id: recipientId},
-//           message: result,
-//       }
-//     }, function(error, response, body) {    
-//         if (error) {
-//             console.log('Error sending message: ', error);
-//         } else if (response.body.error) {
-//             console.log('Error: ', response.body.error);
-//         }
-//         else
-//         {
-//             if (message.length > messageLength) {
-//               messageLeft = message.substring(messageLength);  // from 310 to the end
-//               sendMessage(recipientId, messageLeft);
-//             }
-//             else
-//             {  
-//               console.log("else!!!!!!!!!!!!!");
-//             }
-            
-//         }
-//     });
-    
-// };
-
-// generic function sending messages
-function sendMessage(recipientId, message) { 
-  console.log('send message..................');
+//generic function sending messages
+function sendMessage(recipientId, message) {
+    var messageLength=310;
+    if (message.length == 0) return;
+    //messageLength -= message.substring(0, 310).lastIndexOf(' ');
+    //console.log('length!!!!!!!!!!!!!!'+messageLength);
+    // while(message.substring(0, 310).charAt(messageLength)!=' ')
+    //      messageLength--;    
+    toSend = message.substring(0, messageLength)
+    //sendMessage(sessionId, {text: "reply: "+(i+1).toString()+'\r\n'+context.answer.substring(i*310,(i+1)*310-1)});
+    result={text: "reply: \r\n"+toSend};
+    console.log(result);
     request({
-        url: 'https://graph.facebook.com/v2.6/me/messages',
-        qs: {access_token: process.env.PAGE_ACCESS_TOKEN},
-        method: 'POST',
-        json: {
-            recipient: {id: recipientId},
-            message: {text: "reply: "+message},
-        }
+      url: 'https://graph.facebook.com/v2.6/me/messages',
+      qs: {access_token: process.env.PAGE_ACCESS_TOKEN},
+      method: 'POST',
+      json: {
+          recipient: {id: recipientId},
+          message: result,
+      }
     }, function(error, response, body) {    
         if (error) {
             console.log('Error sending message: ', error);
         } else if (response.body.error) {
             console.log('Error: ', response.body.error);
         }
+        else
+        {
+            if (message.length > messageLength) {
+              messageLeft = message.substring(messageLength);  // from 310 to the end
+              sendMessage(recipientId, messageLeft);
+            }
+            else
+            {  
+              console.log("else!!!!!!!!!!!!!");
+            }
+            
+        }
     });
-  console.log('exit send message..................');
+    
 };
+
 
 
