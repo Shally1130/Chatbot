@@ -62,6 +62,7 @@ const actions = {
     // }
     //sendMessage(sessionId, {text: "reply: "+(num+1).toString()+'\r\n'+context.answer.substring(num*310,length)});
     sendMessage(sessionId,context.answer);
+    console.log("message:"+message);
     //showMoreMessage(sessionId,context.answer,context.url);
     cb();   
   },
