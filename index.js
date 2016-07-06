@@ -137,6 +137,7 @@ const wit = new Wit(WIT_TOKEN, actions);
 app.post('/webhook', function (req, res) {
     var events = req.body.entry[0].messaging;
     const context0 = {};
+    console.log("app.post('/webhook', function (req, res) .....................");
     for (i = 0; i < events.length; i++) {
         var event = events[i];
         // if (event.message && event.message.text) {
@@ -228,6 +229,7 @@ function showMoreMessage(recipientId, text, url) {
 //generic function sending messages
 function sendMessage(recipientId, message) {
     var messageLength=310;
+    console.log("sendMessage................");
     if (message.length == 0) return;
     //messageLength -= message.substring(0, 310).lastIndexOf(' ');
     //console.log('length!!!!!!!!!!!!!!'+messageLength);
@@ -253,6 +255,7 @@ function sendMessage(recipientId, message) {
         }
         else
         {
+            console.log("message.length.............");
             if (message.length > messageLength) {
               messageLeft = message.substring(messageLength);  // from 310 to the end
               sendMessage(recipientId, messageLeft);
