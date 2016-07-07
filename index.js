@@ -76,6 +76,7 @@ const actions = {
     //   console.log('question!!!!!!!!!!!!!');
     //   //wait.miliseconds(100);    
     // }
+    console.log("merge...................................");
     context.query = message;
     
     cb(context);
