@@ -78,11 +78,11 @@ const actions = {
     // }
     context.query = message;
     const q = firstEntityValue(entities, 'contact');
-    // console.log('firstEntityValue');
+    console.log('firstEntityValue');
     // console.log('loc11111111');
     if (q) {
       context.contact = q;
-      console.log('contact!!!!!!!!!!!!!');
+      console.log('contact!!!!!!!!!!!!!+'contact);
       //wait.miliseconds(100);    
     }
     cb(context);
