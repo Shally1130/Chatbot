@@ -27,7 +27,7 @@ const Wit = require('node-wit').Wit
 const http = require('http');
 
 // Wit.ai parameters
-const WIT_TOKEN = 'ZTDH4FZ7T7FWWTFR3Y5CXVYTCBE76OQS';     
+const WIT_TOKEN = 'WPIDPMNZMWQFK2P2UA7WSKCPKT7MIIXI';     
 
 const firstEntityValue = (entities, entity) => {
   console.log('should be running');
@@ -61,7 +61,7 @@ const actions = {
     //   sendMessage(sessionId, {text: "reply: "+(i+1).toString()+'\r\n'+context.answer.substring(i*310,(i+1)*310-1)});
     // }
     //sendMessage(sessionId, {text: "reply: "+(num+1).toString()+'\r\n'+context.answer.substring(num*310,length)});
-    sendMessage(sessionId,message);
+    showMoreMessage(sessionId,message,context.url);
     console.log("message:"+message);
     //showMoreMessage(sessionId,context.answer,context.url);
     cb();   
@@ -121,11 +121,13 @@ const actions = {
          var end = data.indexOf("</content>");
          var scorebeg = data.indexOf("<confidence>");
          var scoreend = data.indexOf("</confidence>");
+         var urlbeg = data.indexOf("<resources>");
+         var urlend = data.indexOf("</resources>");
          //console.log(data.substring(beg + 9, end));
          if(parseFloat(data.substring(scorebeg + 12, scoreend))>=2.5)
          {
             context.answer = data.substring(beg + 9, end).trim();
-            context.url = 'http://carbonite.mathcs.emory.edu:8080'+pathname;
+            context.url = data.substring(beg + 11, end).trim();
             console.log('score: '+parseFloat(data.substring(scorebeg + 12, scoreend)));
          }
          else
@@ -197,7 +199,7 @@ function showMoreMessage(recipientId, text, url) {
                     "type": "template",
                     "payload": {
                         "template_type": "button",
-                        "text": text.substring(0,40)+'.......', 
+                        "text": text.substring(0,40)+'....', 
                         //"subtitle": "Cute kitten picture",
                         "buttons": [
                           {
