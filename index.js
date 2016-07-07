@@ -82,7 +82,7 @@ const actions = {
     // console.log('loc11111111');
     if (q) {
       context.contact = q;
-      console.log('contact!!!!!!!!!!!!!+'contact); 
+      console.log('contact!!!!!!!!!!!!!'+contact); 
       //wait.miliseconds(100);    
     }
     cb(context);
