@@ -77,6 +77,15 @@ const actions = {
     //   //wait.miliseconds(100);    
     // }
     context.query = message;
+    
+    cb(context);
+  },
+  error(sessionId, context, error) {
+    console.log(error.message);
+  },
+  // You should implement your custom actions here
+  // See https://wit.ai/docs/quickstart
+  ['Greetings']({context, entities}){
     const q = firstEntityValue(entities, 'contact');
     console.log('firstEntityValue');
     // console.log('loc11111111');
@@ -85,13 +94,8 @@ const actions = {
       console.log('contact!!!!!!!!!!!!!'+contact); 
       //wait.miliseconds(100);    
     }
-    cb(context);
-  },
-  error(sessionId, context, error) {
-    console.log(error.message);
-  },
-  // You should implement your custom actions here
-  // See https://wit.ai/docs/quickstart
+    return resolve(context);
+  }
   ['Query-Answer'](sessionId, context,cb) {
     // Here should go the api call, e.g.:
     // context.forecast = apiCall(context.loc)
