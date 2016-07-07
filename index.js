@@ -94,7 +94,7 @@ const actions = {
       console.log('contact!!!!!!!!!!!!!'+contact); 
       //wait.miliseconds(100);    
     }
-    return resolve(context);
+    return resolve(context); 
   }
   ['Query-Answer'](sessionId, context,cb) {
     // Here should go the api call, e.g.:
