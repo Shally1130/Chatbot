@@ -61,11 +61,7 @@ const actions = {
     //   sendMessage(sessionId, {text: "reply: "+(i+1).toString()+'\r\n'+context.answer.substring(i*310,(i+1)*310-1)});
     // }
     //sendMessage(sessionId, {text: "reply: "+(num+1).toString()+'\r\n'+context.answer.substring(num*310,length)});
-    console.log("message:"+message);
-    if(context.query.equals(message))
-      sendMessage(sessionId,context.answer);
-    else
-      sendMessage(sessionId,message);
+    sendMessage(sessionId,message);
     console.log("message:"+message);
     //showMoreMessage(sessionId,context.answer,context.url);
     cb();   
