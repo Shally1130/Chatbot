@@ -61,7 +61,14 @@ const actions = {
     //   sendMessage(sessionId, {text: "reply: "+(i+1).toString()+'\r\n'+context.answer.substring(i*310,(i+1)*310-1)});
     // }
     //sendMessage(sessionId, {text: "reply: "+(num+1).toString()+'\r\n'+context.answer.substring(num*310,length)});
-    showMoreMessage(sessionId,message,context.url);
+    if(parseFloat(context.score)>=2.5)
+    {
+      showMoreMessage(sessionId,message,context.url);
+    }
+    else
+    {
+      sendMessage(sessionId,  {text: "reply: "+message});
+    }
     console.log("message:"+message);
     //showMoreMessage(sessionId,context.answer,context.url);
     cb();   
@@ -124,7 +131,8 @@ const actions = {
          var urlbeg = data.indexOf("<resources>");
          var urlend = data.indexOf("</resources>");
          //console.log(data.substring(beg + 9, end));
-         if(parseFloat(data.substring(scorebeg + 12, scoreend))>=2.5)
+         context.score = data.substring(scorebeg + 12, scoreend);
+         if(parseFloat(context.score)>=2.5)
          {
             context.answer = data.substring(beg + 9, end).trim();
             context.url = data.substring(urlbeg + 11, urlend).trim();
@@ -199,7 +207,7 @@ function showMoreMessage(recipientId, text, url) {
                     "type": "template",
                     "payload": {
                         "template_type": "button",
-                        "text": text.substring(0,40)+'....', 
+                        "text":   {text: "reply: "+text.substring(0,40)+'....'}, 
                         //"subtitle": "Cute kitten picture",
                         "buttons": [
                           {
