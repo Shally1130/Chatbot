@@ -127,7 +127,7 @@ const actions = {
          if(parseFloat(data.substring(scorebeg + 12, scoreend))>=2.5)
          {
             context.answer = data.substring(beg + 9, end).trim();
-            context.url = data.substring(beg + 11, end).trim();
+            context.url = data.substring(urlbeg + 11, urlend).trim();
             console.log('score: '+parseFloat(data.substring(scorebeg + 12, scoreend)));
          }
          else
