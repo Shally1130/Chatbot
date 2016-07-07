@@ -76,15 +76,22 @@ const actions = {
     //   console.log('question!!!!!!!!!!!!!');
     //   //wait.miliseconds(100);    
     // }
-    context.query = message;
-    const q = firstEntityValue(entities, 'contact');
-    console.log('firstEntityValue');
-    // console.log('loc11111111');
-    if (q) {
+    const greetings = firstEntityValue(entities, 'greetings');
+    if(greetings)
+    {
+      const q = firstEntityValue(entities, 'contact');
+      console.log('firstEntityValue');
+      // console.log('loc11111111');
+      if (q) {
       context.contact = q; 
       console.log('contact!!!!!!!!!!!!!'+contact); 
       //wait.miliseconds(100);    
     }
+    else
+    {
+      context.query = message;
+    }
+    
     cb(context);
   },
   error(sessionId, context, error) {
