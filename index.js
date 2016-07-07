@@ -77,6 +77,14 @@ const actions = {
     //   //wait.miliseconds(100);    
     // }
     context.query = message;
+    const q = firstEntityValue(entities, 'contact');
+    // console.log('firstEntityValue');
+    // console.log('loc11111111');
+    if (q) {
+      context.contact = q;
+      console.log('contact!!!!!!!!!!!!!');
+      //wait.miliseconds(100);    
+    }
     cb(context);
   },
   error(sessionId, context, error) {
