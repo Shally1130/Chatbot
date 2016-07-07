@@ -207,7 +207,7 @@ function showMoreMessage(recipientId, text, url) {
                     "type": "template",
                     "payload": {
                         "template_type": "button",
-                        "text":   {text: "reply: "+text.substring(0,40)+'....'}, 
+                        "text":   "reply: "+text.substring(0,40)+'....', 
                         //"subtitle": "Cute kitten picture",
                         "buttons": [
                           {
