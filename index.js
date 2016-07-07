@@ -85,19 +85,19 @@ const actions = {
   },
   // You should implement your custom actions here
   // See https://wit.ai/docs/quickstart
-  ['Greetings']({context, entities}){
-    return new Promise(function(resolve, reject) {
-    const q = firstEntityValue(entities, 'contact');
-    console.log('firstEntityValue');
-    // console.log('loc11111111');
-    if (q) {
-      context.contact = q; 
-      console.log('contact!!!!!!!!!!!!!'+contact); 
-      //wait.miliseconds(100);    
-    }
-    return resolve(context); 
-  });
-  },
+  // ['Greetings']({context, entities}){
+  //   return new Promise(function(resolve, reject) {
+  //   const q = firstEntityValue(entities, 'contact');
+  //   console.log('firstEntityValue');
+  //   // console.log('loc11111111');
+  //   if (q) {
+  //     context.contact = q; 
+  //     console.log('contact!!!!!!!!!!!!!'+contact); 
+  //     //wait.miliseconds(100);    
+  //   }
+  //   return resolve(context); 
+  // });
+  // },
 
   ['Query-Answer'](sessionId, context,cb) {
     // Here should go the api call, e.g.:
