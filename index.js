@@ -160,7 +160,7 @@ const actions = {
          if(parseFloat(context.score)>=2.5)
          {
             context.answer = data.substring(beg + 9, end).trim();
-            //sessions[sessionId].context.answers += "answer:" + context.answer;
+            sessions[sessionId].context.answers += "answer:" + context.answer;
             context.url = data.substring(urlbeg + 11, urlend).trim();
             console.log('score: '+parseFloat(data.substring(scorebeg + 12, scoreend)));
          }
@@ -228,7 +228,7 @@ app.post('/webhook', function (req, res) {
                     // Now it's waiting for further messages to proceed.
                         // console.log('Waiting for futher messages.');
                         //console.log("Before answer context = " + context);
-                        context.answers += "answer:" + context.answer;
+                        //context.answers += "answer:" + context.answer;
                         console.log("Session question:"+sessions[sessionId].context.questions+"............");
                         console.log("session answer:" + context.answers + ".............");
                         //console.log(context.answer);
