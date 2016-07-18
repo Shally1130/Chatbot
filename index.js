@@ -190,7 +190,7 @@ app.post('/webhook', function (req, res) {
     var events = req.body.entry[0].messaging;
     //console.log("app.post('/webhook', function (req, res) .....................");
 
-    console.log("Events length" + events.length);
+    console.log("Events length = " + events.length);
     console.log("Events = " + events);
     for (var i = 0; i < events.length; i++) {
         var event = events[i];
@@ -229,6 +229,7 @@ app.post('/webhook', function (req, res) {
                         // console.log('Waiting for futher messages.');
                         console.log("Before answer context = " + context);
                         context.answers += "answer:" + context.answer;
+                        console.log("Session content:"+sessions[sessionId].context);
                         console.log("session answer:" + context.answers + ".............");
                         //console.log(context.answer);
                         console.log("Exiting callback");
