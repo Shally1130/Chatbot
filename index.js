@@ -63,7 +63,7 @@ const findOrCreateSession = (fbid) => {
   if (!sessionId) {
     // No session found for user fbid, let's create a new one
     sessionId = new Date().toISOString();
-    sessions[sessionId] = {fbid: fbid, context: “”};
+    sessions[sessionId] = {fbid: fbid, context: ""};
   }
   console.log("sessionId = " + sessionId);
   return sessionId;
