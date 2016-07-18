@@ -187,7 +187,7 @@ const wit = new Wit(WIT_TOKEN, actions);
 // handler receiving messages
 app.post('/webhook', function (req, res) {
     var events = req.body.entry[0].messaging;
-    console.log("app.post('/webhook', function (req, res) .....................");
+    //console.log("app.post('/webhook', function (req, res) .....................");
 
 
     for (i = 0; i < events.length; i++) {
