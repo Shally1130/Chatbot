@@ -1,3 +1,4 @@
+"use strict";
 var express = require('express');
 var bodyParser = require('body-parser');
 var request = require('request');
@@ -52,7 +53,6 @@ const sessions = {};
 
   
 const findOrCreateSession = (fbid) => {
-  "use strict";
   let sessionId;
   // Let's see if we already have a session for the user fbid
   Object.keys(sessions).forEach(k => {
