@@ -206,6 +206,7 @@ app.post('/webhook', function (req, res) {
         const sessionId = findOrCreateSession(sender);
 
         // We retrieve the message content
+        console.log(event.message);
         const msg = event.message.text;
         sessions[sessionId].context.questions += "question:" + msg;
         console.log("session question:" + sessions[sessionId].context.questions + ".............");
