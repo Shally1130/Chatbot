@@ -65,7 +65,7 @@ const findOrCreateSession = (fbid) => {
     sessionId = new Date().toISOString();
     sessions[sessionId] = {fbid: fbid, context: {}};
   }
-  console.log("return sessionId");
+  console.log("sessionId = " + sessionId);
   return sessionId;
 };
 
@@ -160,7 +160,7 @@ const actions = {
          if(parseFloat(context.score)>=2.5)
          {
             context.answer = data.substring(beg + 9, end).trim();
-            sessions[sessionId].context += "answer:"+context.answer;
+            //sessions[sessionId].context.answers += "answer:" + context.answer;
             context.url = data.substring(urlbeg + 11, urlend).trim();
             console.log('score: '+parseFloat(data.substring(scorebeg + 12, scoreend)));
          }
@@ -204,13 +204,13 @@ app.post('/webhook', function (req, res) {
         // We retrieve the user's current session, or create one if it doesn't exist
         // This is needed for our bot to figure out the conversation history
         const sessionId = findOrCreateSession(sender);
-        console.log(sessionId);
-        console.log(sessions);
+        console.log("session id = " + sessionId);
+        console.log("Sessions = " + sessions);
 
         // We retrieve the message content
         const msg = event.message.text;
-        sessions[sessionId].context += "question:"+msg;
-        console.log("session question:" + sessions[sessionId].context+".............");
+        sessions[sessionId].context.questions += "question:" + msg;
+        console.log("session question:" + sessions[sessionId].context.questions + ".............");
         /////////////////////////////////////////////////////
 
         if (event.message && event.message.text) {
@@ -227,8 +227,9 @@ app.post('/webhook', function (req, res) {
                     // Our bot did everything it has to do.
                     // Now it's waiting for further messages to proceed.
                         // console.log('Waiting for futher messages.');
-                        sessions[sessionId].context += context;
-                        console.log("session answer:" + sessions[sessionId].context+".............");
+                        console.log("Before answer context = " + context);
+                        sessions[sessionId].context.answers += context.answer;
+                        console.log("session answer:" + sessions[sessionId].context.answers + ".............");
                         //console.log(context.answer);
                         console.log("Exiting callback");
                         //sendMessage(event.sender.id, {text: "reply: "+context0.intro});
