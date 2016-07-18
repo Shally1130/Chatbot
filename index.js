@@ -84,6 +84,7 @@ const actions = {
     //sendMessage(sessionId, {text: "reply: "+(num+1).toString()+'\r\n'+context.answer.substring(num*310,length)});
 
     const recipientId = sessions[sessionId].fbid;
+    console.log("say....................");
     if(parseFloat(context.score)>=2.5)
     {
       showMoreMessage(recipientId,message,context.url);
