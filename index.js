@@ -130,6 +130,7 @@ const actions = {
   // },
 
   ['Query-Answer'](sessionId, context,cb) {
+
     // Here should go the api call, e.g.:
     // context.forecast = apiCall(context.loc)
     ////////////////////////////////////////////////////
@@ -139,6 +140,7 @@ const actions = {
       port: '8080',
       path:  pathname
     };
+    console.log("api call!!!!!!!!!!!!!!!!!!");
     console.log(pathname);
     var decoder = new StringDecoder();
     http.get(options, (res) => {
