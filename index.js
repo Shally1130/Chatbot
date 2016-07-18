@@ -51,7 +51,6 @@ const firstEntityValue = (entities, entity) => {
 // sessionId -> {fbid: facebookUserId, context: sessionState}
 const sessions = {};
 
-  
 const findOrCreateSession = (fbid) => {
   let sessionId;
   // Let's see if we already have a session for the user fbid
@@ -205,6 +204,8 @@ app.post('/webhook', function (req, res) {
         // We retrieve the user's current session, or create one if it doesn't exist
         // This is needed for our bot to figure out the conversation history
         const sessionId = findOrCreateSession(sender);
+        console.log(sessionId);
+        console.log(sessions);
 
         // We retrieve the message content
         const msg = event.message.text;
@@ -220,6 +221,7 @@ app.post('/webhook', function (req, res) {
                 (error, context) => {
                     console.log("Entering callback");
                     if (error) {
+                        console.log(context);
                         console.log('Oops! Got an error from Wit:', error);
                     } else {
                     // Our bot did everything it has to do.
