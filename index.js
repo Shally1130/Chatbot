@@ -42,12 +42,30 @@ const firstEntityValue = (entities, entity) => {
   return typeof val === 'object' ? val.value : val;
 };
 
-// //system parameter
-// var qid =  '1'; //convert int to char
-// var title;
-// var body='Some%20additional%20information%20on%20the%20question';
-// var category = 'Knowledge'
-// var pathname;
+
+// Wit.ai bot specific code
+
+// This will contain all user sessions.
+// Each session has an entry:
+// sessionId -> {fbid: facebookUserId, context: sessionState}
+const sessions = {};
+
+const findOrCreateSession = (fbid) => {
+  let sessionId;
+  // Let's see if we already have a session for the user fbid
+  Object.keys(sessions).forEach(k => {
+    if (sessions[k].fbid === fbid) {
+      // Yep, got it!
+      sessionId = k;
+    }
+  });
+  if (!sessionId) {
+    // No session found for user fbid, let's create a new one
+    sessionId = new Date().toISOString();
+    sessions[sessionId] = {fbid: fbid, context: {}};
+  }
+  return sessionId;
+};
 
 
 // Our bot actions
@@ -61,13 +79,15 @@ const actions = {
     //   sendMessage(sessionId, {text: "reply: "+(i+1).toString()+'\r\n'+context.answer.substring(i*310,(i+1)*310-1)});
     // }
     //sendMessage(sessionId, {text: "reply: "+(num+1).toString()+'\r\n'+context.answer.substring(num*310,length)});
+
+    const recipientId = sessions[sessionId].fbid;
     if(parseFloat(context.score)>=2.5)
     {
-      showMoreMessage(sessionId,message,context.url);
+      showMoreMessage(recipientId,message,context.url);
     }
     else
     {
-      sendMessage(sessionId,  {text: "reply: "+message});
+      sendMessage(recipientId,  {text: "reply: "+message});
     }
     console.log("message:"+message);
     //showMoreMessage(sessionId,context.answer,context.url);
@@ -164,6 +184,22 @@ app.post('/webhook', function (req, res) {
     var events = req.body.entry[0].messaging;
     const context0 = {};
     console.log("app.post('/webhook', function (req, res) .....................");
+
+    ///////////////////////////////////////////////////
+    // We retrieve the Facebook user ID of the sender
+    const sender = event.sender.id;
+
+    // We retrieve the user's current session, or create one if it doesn't exist
+    // This is needed for our bot to figure out the conversation history
+    const sessionId = findOrCreateSession(sender);
+
+    // We retrieve the message content
+    const msg = event.message.text;
+    ///////////////////////////////////////////////////
+    sessions[sessionId].context += msg;
+    console.log("session question:" + sessions[sessionId].context+".............");
+
+
     for (i = 0; i < events.length; i++) {
         var event = events[i];
         // if (event.message && event.message.text) {
@@ -171,9 +207,9 @@ app.post('/webhook', function (req, res) {
         // }
         if (event.message && event.message.text) {
             wit.runActions(
-                event.sender.id, // the user's current session
-                event.message.text, // the user's message 
-                context0, // the user's current session state
+                sessionId, // the user's current session
+                msg, // the user's message 
+                sessions[sessionId].context, // the user's current session state
                 (error, context) => {
                     console.log("Entering callback");
                     if (error) {
@@ -182,7 +218,8 @@ app.post('/webhook', function (req, res) {
                     // Our bot did everything it has to do.
                     // Now it's waiting for further messages to proceed.
                         // console.log('Waiting for futher messages.');
-                        context0 = context;
+                        sessions[sessionId].context += context;
+                        console.log("session answer:" + sessions[sessionId].context+".............");
                         //console.log(context.answer);
                         console.log("Exiting callback");
                         //sendMessage(event.sender.id, {text: "reply: "+context0.intro});
