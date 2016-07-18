@@ -50,8 +50,8 @@ const firstEntityValue = (entities, entity) => {
 // sessionId -> {fbid: facebookUserId, context: sessionState}
 const sessions = {};
 
+"use strict";
 const findOrCreateSession = (fbid) => {
-  "use strict";
   let sessionId;
   // Let's see if we already have a session for the user fbid
   Object.keys(sessions).forEach(k => {
