@@ -227,9 +227,9 @@ app.post('/webhook', function (req, res) {
                     // Our bot did everything it has to do.
                     // Now it's waiting for further messages to proceed.
                         // console.log('Waiting for futher messages.');
-                        console.log("Before answer context = " + context);
+                        //console.log("Before answer context = " + context);
                         context.answers += "answer:" + context.answer;
-                        console.log("Session content:"+sessions[sessionId].context);
+                        console.log("Session question:"+sessions[sessionId].context.questions+"............");
                         console.log("session answer:" + context.answers + ".............");
                         //console.log(context.answer);
                         console.log("Exiting callback");
