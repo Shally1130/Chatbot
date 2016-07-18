@@ -71,7 +71,7 @@ const findOrCreateSession = (fbid) => {
 
 // Our bot actions
 const actions = {
-  say(sessionId, context, message, cb) {
+  say(sessionId, context, message, cb) { 
     //console.log(message);
     // var length = context.answer.length;
     // var num = length/310;
