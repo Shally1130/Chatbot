@@ -187,26 +187,27 @@ app.post('/webhook', function (req, res) {
     const context0 = {};
     console.log("app.post('/webhook', function (req, res) .....................");
 
-    ///////////////////////////////////////////////////
-    // We retrieve the Facebook user ID of the sender
-    const sender = event.sender.id;
-
-    // We retrieve the user's current session, or create one if it doesn't exist
-    // This is needed for our bot to figure out the conversation history
-    const sessionId = findOrCreateSession(sender);
-
-    // We retrieve the message content
-    const msg = event.message.text;
-    ///////////////////////////////////////////////////
-    sessions[sessionId].context += msg;
-    console.log("session question:" + sessions[sessionId].context+".............");
-
 
     for (i = 0; i < events.length; i++) {
         var event = events[i];
         // if (event.message && event.message.text) {
         //     sendMessage(event.sender.id, {text: "Echo: " + event.message.text});
         // }
+
+        ////////////////////////////////////////////////////
+        // We retrieve the Facebook user ID of the sender
+        const sender = event.sender.id;
+
+        // We retrieve the user's current session, or create one if it doesn't exist
+        // This is needed for our bot to figure out the conversation history
+        const sessionId = findOrCreateSession(sender);
+
+        // We retrieve the message content
+        const msg = event.message.text;
+        sessions[sessionId].context += msg;
+        console.log("session question:" + sessions[sessionId].context+".............");
+        /////////////////////////////////////////////////////
+        
         if (event.message && event.message.text) {
             wit.runActions(
                 sessionId, // the user's current session
