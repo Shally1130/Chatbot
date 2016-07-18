@@ -204,8 +204,6 @@ app.post('/webhook', function (req, res) {
         // We retrieve the user's current session, or create one if it doesn't exist
         // This is needed for our bot to figure out the conversation history
         const sessionId = findOrCreateSession(sender);
-        console.log("session id = " + sessionId);
-        console.log("Sessions = " + sessions);
 
         // We retrieve the message content
         const msg = event.message.text;
@@ -228,8 +226,8 @@ app.post('/webhook', function (req, res) {
                     // Now it's waiting for further messages to proceed.
                         // console.log('Waiting for futher messages.');
                         console.log("Before answer context = " + context);
-                        sessions[sessionId].context.answers += context.answer;
-                        console.log("session answer:" + sessions[sessionId].context.answers + ".............");
+                        context.answers += "answer:" + context.answer;
+                        console.log("session answer:" + context.answers + ".............");
                         //console.log(context.answer);
                         console.log("Exiting callback");
                         //sendMessage(event.sender.id, {text: "reply: "+context0.intro});
