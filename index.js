@@ -160,7 +160,7 @@ const actions = {
          if(parseFloat(context.score)>=2.5)
          {
             context.answer = data.substring(beg + 9, end).trim();
-            sessions[sessionId].context += "answer:" + context.answer;
+            sessions[sessionId].context += "&answer:" + context.answer;
             context.url = data.substring(urlbeg + 11, urlend).trim();
             console.log('score: '+parseFloat(data.substring(scorebeg + 12, scoreend)));
          }
@@ -211,7 +211,7 @@ app.post('/webhook', function (req, res) {
         //console.log("Event = " + event);
         if (event.message && event.message.text) {
             const msg = event.message.text;
-            sessions[sessionId].context += "question:" + msg;
+            sessions[sessionId].context += "&question:" + msg;
             /////////////////////////////////////////////////////
 
             wit.runActions(
