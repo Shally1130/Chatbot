@@ -63,7 +63,7 @@ const findOrCreateSession = (fbid) => {
   if (!sessionId) {
     // No session found for user fbid, let's create a new one
     sessionId = new Date().toISOString();
-    sessions[sessionId] = {fbid: fbid, context: {}};
+    sessions[sessionId] = {fbid: fbid, context: “”};
   }
   console.log("sessionId = " + sessionId);
   return sessionId;
@@ -160,7 +160,7 @@ const actions = {
          if(parseFloat(context.score)>=2.5)
          {
             context.answer = data.substring(beg + 9, end).trim();
-            sessions[sessionId].context.answers += "answer:" + context.answer;
+            sessions[sessionId].context += "answer:" + context.answer;
             context.url = data.substring(urlbeg + 11, urlend).trim();
             console.log('score: '+parseFloat(data.substring(scorebeg + 12, scoreend)));
          }
@@ -190,10 +190,11 @@ app.post('/webhook', function (req, res) {
     var events = req.body.entry[0].messaging;
     //console.log("app.post('/webhook', function (req, res) .....................");
 
-    console.log("Events length = " + events.length);
-    console.log("Events = " + events);
+    //console.log("Events length = " + events.length);
+    //console.log("Events = " + events);
     for (var i = 0; i < events.length; i++) {
         var event = events[i];
+        const context0 = {};
         // if (event.message && event.message.text) {
         //     sendMessage(event.sender.id, {text: "Echo: " + event.message.text});
         // }
@@ -207,17 +208,16 @@ app.post('/webhook', function (req, res) {
         const sessionId = findOrCreateSession(sender);
 
         // We retrieve the message content
-        console.log("Event = " + event);
+        //console.log("Event = " + event);
         if (event.message && event.message.text) {
             const msg = event.message.text;
-            sessions[sessionId].context.questions += "question:" + msg;
-            console.log("session question:" + sessions[sessionId].context.questions + ".............");
+            sessions[sessionId].context += "question:" + msg;
             /////////////////////////////////////////////////////
 
             wit.runActions(
                 sessionId, // the user's current session
                 msg, // the user's message 
-                sessions[sessionId].context, // the user's current session state
+                context0, // the user's current session state
                 (error, context) => {
                     console.log("Entering callback");
                     if (error) {
@@ -229,8 +229,7 @@ app.post('/webhook', function (req, res) {
                         // console.log('Waiting for futher messages.');
                         //console.log("Before answer context = " + context);
                         //context.answers += "answer:" + context.answer;
-                        console.log("Session question:"+sessions[sessionId].context.questions+"............");
-                        console.log("session answer:" + context.answers + ".............");
+                        console.log("Session content:"+sessions[sessionId].context+"............");
                         //console.log(context.answer);
                         console.log("Exiting callback");
                         //sendMessage(event.sender.id, {text: "reply: "+context0.intro});
