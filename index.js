@@ -6,7 +6,7 @@ var app = express();
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
-app.listen((process.env.PORT || 3000)); 
+app.listen((process.env.PORT || 3000));
 
 // Server frontpage
 app.get('/', function (req, res) {
@@ -50,11 +50,12 @@ const firstEntityValue = (entities, entity) => {
 // sessionId -> {fbid: facebookUserId, context: sessionState}
 const sessions = {};
 
+"use strict";  
 const findOrCreateSession = (fbid) => {
   let sessionId;
   // Let's see if we already have a session for the user fbid
   Object.keys(sessions).forEach(k => {
-    if (sessions[k].fbid === fbid) {
+    if (sessions[k].fbid === fbid) { 
       // Yep, got it!
       sessionId = k;
     }
