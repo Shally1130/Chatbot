@@ -190,7 +190,8 @@ app.post('/webhook', function (req, res) {
     var events = req.body.entry[0].messaging;
     //console.log("app.post('/webhook', function (req, res) .....................");
 
-
+    console.log("Events length" + events.length);
+    console.log("Events = " + events);
     for (var i = 0; i < events.length; i++) {
         var event = events[i];
         // if (event.message && event.message.text) {
@@ -206,7 +207,7 @@ app.post('/webhook', function (req, res) {
         const sessionId = findOrCreateSession(sender);
 
         // We retrieve the message content
-        console.log(event);
+        console.log("Event = " + event);
         if (event.message && event.message.text) {
             const msg = event.message.text;
             sessions[sessionId].context.questions += "question:" + msg;
