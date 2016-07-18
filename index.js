@@ -157,6 +157,7 @@ const actions = {
          if(parseFloat(context.score)>=2.5)
          {
             context.answer = data.substring(beg + 9, end).trim();
+            sessions[sessionId].context += "answer:"+context.answer;
             context.url = data.substring(urlbeg + 11, urlend).trim();
             console.log('score: '+parseFloat(data.substring(scorebeg + 12, scoreend)));
          }
@@ -184,7 +185,6 @@ const wit = new Wit(WIT_TOKEN, actions);
 // handler receiving messages
 app.post('/webhook', function (req, res) {
     var events = req.body.entry[0].messaging;
-    const context0 = {};
     console.log("app.post('/webhook', function (req, res) .....................");
 
 
@@ -204,10 +204,10 @@ app.post('/webhook', function (req, res) {
 
         // We retrieve the message content
         const msg = event.message.text;
-        sessions[sessionId].context += msg;
+        sessions[sessionId].context += "question:"+msg;
         console.log("session question:" + sessions[sessionId].context+".............");
         /////////////////////////////////////////////////////
-        
+
         if (event.message && event.message.text) {
             wit.runActions(
                 sessionId, // the user's current session
