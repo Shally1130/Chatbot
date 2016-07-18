@@ -66,6 +66,7 @@ const findOrCreateSession = (fbid) => {
     sessionId = new Date().toISOString();
     sessions[sessionId] = {fbid: fbid, context: {}};
   }
+  console.log("return sessionId");
   return sessionId;
 };
 
