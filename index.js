@@ -31,7 +31,7 @@ const http = require('http');
 const WIT_TOKEN = 'ZTDH4FZ7T7FWWTFR3Y5CXVYTCBE76OQS';     
 
 const firstEntityValue = (entities, entity) => {
-  console.log('should be running');
+  console.log('should be running......................');
   const val = entities && entities[entity] &&
     Array.isArray(entities[entity]) &&
     entities[entity].length > 0 &&
@@ -108,11 +108,11 @@ const actions = {
     //   //wait.miliseconds(100);    
     // }
     console.log("merge...................................");
-    const greetings = firstEntityValue(entities, 'greetings');
+    var greetings = firstEntityValue(entities, 'greetings');
     if(greetings)
     {
       console.log("greetings...................");
-      const contact = firstEntityValue(entities, 'contact');
+      var contact = firstEntityValue(entities, 'contact');
       console.log("contact"+contact+".........................");
       if(contact)
       {
