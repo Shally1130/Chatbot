@@ -113,6 +113,7 @@ const actions = {
     {
       ;
       const contact = firstEntityValue(entities, 'contact');
+      console.log("contact"+contact+".........................");
       if(contact)
       {
         context.contact = contact;
