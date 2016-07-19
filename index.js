@@ -108,10 +108,15 @@ const actions = {
     //   //wait.miliseconds(100);    
     // }
     console.log("merge...................................");
-    const q = firstEntityValue(entities, 'greetings');
-    if(q)
+    const greetings = firstEntityValue(entities, 'greetings');
+    if(greetings)
     {
       ;
+      const contact = firstEntityValue(entities, 'contact');
+      if(contact)
+      {
+        context.contact = contact;
+      }
     }
     else
     {
