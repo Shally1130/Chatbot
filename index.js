@@ -108,7 +108,12 @@ const actions = {
     //   //wait.miliseconds(100);    
     // }
     console.log("merge...................................");
-    context.query = message;
+    const q = firstEntityValue(entities, 'introductions');
+    if(q)
+    {
+      context.query = message;
+      sessions[sessionId].context += " <question>" + message + "</question>";
+    }
     
     cb(context);
   },
@@ -212,7 +217,7 @@ app.post('/webhook', function (req, res) {
         //console.log("Event = " + event);
         if (event.message && event.message.text) {
             const msg = event.message.text;
-            sessions[sessionId].context += " <question>" + msg + "</question>";
+            
             /////////////////////////////////////////////////////
 
             wit.runActions(
