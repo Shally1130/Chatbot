@@ -108,8 +108,12 @@ const actions = {
     //   //wait.miliseconds(100);    
     // }
     console.log("merge...................................");
-    const q = firstEntityValue(entities, 'introductions');
+    const q = firstEntityValue(entities, 'greetings');
     if(q)
+    {
+      ;
+    }
+    else
     {
       context.query = message;
       sessions[sessionId].context += " <question>" + message + "</question>";
