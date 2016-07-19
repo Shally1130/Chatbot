@@ -83,6 +83,7 @@ const actions = {
 
     const recipientId = sessions[sessionId].fbid;
     console.log("say....................");
+    console.log("score"+context.score+"........");
     if(parseFloat(context.score==null||context.score)<2.5)
     {
       sendMessage(recipientId,  {text: "reply: "+message});
