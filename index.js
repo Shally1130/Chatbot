@@ -176,8 +176,8 @@ const actions = {
          if(parseFloat(context.score)>=2.5)
          {
             context.answer = data.substring(beg + 9, end).trim();
-            sessions[sessionId].context += " <answer>" + context.answer+"</answer>";
             sessions[sessionId].context += " <question>" + context.query + "</question>";
+            sessions[sessionId].context += " <answer>" + context.answer+"</answer>";
             context.url = data.substring(urlbeg + 11, urlend).trim();
             console.log('score: '+parseFloat(data.substring(scorebeg + 12, scoreend)));
          }
@@ -266,20 +266,21 @@ var messageLeft = "";
 function showMoreMessage(recipientId, text, url) {
   console.log('show more message...........');
   var reply="";
-  if(text.length>=310)
+  var feedback = "Do you like my answer? Please reply yes or no."
+  if(text.length>=300)
   {
   	reply += text.substring(0,300)+".......";
   }
   else
   {
-  	reply = text;
+  	sendMessage(recipientId, text+feedback);
   }
   var message = {
                 "attachment": {
                     "type": "template",
                     "payload": {
                         "template_type": "button",
-                        "text":   "reply: "+ reply,
+                        "text":   "reply: "+ reply + feedback,
                         //"subtitle": "Cute kitten picture",
                         "buttons": [
                           {
