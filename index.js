@@ -111,7 +111,7 @@ const actions = {
     const greetings = firstEntityValue(entities, 'greetings');
     if(greetings)
     {
-      ;
+      console.log("greetings...................");
       const contact = firstEntityValue(entities, 'contact');
       console.log("contact"+contact+".........................");
       if(contact)
