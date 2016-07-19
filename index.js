@@ -122,9 +122,9 @@ const actions = {
     else
     {
       context.query = message;
-      sessions[sessionId].context += " <question>" + message + "</question>";
+      console.log("else???????????????");
+      
     }
-    
     cb(context);
   },
   error(sessionId, context, error) {
@@ -177,6 +177,7 @@ const actions = {
          {
             context.answer = data.substring(beg + 9, end).trim();
             sessions[sessionId].context += " <answer>" + context.answer+"</answer>";
+            sessions[sessionId].context += " <question>" + context.query + "</question>";
             context.url = data.substring(urlbeg + 11, urlend).trim();
             console.log('score: '+parseFloat(data.substring(scorebeg + 12, scoreend)));
          }
