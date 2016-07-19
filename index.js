@@ -111,7 +111,13 @@ const actions = {
     var greetings = firstEntityValue(entities, 'greetings');
     if(greetings)
     {
-      ;
+      console.log("greetings...................");
+      var contact = firstEntityValue(entities, 'contact');
+      console.log("contact"+contact+".........................");
+      if(contact)
+      {
+        context.contact = contact;
+      }
     }
     else
     {
@@ -187,16 +193,6 @@ const actions = {
       console.log(`Got error: ${e.message}`);
     });
     //cb(context);
-  },
-  getName({context, entities}) {
-    return new Promise(function(resolve, reject) {
-      var contact = firstEntityValue(entities, 'contact')
-      if (contact) 
-      {
-        context.contact = contact;
-      }
-      return resolve(context);
-    });
   },
 
 };
