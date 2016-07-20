@@ -88,13 +88,16 @@ const actions = {
     {
       sendMessage(recipientId,  {text: "Feedback: "+message})
     }
-    else if(parseFloat(context.score)>=2.5)
+    else 
     {
-      showMoreMessage(recipientId,message,context.url);
-    }
-    else
-    {
-      sendMessage(recipientId,  {text: "Reply: "+message});
+      if(parseFloat(context.score)>=2.5)
+      {
+        showMoreMessage(recipientId,message,context.url);
+      }
+      else
+      {
+        sendMessage(recipientId,  {text: "Reply: "+message});
+      }
     }
     console.log("message:"+message);
     //showMoreMessage(sessionId,context.answer,context.url);
