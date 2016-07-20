@@ -82,22 +82,16 @@ const actions = {
     //sendMessage(sessionId, {text: "reply: "+(num+1).toString()+'\r\n'+context.answer.substring(num*310,length)});
 
     const recipientId = sessions[sessionId].fbid;
-    console.log("say"+message);
     console.log("say....................");
-    if(message.equals(" Do you like my answer? Please reply yes or no."))
+    console.log("equals = "+JSON.stringify(message));
+      console.log("equals = "+JSON.stringify(message).equals("Do you like"));
+    if(parseFloat(context.score)>=2.5)
     {
-      sendMessage(recipientId,  {text: "Reply: "+message});
+      showMoreMessage(recipientId,message,context.url);
     }
     else
     {
-      if(parseFloat(context.score)>=2.5)
-      {
-        showMoreMessage(recipientId,message,context.url);
-      }
-      else
-      {
-        sendMessage(recipientId,  {text: "Reply: "+message});
-      }
+      sendMessage(recipientId,  {text: "Reply: "+message});
     }
     console.log("message:"+message);
     //showMoreMessage(sessionId,context.answer,context.url);
