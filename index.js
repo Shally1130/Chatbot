@@ -68,7 +68,6 @@ const findOrCreateSession = (fbid) => {
   return sessionId;
 };
 
-var score = 0;;
 
 // Our bot actions
 const actions = {
@@ -83,15 +82,22 @@ const actions = {
     //sendMessage(sessionId, {text: "reply: "+(num+1).toString()+'\r\n'+context.answer.substring(num*310,length)});
 
     const recipientId = sessions[sessionId].fbid;
+    console.log("say"+message);
     console.log("say....................");
-    if(score>=2.5)
+    if(message.equals(" Do you like my answer? Please reply yes or no."))
     {
-      showMoreMessage(recipientId,message,context.url);
-      score - 0;
+      sendMessage(recipientId,  {text: "Reply: "+message});
     }
     else
     {
-      sendMessage(recipientId,  {text: "Reply: "+message});
+      if(parseFloat(context.score)>=2.5)
+      {
+        showMoreMessage(recipientId,message,context.url);
+      }
+      else
+      {
+        sendMessage(recipientId,  {text: "Reply: "+message});
+      }
     }
     console.log("message:"+message);
     //showMoreMessage(sessionId,context.answer,context.url);
@@ -182,7 +188,6 @@ const actions = {
          var urlend = data.indexOf("</resources>");
          //console.log(data.substring(beg + 9, end));
          context.score = data.substring(scorebeg + 12, scoreend);
-         score = parseFloat(context.score);
          if(parseFloat(context.score)>=2.5)
          {
             context.answer = data.substring(beg + 9, end).trim();
