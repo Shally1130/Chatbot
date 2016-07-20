@@ -83,7 +83,7 @@ const actions = {
 
     const recipientId = sessions[sessionId].fbid;
     console.log("say....................");
-    if(parseFloat(context.score)>=2.5)
+    if(parseFloat(context.score)>=2.5 && message.length>=310)
     {
       context.score = 0;
       showMoreMessage(recipientId,message,context.url);
