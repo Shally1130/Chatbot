@@ -83,9 +83,8 @@ const actions = {
 
     const recipientId = sessions[sessionId].fbid;
     console.log("say....................");
-    if(parseFloat(context.score)>=2.5)
+    if(parseFloat(context.score)>=2.5&&message.length>=50)
     {
-      context.score = "0";
       showMoreMessage(recipientId,message,context.url);
     }
     else
@@ -94,7 +93,7 @@ const actions = {
     }
     console.log("message:"+message);
     //showMoreMessage(sessionId,context.answer,context.url);
-    cb(context);   
+    cb();   
   },
   merge(sessionId, context, entities, message, cb) {
      // Retrieve the location entity and store it into a context field
