@@ -82,7 +82,6 @@ const actions = {
     //sendMessage(sessionId, {text: "reply: "+(num+1).toString()+'\r\n'+context.answer.substring(num*310,length)});
 
     const recipientId = sessions[sessionId].fbid;
-    console.log("say....................");
     console.log("equals = "+(message=="Do you like my answer? Please reply yes or no."));
     if(message=="Do you like my answer? Please reply yes or no.")
     {
@@ -99,40 +98,10 @@ const actions = {
         sendMessage(recipientId,  {text: "Reply: "+message});
       }
     }
-    
-    console.log("message:"+message);
     //showMoreMessage(sessionId,context.answer,context.url);
     cb();   
   },
   merge(sessionId, context, entities, message, cb) {
-     // Retrieve the location entity and store it into a context field
-    // const q = firstEntityValue(entities, 'question');
-    // // console.log('firstEntityValue');
-    // // console.log('loc11111111');
-    // if (q) {
-    //   context.question = q;
-    //   console.log('question!!!!!!!!!!!!!');
-    //   //wait.miliseconds(100);    
-    // }
-    console.log("merge...................................");
-    // var greetings = firstEntityValue(entities, 'greetings');
-    // if(greetings)
-    // {
-    //   context.score = "0";
-    //   console.log("greetings...................");
-    //   var contact = firstEntityValue(entities, 'contact');
-    //   console.log("contact"+contact+".........................");
-    //   if(contact)
-    //   {
-    //     context.contact = contact;
-    //   }
-    // }
-    // else
-    // {
-    //   context.query = message;
-    //   console.log("else???????????????");
-      
-    // }
     var contact = firstEntityValue(entities, 'contact');
     if(contact)
     {
@@ -148,19 +117,6 @@ const actions = {
   },
   // You should implement your custom actions here
   // See https://wit.ai/docs/quickstart
-  // ['Greetings']({context, entities}){
-  //   return new Promise(function(resolve, reject) {
-  //   const q = firstEntityValue(entities, 'contact');
-  //   console.log('firstEntityValue');
-  //   // console.log('loc11111111');
-  //   if (q) {
-  //     context.contact = q; 
-  //     console.log('contact!!!!!!!!!!!!!'+contact); 
-  //     //wait.miliseconds(100);    
-  //   }
-  //   return resolve(context); 
-  // });
-  // },
 
   ['Query-Answer'](sessionId, context,cb) {
 
@@ -222,64 +178,55 @@ const wit = new Wit(WIT_TOKEN, actions);
 
 // handler receiving messages
 app.post('/webhook', function (req, res) {
-    var events = req.body.entry[0].messaging;
-    //console.log("app.post('/webhook', function (req, res) .....................");
+  var events = req.body.entry[0].messaging;
+  //console.log("app.post('/webhook', function (req, res) .....................");
 
-    //console.log("Events length = " + events.length);
-    //console.log("Events = " + events);
-    for (var i = 0; i < events.length; i++) {
-        var event = events[i];
-        const context0 = {};
-        // if (event.message && event.message.text) {
-        //     sendMessage(event.sender.id, {text: "Echo: " + event.message.text});
-        // }
+  //console.log("Events length = " + events.length);
+  //console.log("Events = " + events);
+  for (var i = 0; i < events.length; i++) {
+    var event = events[i];
+    const context0 = {};
+    ////////////////////////////////////////////////////
+    // We retrieve the Facebook user ID of the sender
+    const sender = event.sender.id;
 
-        ////////////////////////////////////////////////////
-        // We retrieve the Facebook user ID of the sender
-        const sender = event.sender.id;
+    // We retrieve the user's current session, or create one if it doesn't exist
+    // This is needed for our bot to figure out the conversation history
+    const sessionId = findOrCreateSession(sender);
 
-        // We retrieve the user's current session, or create one if it doesn't exist
-        // This is needed for our bot to figure out the conversation history
-        const sessionId = findOrCreateSession(sender);
+    // We retrieve the message content
+    //console.log("Event = " + event);
+    if (event.message && event.message.text) {
+      const msg = event.message.text;
+      
+      /////////////////////////////////////////////////////
 
-        // We retrieve the message content
-        //console.log("Event = " + event);
-        if (event.message && event.message.text) {
-            const msg = event.message.text;
-            
-            /////////////////////////////////////////////////////
-
-            wit.runActions(
-                sessionId, // the user's current session
-                msg, // the user's message 
-                context0, // the user's current session state
-                (error, context) => {
-                    console.log("Entering callback");
-                    if (error) {
-                        console.log(context);
-                        console.log('Oops! Got an error from Wit:', error);
-                    } else {
-                    // Our bot did everything it has to do.
-                    // Now it's waiting for further messages to proceed.
-                        // console.log('Waiting for futher messages.');
-                        //console.log("Before answer context = " + context);
-                        //context.answers += "answer:" + context.answer;
-                        console.log("Session content:"+sessions[sessionId].context+"............");
-                        //console.log(context.answer);
-                        console.log("Exiting callback");
-                        //sendMessage(event.sender.id, {text: "reply: "+context0.intro});
-                    }
-                    
-                }
-            );
+      wit.runActions(
+        sessionId, // the user's current session
+        msg, // the user's message 
+        context0, // the user's current session state
+        (error, context) => {
+          console.log("Entering callback");
+          if (error) {
+              console.log(context);
+              console.log('Oops! Got an error from Wit:', error);
+          } else {
+              // Our bot did everything it has to do.
+              // Now it's waiting for further messages to proceed.
+              // console.log('Waiting for futher messages.');
+              //console.log("Before answer context = " + context);
+              //context.answers += "answer:" + context.answer;
+              console.log("Session content:"+sessions[sessionId].context+"............");
+              //console.log(context.answer);
+              console.log("Exiting callback");
+              //sendMessage(event.sender.id, {text: "reply: "+context0.intro});
+          }
         }
+      );
     }
-    res.sendStatus(200);
+  }
+  res.sendStatus(200);
 });
-
-var messageLeft = "";
-
-
 
 function showMoreMessage(recipientId, text, url) {
   console.log('show more message...........');
@@ -314,8 +261,6 @@ function showMoreMessage(recipientId, text, url) {
   sendMessage(recipientId, message);
 
 }
-
-
 
 
 // generic function sending messages
