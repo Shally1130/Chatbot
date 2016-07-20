@@ -106,24 +106,32 @@ const actions = {
     //   //wait.miliseconds(100);    
     // }
     console.log("merge...................................");
-    var greetings = firstEntityValue(entities, 'greetings');
-    if(greetings)
-    {
-      context.score = "0";
-      console.log("greetings...................");
-      var contact = firstEntityValue(entities, 'contact');
-      console.log("contact"+contact+".........................");
-      if(contact)
-      {
-        context.contact = contact;
-      }
-    }
-    else
-    {
-      context.query = message;
-      console.log("else???????????????");
+    // var greetings = firstEntityValue(entities, 'greetings');
+    // if(greetings)
+    // {
+    //   context.score = "0";
+    //   console.log("greetings...................");
+    //   var contact = firstEntityValue(entities, 'contact');
+    //   console.log("contact"+contact+".........................");
+    //   if(contact)
+    //   {
+    //     context.contact = contact;
+    //   }
+    // }
+    // else
+    // {
+    //   context.query = message;
+    //   console.log("else???????????????");
       
+    // }
+    var contact = firstEntityValue(entities, 'contact');
+    if(contact)
+    {
+      context.contact = contact;
     }
+    context.score = "0";
+    context.query = message;
+    console.log("Exiting merging..............");
     cb(context);
   },
   error(sessionId, context, error) {
