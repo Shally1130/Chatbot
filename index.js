@@ -85,6 +85,7 @@ const actions = {
     console.log("say....................");
     if(parseFloat(context.score)>=2.5)
     {
+      context.score = "0";
       showMoreMessage(recipientId,message,context.url);
     }
     else
@@ -93,7 +94,7 @@ const actions = {
     }
     console.log("message:"+message);
     //showMoreMessage(sessionId,context.answer,context.url);
-    cb();   
+    cb(context);   
   },
   merge(sessionId, context, entities, message, cb) {
      // Retrieve the location entity and store it into a context field
