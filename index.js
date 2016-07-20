@@ -83,13 +83,14 @@ const actions = {
 
     const recipientId = sessions[sessionId].fbid;
     console.log("say....................");
-    if(parseFloat(context.score)>=2.5&&message.substring(0,5).equals(Reply))
+    if(parseFloat(context.score)>=2.5)
     {
       showMoreMessage(recipientId,message,context.url);
+      delete context.score;
     }
     else
     {
-      sendMessage(recipientId,  {text: message});
+      sendMessage(recipientId,  {text: "Reply: "+message});
     }
     console.log("message:"+message);
     //showMoreMessage(sessionId,context.answer,context.url);
@@ -288,7 +289,7 @@ function showMoreMessage(recipientId, text, url) {
                     "type": "template",
                     "payload": {
                         "template_type": "button",
-                        "text":   reply,
+                        "text":   "Reply: "+ reply,
                         //"subtitle": "Cute kitten picture",
                         "buttons": [
                           {
