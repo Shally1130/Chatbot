@@ -63,7 +63,7 @@ const findOrCreateSession = (fbid) => {
   if (!sessionId) {
     // No session found for user fbid, let's create a new one
     sessionId = new Date().toISOString();
-    sessions[sessionId] = {fbid: fbid, context: ""};
+    sessions[sessionId] = {fbid: fbid, context: []};
   }
   return sessionId;
 };
@@ -176,8 +176,10 @@ const actions = {
          if(parseFloat(context.score)>=2.5)
          {
             context.answer = data.substring(beg + 9, end).trim();
-            sessions[sessionId].context += " <question>" + context.query + "</question>";
-            sessions[sessionId].context += " <answer>" + context.answer+"</answer>";
+            var temp = [];
+            temp.push(" <question>" + context.query + "</question>");
+            temp.push(" <answer>" + context.answer+"</answer>")
+            sessions[sessionId].context.push(temp);
             context.url = data.substring(urlbeg + 11, urlend).trim();
             console.log('score: '+parseFloat(data.substring(scorebeg + 12, scoreend)));
          }
@@ -266,21 +268,20 @@ var messageLeft = "";
 function showMoreMessage(recipientId, text, url) {
   console.log('show more message...........');
   var reply="";
-  var feedback = "Do you like my answer? Please reply yes or no."
-  if(text.length>=300)
+  if(text.length>=310)
   {
   	reply += text.substring(0,300)+".......";
   }
   else
   {
-  	sendMessage(recipientId, text+feedback);
+  	reply = text;
   }
   var message = {
                 "attachment": {
                     "type": "template",
                     "payload": {
                         "template_type": "button",
-                        "text":   "reply: "+ reply + feedback,
+                        "text":   "reply: "+ reply,
                         //"subtitle": "Cute kitten picture",
                         "buttons": [
                           {
