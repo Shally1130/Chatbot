@@ -83,8 +83,7 @@ const actions = {
 
     const recipientId = sessions[sessionId].fbid;
     console.log("say....................");
-    console.log("equals = "+JSON.stringify(message));
-      console.log("equals = "+JSON.stringify(message).equals("Do you like"));
+      console.log("equals = "+(JSON.stringify(message)=="Do you like"));
     if(parseFloat(context.score)>=2.5)
     {
       showMoreMessage(recipientId,message,context.url);
