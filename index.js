@@ -68,7 +68,7 @@ const findOrCreateSession = (fbid) => {
   return sessionId;
 };
 
-const score;
+var score = 0;;
 
 // Our bot actions
 const actions = {
