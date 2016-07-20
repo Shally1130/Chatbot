@@ -83,6 +83,7 @@ const actions = {
 
     const recipientId = sessions[sessionId].fbid;
     console.log("say....................");
+    console.log(message+"        score:"+context.score+"............");
     if(parseFloat(context.score)>=2.5)
     {
       context.score = 0;
@@ -95,7 +96,7 @@ const actions = {
     else
     {
       context.score = 0;
-      sendMessage(recipientId,  {text: "reply: "+message});
+      sendMessage(recipientId,  {text: "Reply: "+message});
     }
     console.log("message:"+message);
     //showMoreMessage(sessionId,context.answer,context.url);
@@ -285,7 +286,7 @@ function showMoreMessage(recipientId, text, url) {
                     "type": "template",
                     "payload": {
                         "template_type": "button",
-                        "text":   "reply: "+ reply,
+                        "text":   "Reply: "+ reply,
                         //"subtitle": "Cute kitten picture",
                         "buttons": [
                           {
