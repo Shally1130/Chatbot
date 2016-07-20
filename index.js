@@ -83,7 +83,7 @@ const actions = {
 
     const recipientId = sessions[sessionId].fbid;
     console.log("equals = "+(message=="Do you like my answer? Please reply yes or no."));
-    if(message=="Do you like my answer? Please reply yes or no.")
+    if(message=="Do you like my answer? Please reply yes or no."||message == "Sorry, I don't quite understand your question. Could you say again?")
     {
       sendMessage(recipientId,  {text: "Feedback: "+message});
     }
@@ -153,11 +153,12 @@ const actions = {
             temp.push(" <answer>" + context.answer+"</answer>")
             sessions[sessionId].context.push(temp);
             context.url = data.substring(urlbeg + 11, urlend).trim();
+            delete non-answer;
             console.log('score: '+parseFloat(data.substring(scorebeg + 12, scoreend)));
          }
          else
          {
-            context.answer = "Sorry, I don't quite understand your question. Could you say again?";
+            delete answer;
             console.log("<2.5................"); 
          }
          //console.log(context.answer);
