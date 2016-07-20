@@ -68,6 +68,7 @@ const findOrCreateSession = (fbid) => {
   return sessionId;
 };
 
+const score;
 
 // Our bot actions
 const actions = {
@@ -83,10 +84,10 @@ const actions = {
 
     const recipientId = sessions[sessionId].fbid;
     console.log("say....................");
-    if(parseFloat(context.score)>=2.5)
+    if(score>=2.5)
     {
       showMoreMessage(recipientId,message,context.url);
-      delete context.score;
+      score - 0;
     }
     else
     {
@@ -181,6 +182,7 @@ const actions = {
          var urlend = data.indexOf("</resources>");
          //console.log(data.substring(beg + 9, end));
          context.score = data.substring(scorebeg + 12, scoreend);
+         score = parseFloat(context.score);
          if(parseFloat(context.score)>=2.5)
          {
             context.answer = data.substring(beg + 9, end).trim();
