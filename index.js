@@ -85,12 +85,10 @@ const actions = {
     console.log("say....................");
     if(parseFloat(context.score)>=2.5)
     {
-      context.score = "0";
       showMoreMessage(recipientId,message,context.url);
     }
     else
     {
-      context.score = "0";
       sendMessage(recipientId,  {text: "Reply: "+message});
     }
     console.log("message:"+message);
@@ -111,6 +109,7 @@ const actions = {
     var greetings = firstEntityValue(entities, 'greetings');
     if(greetings)
     {
+      context.score = "0";
       console.log("greetings...................");
       var contact = firstEntityValue(entities, 'contact');
       console.log("contact"+contact+".........................");
