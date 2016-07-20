@@ -83,21 +83,15 @@ const actions = {
 
     const recipientId = sessions[sessionId].fbid;
     console.log("say....................");
-    console.log(message+"        score:"+context.score+"............");
-    if(message.equals("Do you like my answer? Please reply yes or no."))
+    if(parseFloat(context.score)>=2.5)
     {
-      sendMessage(recipientId,  {text: "Feedback: "+message})
+      context.score = "0";
+      showMoreMessage(recipientId,message,context.url);
     }
-    else 
+    else
     {
-      if(parseFloat(context.score)>=2.5)
-      {
-        showMoreMessage(recipientId,message,context.url);
-      }
-      else
-      {
-        sendMessage(recipientId,  {text: "Reply: "+message});
-      }
+      context.score = "0";
+      sendMessage(recipientId,  {text: "Reply: "+message});
     }
     console.log("message:"+message);
     //showMoreMessage(sessionId,context.answer,context.url);
