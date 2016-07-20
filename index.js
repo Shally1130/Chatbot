@@ -153,12 +153,12 @@ const actions = {
             temp.push(" <answer>" + context.answer+"</answer>")
             sessions[sessionId].context.push(temp);
             context.url = data.substring(urlbeg + 11, urlend).trim();
-            delete non-answer;
+            delete context.non-answer;
             console.log('score: '+parseFloat(data.substring(scorebeg + 12, scoreend)));
          }
          else
          {
-            delete answer;
+            delete context.answer;
             console.log("<2.5................"); 
          }
          //console.log(context.answer);
