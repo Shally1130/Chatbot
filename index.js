@@ -134,6 +134,8 @@ const actions = {
     /*two conditions: 1. this user has never sent questions
                       2. the score of last question's answer is lower than 2.5
     */
+
+    console.log("size:"+size+"..............................");
     if(size<=1 || session[sessionId].context[size-1].contains("<question>"))
     {
     	pathname = '/?qid=1&title=' + encodeURIComponent(context.query)+ '&body=Some%20additional%20information%20on%20the%20question&category=Knowledge';
