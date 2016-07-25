@@ -146,34 +146,22 @@ const actions = {
     /*parse answer and question*/
     else {
         console.log("parse question and answer...............");
-    	if(context.query!=sessions[sessionId].context[size-1][0])
-    	{
-    		pathname = '/?qid=1&title=' + encodeURIComponent(context.query)+ '&body=Some%20additional%20information%20on%20the%20question&category=Knowledge';
-    	}
-    	else
-    	{
-    		yes_no = firstEntityValue(entities, 'yes_no');
-    		console.log("get value of yes_no.....................");
-    		/* get user's feedback*/
-		    if(yes_no)
-		    { 
-		        /*good feedback*/
-		        if(yes_no == "Y")
-		      	{
-		      		console.log("the value of yes_no is 'Y'");
-		      		pathname += '&goodanswer=';
-		      	} 
-		      	/*bad feedback*/
-		      	else if(yes_no == "N")
-		      	{
-		      		console.log("the value of yes_no is 'N'");
-		      		pathname += '&badanswer=';
-		      	}	
-		      	pathname +=encodeURIComponent(sessions[sessionId].context[size-1][1]);
-		      	console.log("yes_no" + pathname);
-		    }
-
-		 }
+    	
+		yes_no = firstEntityValue(entities, 'yes_no');
+		console.log("get value of yes_no.....................");
+		/* get user's feedback*/
+	    if(yes_no)
+	    { 
+	      	/*bad feedback*/
+	      	if(yes_no == "No")
+	      	{
+	      		context.query = sessions[sessionId].context[size-1][0];
+	      		console.log("the value of yes_no is 'N'");
+	      		pathname = '/?qid=1&title=' + encodeURIComponent(context.query)+ '&body=Some%20additional%20information%20on%20the%20question&category=Knowledge&badanswer=';
+	      	}	
+	      	pathname +=encodeURIComponent(sessions[sessionId].context[size-1][1]);
+	      	console.log("yes_no" + pathname);
+	    }
 	}
     var options = {
       host: 'carbonite.mathcs.emory.edu',
