@@ -68,8 +68,6 @@ const findOrCreateSession = (fbid) => {
   return sessionId;
 };
 
-var flag = false;
-
 
 // Our bot actions
 const actions = {
@@ -129,7 +127,51 @@ const actions = {
     // Here should go the api call, e.g.:
     // context.forecast = apiCall(context.loc)
     ////////////////////////////////////////////////////
-    var pathname = '/?qid=1&title=' + encodeURIComponent(context.query)+ '&body=Some%20additional%20information%20on%20the%20question&category=Knowledge';
+    var pathname;
+    //get the content of previous question 
+    var size = sessions[sessionId].context.length;
+    var yes_no;
+    /*two conditions: 1. this user has never sent questions
+                      2. the score of last question's answer is lower than 2.5
+    */
+    if(size<=1 || session[sessionId].context[size-1].contains("<question>"))
+    {
+    	pathname = '/?qid=1&title=' + encodeURIComponent(context.query)+ '&body=Some%20additional%20information%20on%20the%20question&category=Knowledge';
+    }
+    /*parse answer and question*/
+    else if(session[sessionId].context[size-2].contains("<question>"))
+    {
+    	var qbeg = session[sessionId].context[size-2].indexOf("<question>");
+        var qend = session[sessionId].context[size-2].indexOf("</question>");
+    	if(context.query!=session[sessionId].context[size-2].substring(qbeg+10,qend))
+    	{
+    		pathname = '/?qid=1&title=' + encodeURIComponent(context.query)+ '&body=Some%20additional%20information%20on%20the%20question&category=Knowledge';
+    	}
+    	else
+    	{
+    		yes_no = firstEntityValue(entities, 'yes_no');
+    		/* get user's feedback*/
+		    if(yes_no)
+		    {
+		       /*good feedback*/
+		      if(yes_no == "Y")
+		      {
+		      	var abeg = session[sessionId].context[size-1].indexOf("<answer>");
+		        var aend = session[sessionId].context[size-1].indexOf("</answer>");
+		      	pathname += '&goodanswer='+session[sessionId].context[size-1].substring(abeg+8,aend)
+		      }
+		      /*bad feedback*/
+		      else if(yes_no == "N")
+		      {
+		      	var abeg = session[sessionId].context[size-1].indexOf("<answer>");
+		        var aend = session[sessionId].context[size-1].indexOf("</answer>");
+		      	pathname += '&badanswer='+session[sessionId].context[size-1].substring(abeg+8,aend)
+		      }
+		      	
+		    }
+
+		 }
+	}
     var options = {
       host: 'carbonite.mathcs.emory.edu',
       port: '8080',
