@@ -68,6 +68,8 @@ const findOrCreateSession = (fbid) => {
   return sessionId;
 };
 
+var flag = false;
+
 
 // Our bot actions
 const actions = {
@@ -97,6 +99,10 @@ const actions = {
       {
         sendMessage(recipientId,  {text: "Reply: "+message});
       }
+    }
+    if(message=="Do you want more details?")
+    {
+      flag = true;
     }
     //showMoreMessage(sessionId,context.answer,context.url);
     cb();   
