@@ -132,28 +132,28 @@ const actions = {
     //get the content of previous question 
     var size = sessions[sessionId].context.length;
     //var yes_no;
-    context.q = context.query;
+    var query = context.query;
     /*conditions: 1. this user has never sent questions
     */
     console.log("size:" + size + "..............................");
     if(size==0 ){
-    	pathname = '/?qid=1&title=' + encodeURIComponent(context.q)+ '&body=Some%20additional%20information%20on%20the%20question&category=Knowledge';
-    	console.log("context.query = "+ context.q);
+    	pathname = '/?qid=1&title=' + encodeURIComponent(query)+ '&body=Some%20additional%20information%20on%20the%20question&category=Knowledge';
+    	console.log("context.query = "+ query);
     	console.log("two conditions............"+pathname);
     }
     /*parse answer and question*/
     else {
         console.log("parse question and answer...............");
-        console.log("context.query = " + context.q);
-        if(context.q!= null)
+        console.log("context.query = " + query);
+        if(query!= null)
         {
-        	pathname = '/?qid=1&title=' + encodeURIComponent(context.q)+ '&body=Some%20additional%20information%20on%20the%20question&category=Knowledge';
-    		console.log("context.query = "+ context.q);
+        	pathname = '/?qid=1&title=' + encodeURIComponent(query)+ '&body=Some%20additional%20information%20on%20the%20question&category=Knowledge';
+    		console.log("context.query = "+ query);
     		console.log("two conditions............"+pathname);
         }
     	else{
     		console.log("the value of yes_no is 'N'");
-    		context.q = sessions[sessionId].context[size-1][0];
+    		query = sessions[sessionId].context[size-1][0];
 	      	pathname += '&badanswer=';
 	      	pathname +=encodeURIComponent(sessions[sessionId].context[size-1][1]);
 	      	console.log("yes_no" + pathname);
@@ -184,7 +184,7 @@ const actions = {
          {
             context.answer = data.substring(beg + 9, end).trim();
             var temp = [];
-            temp.push(context.q);
+            temp.push(query);
             temp.push(context.answer);
             sessions[sessionId].context.push(temp);
             context.url = data.substring(urlbeg + 11, urlend).trim();
@@ -194,7 +194,6 @@ const actions = {
          else
          { 
             delete context.answer;
-            delete context.q;
             console.log("<2.5................"); 
          }
          //console.log(context.answer);
