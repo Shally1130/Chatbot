@@ -150,7 +150,7 @@ const actions = {
     /*parse answer and question*/
     else {
         console.log("parse question and answer...............");
-        console.log("context.query = " context.query);
+        console.log("context.query = " + context.query);
         if(context.query!=sessions[sessionId].context[size-1][0])
         {
         	pathname = '/?qid=1&title=' + encodeURIComponent(context.query)+ '&body=Some%20additional%20information%20on%20the%20question&category=Knowledge';
