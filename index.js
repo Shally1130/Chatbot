@@ -150,17 +150,18 @@ const actions = {
     /*parse answer and question*/
     else {
         console.log("parse question and answer...............");
-    	
-		yes_no = firstEntityValue(entities, 'yes_no');
-		console.log("get value of yes_no.....................");
-		/* get user's feedback*/
-	    if(yes_no)
-	    { 
-	      	console.log("the value of yes_no is 'N'");
+        if(context.query!=sessions[sessionId].context[size-1][0])
+        {
+        	pathname = '/?qid=1&title=' + encodeURIComponent(context.query)+ '&body=Some%20additional%20information%20on%20the%20question&category=Knowledge';
+    		console.log("context.query = "+ context.query);
+    		console.log("two conditions............"+pathname);
+        }
+    	else{
+    		console.log("the value of yes_no is 'N'");
 	      	pathname = '/?qid=1&title=' + encodeURIComponent(context.query)+ '&body=Some%20additional%20information%20on%20the%20question&category=Knowledge&badanswer=';
 	      	pathname +=encodeURIComponent(sessions[sessionId].context[size-1][1]);
 	      	console.log("yes_no" + pathname);
-	    }
+    	}
 	}
     var options = {
       host: 'carbonite.mathcs.emory.edu',
