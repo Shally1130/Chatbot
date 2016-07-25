@@ -163,7 +163,7 @@ const actions = {
       path:  pathname
     };
     console.log("api call!!!!!!!!!!!!!!!!!!");
-    console.log(pathname);
+    console.log("pathname"+pathname);
     var decoder = new StringDecoder();
     http.get(options, (res) => {
       console.log(`Got response: ${res.statusCode}`);
