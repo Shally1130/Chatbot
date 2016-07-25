@@ -139,6 +139,7 @@ const actions = {
     if(size<=1 || sessions[sessionId].context[size-1].contains("<question>"))
     {
     	pathname = '/?qid=1&title=' + encodeURIComponent(context.query)+ '&body=Some%20additional%20information%20on%20the%20question&category=Knowledge';
+    	console.log("context.query = "+ context.query);
     	console.log("two conditions............"+pathname);
     
     }
