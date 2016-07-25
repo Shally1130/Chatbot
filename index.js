@@ -213,7 +213,7 @@ const actions = {
             console.log('score: '+parseFloat(data.substring(scorebeg + 12, scoreend)));
          }
          else
-         {
+         { 
             delete context.answer;
             console.log("<2.5................"); 
          }
