@@ -169,7 +169,7 @@ const actions = {
 		      		console.log("the value of yes_no is 'N'");
 		      		pathname += '&badanswer=';
 		      	}	
-		      	pathname +=encodeURIComponent(sessions[sessionId].context[size-1][1];
+		      	pathname +=encodeURIComponent(sessions[sessionId].context[size-1][1]);
 		      	console.log("yes_no" + pathname);
 		    }
 
