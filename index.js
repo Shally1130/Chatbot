@@ -136,7 +136,7 @@ const actions = {
     */
 
     console.log("size:" + size + "..............................");
-    if(size<=1 || sessions[sessionId].context[size-1].contains("<question>"))
+    if(size==0 )
     {
     	pathname = '/?qid=1&title=' + encodeURIComponent(context.query)+ '&body=Some%20additional%20information%20on%20the%20question&category=Knowledge';
     	console.log("context.query = "+ context.query);
@@ -144,12 +144,10 @@ const actions = {
     
     }
     /*parse answer and question*/
-    else if(sessions[sessionId].context[size-2].contains("<question>"))
+    else
     {
-    	var qbeg = sessions[sessionId].context[size-2].indexOf("<question>");
-        var qend = sessions[sessionId].context[size-2].indexOf("</question>");
         console.log("parse question and answer...............");
-    	if(context.query!=sessions[sessionId].context[size-2].substring(qbeg+10,qend))
+    	if(context.query!=sessions[sessionId].context[size-1][0])
     	{
     		pathname = '/?qid=1&title=' + encodeURIComponent(context.query)+ '&body=Some%20additional%20information%20on%20the%20question&category=Knowledge';
     	}
@@ -160,8 +158,7 @@ const actions = {
     		/* get user's feedback*/
 		    if(yes_no)
 		    { 
-		    	var abeg = sessions[sessionId].context[size-1].indexOf("<answer>");
-		        var aend = sessions[sessionId].context[size-1].indexOf("</answer>");
+
 		        /*good feedback*/
 		        if(yes_no == "Y")
 		      	{
@@ -174,7 +171,7 @@ const actions = {
 		      		console.log("the value of yes_no is 'N'");
 		      		pathname += '&badanswer=';
 		      	}	
-		      	pathname +=encodeURIComponent(sessions[sessionId].context[size-1].substring(abeg+8,aend));
+		      	pathname +=encodeURIComponent(sessions[sessionId].context[size-1][1];
 		      	console.log("yes_no" + pathname);
 		    }
 
@@ -205,8 +202,8 @@ const actions = {
          {
             context.answer = data.substring(beg + 9, end).trim();
             var temp = [];
-            temp.push(" <question>" + context.query + "</question>");
-            temp.push(" <answer>" + context.answer+"</answer>");
+            temp.push(context.query);
+            temp.push(context.answer);
             sessions[sessionId].context.push(temp);
             context.url = data.substring(urlbeg + 11, urlend).trim();
             delete context.nonAnswer;
