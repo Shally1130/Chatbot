@@ -204,7 +204,7 @@ const actions = {
             context.answer = data.substring(beg + 9, end).trim();
             var temp = [];
             temp.push(" <question>" + context.query + "</question>");
-            temp.push(" <answer>" + context.answer+"</answer>")
+            temp.push(" <answer>" + context.answer+"</answer>");
             sessions[sessionId].context.push(temp);
             context.url = data.substring(urlbeg + 11, urlend).trim();
             delete context.nonAnswer;
