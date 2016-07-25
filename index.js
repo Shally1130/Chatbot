@@ -122,7 +122,7 @@ const actions = {
   // You should implement your custom actions here
   // See https://wit.ai/docs/quickstart
 
-  ['Query-Answer'](sessionId, context,cb) {
+  ['Query-Answer'](sessionId, context, cb) {
 
     // Here should go the api call, e.g.:
     // context.forecast = apiCall(context.loc)
@@ -135,11 +135,11 @@ const actions = {
                       2. the score of last question's answer is lower than 2.5
     */
 
-    console.log("size:"+size+"..............................");
+    console.log("size:" + size + "..............................");
     if(size<=1 || session[sessionId].context[size-1].contains("<question>"))
     {
     	pathname = '/?qid=1&title=' + encodeURIComponent(context.query)+ '&body=Some%20additional%20information%20on%20the%20question&category=Knowledge';
-    	console.log("two conditions............");
+    	console.log("two conditions............"+pathname);
     
     }
     /*parse answer and question*/
@@ -155,7 +155,7 @@ const actions = {
     	else
     	{
     		yes_no = firstEntityValue(entities, 'yes_no');
-    		console.log("get value of yes_no.................");
+    		console.log("get value of yes_no.....................");
     		/* get user's feedback*/
 		    if(yes_no)
 		    {
@@ -173,7 +173,8 @@ const actions = {
 		      		console.log("the value of yes_no is 'N'");
 		      		pathname += '&badanswer=';
 		      	}	
-		      	pathname +=session[sessionId].context[size-1].substring(abeg+8,aend);
+		      	pathname +=encodeURIComponent(session[sessionId].context[size-1].substring(abeg+8,aend));
+		      	console.log("yes_no" + pathname);
 		    }
 
 		 }
