@@ -136,19 +136,19 @@ const actions = {
     */
 
     console.log("size:" + size + "..............................");
-    if(size<=1 || session[sessionId].context[size-1].contains("<question>"))
+    if(size<=1 || sessions[sessionId].context[size-1].contains("<question>"))
     {
     	pathname = '/?qid=1&title=' + encodeURIComponent(context.query)+ '&body=Some%20additional%20information%20on%20the%20question&category=Knowledge';
     	console.log("two conditions............"+pathname);
     
     }
     /*parse answer and question*/
-    else if(session[sessionId].context[size-2].contains("<question>"))
+    else if(sessions[sessionId].context[size-2].contains("<question>"))
     {
-    	var qbeg = session[sessionId].context[size-2].indexOf("<question>");
-        var qend = session[sessionId].context[size-2].indexOf("</question>");
+    	var qbeg = sessions[sessionId].context[size-2].indexOf("<question>");
+        var qend = sessions[sessionId].context[size-2].indexOf("</question>");
         console.log("parse question and answer...............");
-    	if(context.query!=session[sessionId].context[size-2].substring(qbeg+10,qend))
+    	if(context.query!=sessions[sessionId].context[size-2].substring(qbeg+10,qend))
     	{
     		pathname = '/?qid=1&title=' + encodeURIComponent(context.query)+ '&body=Some%20additional%20information%20on%20the%20question&category=Knowledge';
     	}
@@ -159,8 +159,8 @@ const actions = {
     		/* get user's feedback*/
 		    if(yes_no)
 		    { 
-		    	var abeg = session[sessionId].context[size-1].indexOf("<answer>");
-		        var aend = session[sessionId].context[size-1].indexOf("</answer>");
+		    	var abeg = sessions[sessionId].context[size-1].indexOf("<answer>");
+		        var aend = sessions[sessionId].context[size-1].indexOf("</answer>");
 		        /*good feedback*/
 		        if(yes_no == "Y")
 		      	{
@@ -173,7 +173,7 @@ const actions = {
 		      		console.log("the value of yes_no is 'N'");
 		      		pathname += '&badanswer=';
 		      	}	
-		      	pathname +=encodeURIComponent(session[sessionId].context[size-1].substring(abeg+8,aend));
+		      	pathname +=encodeURIComponent(sessions[sessionId].context[size-1].substring(abeg+8,aend));
 		      	console.log("yes_no" + pathname);
 		    }
 
