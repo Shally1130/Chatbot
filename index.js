@@ -112,7 +112,15 @@ const actions = {
       context.contact = contact;
     }
     context.score = "0";
-    context.query = message;
+    var size = sessions[sessionId].context.length;
+    if(message == "No")
+    {
+    	context.query = sessions[sessionId].context[size-1][0];
+    }
+    else
+    {
+    	context.query = message;
+    }
     console.log("Exiting merging..............");
     cb(context);
   },
@@ -131,17 +139,13 @@ const actions = {
     //get the content of previous question 
     var size = sessions[sessionId].context.length;
     var yes_no;
-    /*two conditions: 1. this user has never sent questions
-                      2. the score of last question's answer is lower than 2.5
+    /*conditions: 1. this user has never sent questions
     */
-
     console.log("size:" + size + "..............................");
-    if(size==0 )
-    {
+    if(size==0 ){
     	pathname = '/?qid=1&title=' + encodeURIComponent(context.query)+ '&body=Some%20additional%20information%20on%20the%20question&category=Knowledge';
     	console.log("context.query = "+ context.query);
     	console.log("two conditions............"+pathname);
-    
     }
     /*parse answer and question*/
     else {
@@ -152,13 +156,8 @@ const actions = {
 		/* get user's feedback*/
 	    if(yes_no)
 	    { 
-	      	/*bad feedback*/
-	      	if(yes_no == "No")
-	      	{
-	      		context.query = sessions[sessionId].context[size-1][0];
-	      		console.log("the value of yes_no is 'N'");
-	      		pathname = '/?qid=1&title=' + encodeURIComponent(context.query)+ '&body=Some%20additional%20information%20on%20the%20question&category=Knowledge&badanswer=';
-	      	}	
+	      	console.log("the value of yes_no is 'N'");
+	      	pathname = '/?qid=1&title=' + encodeURIComponent(context.query)+ '&body=Some%20additional%20information%20on%20the%20question&category=Knowledge&badanswer=';
 	      	pathname +=encodeURIComponent(sessions[sessionId].context[size-1][1]);
 	      	console.log("yes_no" + pathname);
 	    }
