@@ -137,12 +137,15 @@ const actions = {
     if(size<=1 || session[sessionId].context[size-1].contains("<question>"))
     {
     	pathname = '/?qid=1&title=' + encodeURIComponent(context.query)+ '&body=Some%20additional%20information%20on%20the%20question&category=Knowledge';
+    	console.log("two conditions............");
+    
     }
     /*parse answer and question*/
     else if(session[sessionId].context[size-2].contains("<question>"))
     {
     	var qbeg = session[sessionId].context[size-2].indexOf("<question>");
         var qend = session[sessionId].context[size-2].indexOf("</question>");
+        console.log("parse question and answer...............");
     	if(context.query!=session[sessionId].context[size-2].substring(qbeg+10,qend))
     	{
     		pathname = '/?qid=1&title=' + encodeURIComponent(context.query)+ '&body=Some%20additional%20information%20on%20the%20question&category=Knowledge';
@@ -150,24 +153,25 @@ const actions = {
     	else
     	{
     		yes_no = firstEntityValue(entities, 'yes_no');
+    		console.log("get value of yes_no.................");
     		/* get user's feedback*/
 		    if(yes_no)
 		    {
-		       /*good feedback*/
-		      if(yes_no == "Y")
-		      {
-		      	var abeg = session[sessionId].context[size-1].indexOf("<answer>");
+		    	var abeg = session[sessionId].context[size-1].indexOf("<answer>");
 		        var aend = session[sessionId].context[size-1].indexOf("</answer>");
-		      	pathname += '&goodanswer='+session[sessionId].context[size-1].substring(abeg+8,aend)
-		      }
-		      /*bad feedback*/
-		      else if(yes_no == "N")
-		      {
-		      	var abeg = session[sessionId].context[size-1].indexOf("<answer>");
-		        var aend = session[sessionId].context[size-1].indexOf("</answer>");
-		      	pathname += '&badanswer='+session[sessionId].context[size-1].substring(abeg+8,aend)
-		      }
-		      	
+		        /*good feedback*/
+		        if(yes_no == "Y")
+		      	{
+		      		console.log("the value of yes_no is 'Y'");
+		      		pathname += '&goodanswer=';
+		      	}
+		      	/*bad feedback*/
+		      	else if(yes_no == "N")
+		      	{
+		      		console.log("the value of yes_no is 'N'");
+		      		pathname += '&badanswer=';
+		      	}	
+		      	pathname +=session[sessionId].context[size-1].substring(abeg+8,aend);
 		    }
 
 		 }
