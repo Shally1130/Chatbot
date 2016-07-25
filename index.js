@@ -144,8 +144,7 @@ const actions = {
     
     }
     /*parse answer and question*/
-    else
-    {
+    else {
         console.log("parse question and answer...............");
     	if(context.query!=sessions[sessionId].context[size-1][0])
     	{
@@ -158,7 +157,6 @@ const actions = {
     		/* get user's feedback*/
 		    if(yes_no)
 		    { 
-
 		        /*good feedback*/
 		        if(yes_no == "Y")
 		      	{
