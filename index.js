@@ -158,7 +158,7 @@ const actions = {
     		console.log("get value of yes_no.....................");
     		/* get user's feedback*/
 		    if(yes_no)
-		    {
+		    { 
 		    	var abeg = session[sessionId].context[size-1].indexOf("<answer>");
 		        var aend = session[sessionId].context[size-1].indexOf("</answer>");
 		        /*good feedback*/
