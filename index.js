@@ -113,14 +113,7 @@ const actions = {
     }
     context.score = "0";
     var size = sessions[sessionId].context.length;
-    if(message == "No")
-    {
-    	context.query = sessions[sessionId].context[size-1][0];
-    }
-    else
-    {
-    	context.query = message;
-    }
+    context.query = message;
     console.log("Exiting merging..............");
     cb(context);
   },
@@ -151,7 +144,7 @@ const actions = {
     else {
         console.log("parse question and answer...............");
         console.log("context.query = " + context.query);
-        if(context.query!=sessions[sessionId].context[size-1][0])
+        if(context.query!= null)
         {
         	pathname = '/?qid=1&title=' + encodeURIComponent(context.query)+ '&body=Some%20additional%20information%20on%20the%20question&category=Knowledge';
     		console.log("context.query = "+ context.query);
