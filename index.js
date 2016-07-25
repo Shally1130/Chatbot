@@ -68,7 +68,7 @@ const findOrCreateSession = (fbid) => {
   return sessionId;
 };
 
-
+var pathname = "";
 // Our bot actions
 const actions = { 
   say(sessionId, context, message, cb) { 
@@ -135,7 +135,7 @@ const actions = {
     // Here should go the api call, e.g.:
     // context.forecast = apiCall(context.loc)
     ////////////////////////////////////////////////////
-    var pathname;
+    //var pathname;
     //get the content of previous question 
     var size = sessions[sessionId].context.length;
     var yes_no;
@@ -150,6 +150,7 @@ const actions = {
     /*parse answer and question*/
     else {
         console.log("parse question and answer...............");
+        console.log("context.query = " context.query);
         if(context.query!=sessions[sessionId].context[size-1][0])
         {
         	pathname = '/?qid=1&title=' + encodeURIComponent(context.query)+ '&body=Some%20additional%20information%20on%20the%20question&category=Knowledge';
@@ -158,7 +159,7 @@ const actions = {
         }
     	else{
     		console.log("the value of yes_no is 'N'");
-	      	pathname = '/?qid=1&title=' + encodeURIComponent(context.query)+ '&body=Some%20additional%20information%20on%20the%20question&category=Knowledge&badanswer=';
+	      	pathname += '&badanswer=';
 	      	pathname +=encodeURIComponent(sessions[sessionId].context[size-1][1]);
 	      	console.log("yes_no" + pathname);
     	}
