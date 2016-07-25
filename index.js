@@ -194,6 +194,7 @@ const actions = {
          else
          { 
             delete context.answer;
+            delete context.q;
             console.log("<2.5................"); 
          }
          //console.log(context.answer);
