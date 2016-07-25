@@ -166,7 +166,7 @@ const actions = {
 		      	{
 		      		console.log("the value of yes_no is 'Y'");
 		      		pathname += '&goodanswer=';
-		      	}
+		      	} 
 		      	/*bad feedback*/
 		      	else if(yes_no == "N")
 		      	{
