@@ -68,6 +68,7 @@ const findOrCreateSession = (fbid) => {
   return sessionId;
 };
 
+var pathname;
 // Our bot actions
 const actions = { 
   say(sessionId, context, message, cb) { 
@@ -132,7 +133,7 @@ const actions = {
     var size = sessions[sessionId].context.length;
     //var yes_no;
     var query = context.query;
-    var pathname;
+    //var pathname;
     /*conditions: 1. this user has never sent questions
     */
     console.log("size:" + size + "..............................");
@@ -154,7 +155,7 @@ const actions = {
     	else{
     		console.log("the value of yes_no is 'N'");
     		query = sessions[sessionId].context[size-1][0];
-    		pathname = '/?qid=1&title=' + encodeURIComponent(query)+ '&body=Some%20additional%20information%20on%20the%20question&category=Knowledge';
+    		//pathname = '/?qid=1&title=' + encodeURIComponent(query)+ '&body=Some%20additional%20information%20on%20the%20question&category=Knowledge';
 	      	pathname += '&badanswer=';
 	      	pathname +=encodeURIComponent(sessions[sessionId].context[size-1][1]);
 	      	console.log("yes_no" + pathname);
