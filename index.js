@@ -183,13 +183,13 @@ const actions = {
          context.score = data.substring(scorebeg + 12, scoreend);
          if(parseFloat(context.score)>=2.5)
          {
+         	delete context.nonAnswer;
             context.answer = data.substring(beg + 9, end).trim();
             var temp = [];
             temp.push(query);
             temp.push(context.answer);
             sessions[sessionId].context.push(temp);
             context.url = data.substring(urlbeg + 11, urlend).trim();
-            delete context.nonAnswer;
             console.log('score: '+parseFloat(data.substring(scorebeg + 12, scoreend)));
          }
          else
