@@ -131,27 +131,29 @@ const actions = {
     //var pathname;
     //get the content of previous question 
     var size = sessions[sessionId].context.length;
-    var yes_no;
+    //var yes_no;
+    context.q = context.query;
     /*conditions: 1. this user has never sent questions
     */
     console.log("size:" + size + "..............................");
     if(size==0 ){
-    	pathname = '/?qid=1&title=' + encodeURIComponent(context.query)+ '&body=Some%20additional%20information%20on%20the%20question&category=Knowledge';
-    	console.log("context.query = "+ context.query);
+    	pathname = '/?qid=1&title=' + encodeURIComponent(context.q)+ '&body=Some%20additional%20information%20on%20the%20question&category=Knowledge';
+    	console.log("context.query = "+ context.q);
     	console.log("two conditions............"+pathname);
     }
     /*parse answer and question*/
     else {
         console.log("parse question and answer...............");
-        console.log("context.query = " + context.query);
-        if(context.query!= null)
+        console.log("context.query = " + context.q);
+        if(context.q!= null)
         {
-        	pathname = '/?qid=1&title=' + encodeURIComponent(context.query)+ '&body=Some%20additional%20information%20on%20the%20question&category=Knowledge';
-    		console.log("context.query = "+ context.query);
+        	pathname = '/?qid=1&title=' + encodeURIComponent(context.q)+ '&body=Some%20additional%20information%20on%20the%20question&category=Knowledge';
+    		console.log("context.query = "+ context.q);
     		console.log("two conditions............"+pathname);
         }
     	else{
     		console.log("the value of yes_no is 'N'");
+    		context.q = sessions[sessionId].context[size-1][0];
 	      	pathname += '&badanswer=';
 	      	pathname +=encodeURIComponent(sessions[sessionId].context[size-1][1]);
 	      	console.log("yes_no" + pathname);
@@ -182,7 +184,7 @@ const actions = {
          {
             context.answer = data.substring(beg + 9, end).trim();
             var temp = [];
-            temp.push(context.query);
+            temp.push(context.q);
             temp.push(context.answer);
             sessions[sessionId].context.push(temp);
             context.url = data.substring(urlbeg + 11, urlend).trim();
