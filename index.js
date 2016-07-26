@@ -82,7 +82,7 @@ const actions = {
     //sendMessage(sessionId, {text: "reply: "+(num+1).toString()+'\r\n'+context.answer.substring(num*310,length)});
 
     const recipientId = sessions[sessionId].fbid;
-    console.log("equals = "+(message=="Do you like my answer? Please reply yes or no."));
+    console.log("equals = "+(message=="Do you like my answer? Please reply yes or no.")+"..........."+message);
     if(message=="Do you like my answer? Please reply yes or no."||message == "Sorry, I don't quite understand your question. Could you say again?")
     {
       sendMessage(recipientId,  {text: "Feedback: "+message});
