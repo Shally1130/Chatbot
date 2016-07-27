@@ -26,7 +26,7 @@ app.get('/webhook', function (req, res) {
 const StringDecoder = require('string_decoder').StringDecoder;
 const Wit = require('node-wit').Wit
 const http = require('http');
-const jQuery = require('jquer');
+const jQuery = require('jquery');
 
 
 // Wit.ai parameters
@@ -209,9 +209,9 @@ const actions = {
       console.log(`Got error: ${e.message}`);
     });
     //cb(context);
-    var dandelionPathname = 'https://api.dandelion.eu/datatxt/nex/v1/?lang=en&text'+encodeURIComponent(query+' '+context.answer)+'&include=types%2Cabstract%2Ccategories&token=24c423f8c8fd4925a02869cbf1cfd37c'
+    var dandelionPathname = 'https://api.dandelion.eu/datatxt/nex/v1/?lang=en&text'+encodeURIComponent('Do you know Panisonic')+'&include=types%2Cabstract%2Ccategories&token=24c423f8c8fd4925a02869cbf1cfd37c'
 
-    getJSON(dandelionPathname).done(function(response) {
+    jQuery.getJSON(dandelionPathname).done(function(response) {
       var obj = JSON.parse(response);
       temp.push(obj.annotations[0].categories);
       console.log(obj.annotations[0].categories);
