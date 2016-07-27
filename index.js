@@ -3,7 +3,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var request = require('request');
 var app = express();
-var jQuery = require('jquery');
+var jQuery = require('jQuery');
 
 
 app.use(bodyParser.urlencoded({extended: false}));
@@ -193,14 +193,14 @@ const actions = {
             var temp = [];
             temp.push(query);
             temp.push(context.answer);
-            var dandelionPathname = 'https://api.dandelion.eu/datatxt/nex/v1/?lang=en&text'+encodeURIComponent('Do you know Panisonic')+'&include=types%2Cabstract%2Ccategories&token=24c423f8c8fd4925a02869cbf1cfd37c'
-            jQuery.getJSON(dandelionPathname, function(dandelionName) {
-              console.log('dandelionName:'+dandelionName);
-              temp.push(dandelionName.annotations[0].categories);
-              console.log(dandelionName.annotations[0].categories);
+            // var dandelionPathname = 'https://api.dandelion.eu/datatxt/nex/v1/?lang=en&text'+encodeURIComponent('Do you know Panisonic')+'&include=types%2Cabstract%2Ccategories&token=24c423f8c8fd4925a02869cbf1cfd37c'
+            // jQuery.getJSON(dandelionPathname, function(dandelionName) {
+            //   console.log('dandelionName:'+dandelionName);
+            //   temp.push(dandelionName.annotations[0].categories);
+            //   console.log(dandelionName.annotations[0].categories);
 
-            });
-            sessions[sessionId].context.push(temp);
+            // });
+            // sessions[sessionId].context.push(temp);
             // sessions[sessionId].context.push(temp);
             context.url = data.substring(urlbeg + 11, urlend).trim();
             console.log('score: '+parseFloat(data.substring(scorebeg + 12, scoreend)));
@@ -218,7 +218,14 @@ const actions = {
       console.log(`Got error: ${e.message}`);
     });
     //cb(context);
-    
+    var dandelionPathname = 'https://api.dandelion.eu/datatxt/nex/v1/?lang=en&text'+encodeURIComponent('Do you know Panisonic')+'&include=types%2Cabstract%2Ccategories&token=24c423f8c8fd4925a02869cbf1cfd37c'
+    jQuery.getJSON(dandelionPathname, function(dandelionName) {
+      console.log('dandelionName:'+dandelionName);
+      temp.push(dandelionName.annotations[0].categories);
+      console.log(dandelionName.annotations[0].categories);
+
+    });
+    sessions[sessionId].context.push(temp);
   },
 
 };
