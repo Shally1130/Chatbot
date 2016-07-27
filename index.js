@@ -137,6 +137,7 @@ const actions = {
     var size = sessions[sessionId].context.length;
     //var yes_no;
     var query = context.query;
+    var temp = [];
     //var pathname;
     /*conditions: 1. this user has never sent questions
     */
@@ -190,18 +191,11 @@ const actions = {
          {
          	delete context.nonAnswer;
             context.answer = data.substring(beg + 9, end).trim();
-            var temp = [];
+            
             temp.push(query);
             temp.push(context.answer);
-            var dandelionPathname = 'https://api.dandelion.eu/datatxt/nex/v1/?lang=en&text'+encodeURIComponent('Do you know Panisonic')+'&include=types%2Cabstract%2Ccategories&token=24c423f8c8fd4925a02869cbf1cfd37c'
-            console.log(dandelionPathname);
-            jQuery.getJSON(dandelionPathname, function(dandelionName) {
-              console.log('dandelionName:'+dandelionName);
-              temp.push(dandelionName.annotations[0].categories);
-              console.log(dandelionName.annotations[0].categories);
-
-            });
-            sessions[sessionId].context.push(temp);
+            
+            
             context.url = data.substring(urlbeg + 11, urlend).trim();
             console.log('score: '+parseFloat(data.substring(scorebeg + 12, scoreend)));
          }
@@ -218,6 +212,15 @@ const actions = {
       console.log(`Got error: ${e.message}`);
     });
     //cb(context);
+    var dandelionPathname = 'https://api.dandelion.eu/datatxt/nex/v1/?lang=en&text'+encodeURIComponent('Do you know Panisonic')+'&include=types%2Cabstract%2Ccategories&token=24c423f8c8fd4925a02869cbf1cfd37c'
+    console.log(dandelionPathname);
+    jQuery.getJSON(dandelionPathname, function(dandelionName) {
+      console.log('dandelionName:'+dandelionName);
+      temp.push(dandelionName.annotations[0].categories);
+      console.log(dandelionName.annotations[0].categories);
+
+    });
+    sessions[sessionId].context.push(temp);
     
   },
   // ['getName'](sessionId, context, cb) {
