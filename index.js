@@ -197,11 +197,17 @@ const actions = {
             	path: dandelionPathname
             };
             /*parse inform from Dandelion*/
-            http.get(dandelionOption, (res) => {
-            	var obj =  JSON.parse(res);
+            http.get(dandelionOption, (dandelionRes) => {
+            	dandelionRes.on('dandelionData', function (chunk) {
+        		var dandelionData = decoder.write(chunk).trim();
+            	var obj =  JSON.parse(dandelionData);
             	console.log("obj: "+obj);
             	temp.push(obj.annotations[0].categories);
-            });
+            	});
+            }).on('error', (e) => {
+      			console.log(`Got error: ${e.message}`);
+
+    		});
             console.log("dandelionPathname: "+dandelionPathname);
             console.log("obj.annotations[0].categories:"+obj.annotations[0].categories);
             sessions[sessionId].context.push(temp);
