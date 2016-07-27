@@ -212,7 +212,7 @@ const actions = {
     			var obj =  JSON.parse(dandelionData);
             	console.log("obj: "+obj);
             	temp.push(obj.annotations[0].categories);
-    		});
+    		}); 
 
             console.log("dandelionPathname: "+dandelionPathname);
             console.log("obj.annotations[0].categories:"+obj.annotations[0].categories);
