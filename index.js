@@ -26,7 +26,8 @@ app.get('/webhook', function (req, res) {
 const StringDecoder = require('string_decoder').StringDecoder;
 const Wit = require('node-wit').Wit
 const http = require('http');
-const jQuery = require('jquery');
+const jQuery = require('jquer');
+
 
 // Wit.ai parameters
 const WIT_TOKEN = 'ZTDH4FZ7T7FWWTFR3Y5CXVYTCBE76OQS';     
@@ -162,7 +163,7 @@ const actions = {
 	      	pathname +=encodeURIComponent(sessions[sessionId].context[size-1][1]);
 	      	console.log("yes_no" + pathname);
     	}
-	}
+	  }
     var options = {
       host: 'carbonite.mathcs.emory.edu',
       port: '8080',
@@ -191,37 +192,11 @@ const actions = {
             var temp = [];
             temp.push(query);
             temp.push(context.answer);
-            
-            var dandelionPathname = 'https://api.dandelion.eu/datatxt/nex/v1/?lang=en&text'+encodeURIComponent(query+' '+context.answer)+'&include=types%2Cabstract%2Ccategories&token=24c423f8c8fd4925a02869cbf1cfd37c'
-      //       var dandelionOption = {
-      //       	host: 'api.dandelion.eu/datatxt/nex/v1',
-      //       	path: dandelionPathname
-      //       };
-      //       /*parse inform from Dandelion*/
-      //       http.get(dandelionOption, (dandelionRes) => {
-      //       	dandelionRes.on('dandelionData', function (chunk) {
-      //   		var dandelionData = decoder.write(chunk).trim();
-      //       	var obj =  JSON.parse(dandelionData);
-      //       	console.log("obj: "+obj);
-      //       	temp.push(obj.annotations[0].categories);
-      //       	});
-      //       }).on('error', (e) => {
-      // 			console.log(`Got error: ${e.message}`);
-
-    		// });
-    		jQuery.getJSON(dandelionPathname,function(dandelionData){
-    			var obj =  JSON.parse(dandelionData);
-            	console.log("obj: "+obj);
-            	temp.push(obj.annotations[0].categories);
-    		}); 
-
-            console.log("dandelionPathname: "+dandelionPathname);
-            console.log("obj.annotations[0].categories:"+obj.annotations[0].categories);
-            sessions[sessionId].context.push(temp);
+            // sessions[sessionId].context.push(temp);
             context.url = data.substring(urlbeg + 11, urlend).trim();
             console.log('score: '+parseFloat(data.substring(scorebeg + 12, scoreend)));
          }
-         else 
+         else
          { 
             delete context.answer;
             console.log("<2.5................"); 
@@ -232,9 +207,17 @@ const actions = {
       res.resume();
     }).on('error', (e) => {
       console.log(`Got error: ${e.message}`);
-
     });
     //cb(context);
+    var dandelionPathname = 'https://api.dandelion.eu/datatxt/nex/v1/?lang=en&text'+encodeURIComponent(query+' '+context.answer)+'&include=types%2Cabstract%2Ccategories&token=24c423f8c8fd4925a02869cbf1cfd37c'
+
+    getJSON(dandelionPathname).done(function(response) {
+      var obj = JSON.parse(response);
+      temp.push(obj.annotations[0].categories);
+      console.log(obj.annotations[0].categories);
+
+    });
+        sessions[sessionId].context.push(temp);
   },
 
 };
