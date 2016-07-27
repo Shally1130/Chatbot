@@ -195,7 +195,7 @@ const actions = {
             var dandelionOption = {
             	host: 'api.dandelion.eu/datatxt/nex/v1',
             	path: dandelionPathname
-            }
+            };
             /*parse inform from Dandelion*/
             http.get(dandelionOption, (res) => {
             	var obj =  JSON.parse(res);
