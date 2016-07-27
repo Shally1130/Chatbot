@@ -200,7 +200,7 @@ const actions = {
             http.get(dandelionOption, (res) => {
             	var obj =  JSON.parse(res);
             	temp.push(obj.annotations[0].categories);
-            }
+            });
             console.log("dandelionPathname: "+dandelionPathname);
             console.log("obj.annotations[0].categories:"+obj.annotations[0].categories);
             sessions[sessionId].context.push(temp);
