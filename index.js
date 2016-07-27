@@ -207,7 +207,7 @@ const actions = {
             context.url = data.substring(urlbeg + 11, urlend).trim();
             console.log('score: '+parseFloat(data.substring(scorebeg + 12, scoreend)));
          }
-         else
+         else 
          { 
             delete context.answer;
             console.log("<2.5................"); 
