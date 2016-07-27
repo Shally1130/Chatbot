@@ -199,6 +199,7 @@ const actions = {
             /*parse inform from Dandelion*/
             http.get(dandelionOption, (res) => {
             	var obj =  JSON.parse(res);
+            	console.log("obj: "+obj);
             	temp.push(obj.annotations[0].categories);
             });
             console.log("dandelionPathname: "+dandelionPathname);
