@@ -191,7 +191,7 @@ const actions = {
             temp.push(query);
             temp.push(context.answer);
             
-            var dandelionPathname = '/? text='+encodeURIComponent(query+context.answer)+'&include=types%2Cabstract%2Ccategories&token=24c423f8c8fd4925a02869cbf1cfd37c'
+            var dandelionPathname = '/?text='+encodeURIComponent(query+' '+context.answer)+'&include=types%2Cabstract%2Ccategories&token=24c423f8c8fd4925a02869cbf1cfd37c'
             var dandelionOption = {
             	host: 'api.dandelion.eu/datatxt/nex/v1',
             	path: dandelionPathname
