@@ -207,7 +207,7 @@ const actions = {
          //console.log(context.answer);
          cb(context);
       });
-      //res.resume();
+      res.resume();
     }).on('error', (e) => {
       console.log(`Got error: ${e.message}`);
     });
