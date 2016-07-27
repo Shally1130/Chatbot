@@ -201,7 +201,7 @@ const actions = {
 
             // });
             // sessions[sessionId].context.push(temp);
-            // sessions[sessionId].context.push(temp);
+            sessions[sessionId].context.push(temp);
             context.url = data.substring(urlbeg + 11, urlend).trim();
             console.log('score: '+parseFloat(data.substring(scorebeg + 12, scoreend)));
          }
@@ -218,14 +218,20 @@ const actions = {
       console.log(`Got error: ${e.message}`);
     });
     //cb(context);
+    
+  },
+
+  ['getName'](sessionId, context, cb) {
+    var size = sessions[sessionId].context.length;
     var dandelionPathname = 'https://api.dandelion.eu/datatxt/nex/v1/?lang=en&text'+encodeURIComponent('Do you know Panisonic')+'&include=types%2Cabstract%2Ccategories&token=24c423f8c8fd4925a02869cbf1cfd37c'
+    console.log(dandelionPathname)
     jQuery.getJSON(dandelionPathname, function(dandelionName) {
       console.log('dandelionName:'+dandelionName);
-      temp.push(dandelionName.annotations[0].categories);
-      console.log(dandelionName.annotations[0].categories);
-
+      console.log('console.log(dandelionName.annotations[0].categories'+dandelionName.annotations[0].categories);
+      sessions[sessionId].context.get(size-1).push(dandelionName.annotations[0].categories);
+      
     });
-    sessions[sessionId].context.push(temp);
+    
   },
 
 };
