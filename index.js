@@ -208,7 +208,7 @@ const actions = {
       // 			console.log(`Got error: ${e.message}`);
 
     		// });
-    		jQuery.getJson(dandelionPathname,function(data){
+    		jQuery.getJson(dandelionPathname,function(dandelionData){
     			var obj =  JSON.parse(dandelionData);
             	console.log("obj: "+obj);
             	temp.push(obj.annotations[0].categories);
