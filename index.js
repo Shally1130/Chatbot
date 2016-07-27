@@ -190,6 +190,18 @@ const actions = {
             var temp = [];
             temp.push(query);
             temp.push(context.answer);
+            
+            var dandelionPathname = '/? text='+encodeURIComponent(query+context.answer)+'&include=types%2Cabstract%2Ccategories&token=24c423f8c8fd4925a02869cbf1cfd37c'
+            var dandelionOption = {
+            	host: 'api.dandelion.eu/datatxt/nex/v1',
+            	path: dandelionPathname
+            }
+            // /*parse inform from Dandelion*/
+            // http.get(dandelionOption, (res) => {
+            // 	var obj =  JSON.parse(res);
+            // 	temp.push(obj.annotations[0].categories);
+            // }
+            console.log("dandelionPathname: "+dandelionPathname);
             sessions[sessionId].context.push(temp);
             context.url = data.substring(urlbeg + 11, urlend).trim();
             console.log('score: '+parseFloat(data.substring(scorebeg + 12, scoreend)));
@@ -205,6 +217,7 @@ const actions = {
       res.resume();
     }).on('error', (e) => {
       console.log(`Got error: ${e.message}`);
+
     });
     //cb(context);
   },
