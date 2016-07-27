@@ -3,6 +3,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var request = require('request');
 var app = express();
+var jQuery = require('jquery');
 
 
 app.use(bodyParser.urlencoded({extended: false}));
@@ -26,7 +27,7 @@ app.get('/webhook', function (req, res) {
 const StringDecoder = require('string_decoder').StringDecoder;
 const Wit = require('node-wit').Wit
 const http = require('http');
-const jQuery = require('jquery');
+
 
 
 // Wit.ai parameters
