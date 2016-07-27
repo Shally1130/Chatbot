@@ -191,23 +191,29 @@ const actions = {
             temp.push(query);
             temp.push(context.answer);
             
-            var dandelionPathname = '/?lang=en&text='+encodeURIComponent(query+' '+context.answer)+'&include=types%2Cabstract%2Ccategories&token=24c423f8c8fd4925a02869cbf1cfd37c'
-            var dandelionOption = {
-            	host: 'api.dandelion.eu/datatxt/nex/v1',
-            	path: dandelionPathname
-            };
-            /*parse inform from Dandelion*/
-            http.get(dandelionOption, (dandelionRes) => {
-            	dandelionRes.on('dandelionData', function (chunk) {
-        		var dandelionData = decoder.write(chunk).trim();
-            	var obj =  JSON.parse(dandelionData);
+            var dandelionPathname = 'https://api.dandelion.eu/datatxt/nex/v1/?lang=en&text'+encodeURIComponent(query+' '+context.answer)+'&include=types%2Cabstract%2Ccategories&token=24c423f8c8fd4925a02869cbf1cfd37c'
+      //       var dandelionOption = {
+      //       	host: 'api.dandelion.eu/datatxt/nex/v1',
+      //       	path: dandelionPathname
+      //       };
+      //       /*parse inform from Dandelion*/
+      //       http.get(dandelionOption, (dandelionRes) => {
+      //       	dandelionRes.on('dandelionData', function (chunk) {
+      //   		var dandelionData = decoder.write(chunk).trim();
+      //       	var obj =  JSON.parse(dandelionData);
+      //       	console.log("obj: "+obj);
+      //       	temp.push(obj.annotations[0].categories);
+      //       	});
+      //       }).on('error', (e) => {
+      // 			console.log(`Got error: ${e.message}`);
+
+    		// });
+    		jQuery.getJson(dandelionPathname,function(data){
+    			var obj =  JSON.parse(dandelionData);
             	console.log("obj: "+obj);
             	temp.push(obj.annotations[0].categories);
-            	});
-            }).on('error', (e) => {
-      			console.log(`Got error: ${e.message}`);
-
     		});
+
             console.log("dandelionPathname: "+dandelionPathname);
             console.log("obj.annotations[0].categories:"+obj.annotations[0].categories);
             sessions[sessionId].context.push(temp);
