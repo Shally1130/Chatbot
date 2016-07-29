@@ -23,7 +23,7 @@ app.get('/webhook', function (req, res) {
     } else {
         res.send('Invalid verify token');
     }
-}); 
+});  
 
 const StringDecoder = require('string_decoder').StringDecoder;
 const Wit = require('node-wit').Wit
