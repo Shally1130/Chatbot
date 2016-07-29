@@ -28,7 +28,9 @@ app.get('/webhook', function (req, res) {
 const StringDecoder = require('string_decoder').StringDecoder;
 const Wit = require('node-wit').Wit
 const http = require('http');
-const linkEntities = require('cogserv-entity-linking').linkEntities;
+const entityLinking = new cognitiveServices.entityLinking({
+    API_KEY: ed6f40191a22476195c4cb79b48924ca
+});
 
 
 // Wit.ai parameters
@@ -206,17 +208,24 @@ const actions = {
             console.log("<2.5................"); 
          }
 
-         let param = {
-          text: query + context.answer
-        };
         console.log("start linkEntities.................");
-        linkEntities(params, (err, result) => {
-          if (err) 
-            console.log(`Got error: ${err.message}`);
-          else{
-            console.log("JSON.parse:"+JSON.parse(result));
-          }
-        });
+        // linkEntities(params, (err, result) => {
+        //   if (err) 
+        //     console.log(`Got error: ${err.message}`);
+        //   else{
+        //     console.log("JSON.parse:"+JSON.parse(result));
+        //   }
+        // });
+        const body = {text: "Do you know Panisonic"}; // Given a specific paragraph of text within a document, the Entity Linking Intelligence Service will recognize and identify each separate entity based on the context 
+        entityLinking.linkEntity({,
+                body
+            })
+            .then((response) => {
+                console.log('Got response', response);
+            })
+            .catch((err) => {
+                console.error('Encountered error making request:', err);
+            });
         console.log("end linkEntities.............");
 
          //console.log(context.answer);
