@@ -31,7 +31,7 @@ const http = require('http');
 
 // -----------
 
-const MSCOG_BASE = 'https://api.projectoxford.ai/entitylinking/v1.0/link'
+const MSCOG_BASE = 'https://api.projectoxford.ai/entitylinking/v1.0/link';
 
 const requestHeader = {
   'Content-Type': 'text/plain',
@@ -246,10 +246,10 @@ const actions = {
 
         console.log("start linkEntities.................");
 
-        let params = {
+        let params1 = {
           text: "Barack Obama is still the president of the US"
         }
-        linkEntities(params, (err, result) => {
+        linkEntities(params1, (err, result) => {
           if (err) return console.error(err)
           console.log(JSON.stringify(JSON.parse(result), null, 2))
         });
