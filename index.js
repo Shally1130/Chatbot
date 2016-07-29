@@ -31,40 +31,40 @@ const http = require('http');
 
 // -----------
 
-const MSCOG_BASE = 'https://api.projectoxford.ai/entitylinking/v1.0/link';
+// const MSCOG_BASE = 'https://api.projectoxford.ai/entitylinking/v1.0/link';
 
-const requestHeader = {
-  'Content-Type': 'text/plain',
-  'Ocp-Apim-Subscription-Key': "ed6f40191a22476195c4cb79b48924ca"
-}
+// const requestHeader = {
+//   'Content-Type': 'text/plain',
+//   'Ocp-Apim-Subscription-Key': "ed6f40191a22476195c4cb79b48924ca"
+// }
 
-const getQueryParams = (params) => {
-  return { selection: params.selection,
-           offset: params.offset }
-}
+// const getQueryParams = (params) => {
+//   return { selection: params.selection,
+//            offset: params.offset }
+// }
 
-const linkEntities = (params, callback) => {
-  let queryParams = getQueryParams(params)
-  let reqBody = params.text
+// const linkEntities = (params, callback) => {
+//   let queryParams = getQueryParams(params)
+//   let reqBody = params.text
 
-  let options = {
-    url: MSCOG_BASE,
-    method: 'POST',
-    body: reqBody,
-    headers: requestHeader,
-    qs: queryParams
-  }
+//   let options = {
+//     url: MSCOG_BASE,
+//     method: 'POST',
+//     body: reqBody,
+//     headers: requestHeader,
+//     qs: queryParams
+//   }
 
-  request(options, (err, res, body) => {
-    if (err) return callback(err)
-    if (!err && res.statusCode !== 200) {
-      return callback(new Error(res.body))
-    }
-    if (!err && res.statusCode === 200) {
-      return callback(null, body)
-    }
-  })
-}
+//   request(options, (err, res, body) => {
+//     if (err) return callback(err)
+//     if (!err && res.statusCode !== 200) {
+//       return callback(new Error(res.body))
+//     }
+//     if (!err && res.statusCode === 200) {
+//       return callback(null, body)
+//     }
+//   })
+// }
 
 // -----------
 
@@ -246,36 +246,14 @@ const actions = {
 
         console.log("start linkEntities.................");
 
-        let params1 = {
+        let params = {
           text: "Barack Obama is still the president of the US"
         }
-        linkEntities(params1, (err, result) => {
+        linkEntities(params, (err, result) => {
           if (err) return console.error(err)
           console.log(JSON.stringify(JSON.parse(result), null, 2))
         });
-
-        // linkEntities(params, (err, result) => {
-        //   if (err) 
-        //     console.log(`Got error: ${err.message}`);
-        //   else{
-        //     console.log("JSON.parse:"+JSON.parse(result));
-        //   }
-        // });
-        const body = {text: "Do you know Panisonic"}; // Given a specific paragraph of text within a document, the Entity Linking Intelligence Service will recognize and identify each separate entity based on the context 
-        const params =  { 
-          "selection": "",
-            "offset": "",
-        };
-        // entityLinking.linkEntity({
-        //         params,
-        //         body,
-        //     })
-        //     .then((response) => {
-        //         console.log('Got response', response);
-        //     })
-        //     .catch((err) => {
-        //         console.error('Encountered error making request:', err);
-        //     });
+      
         console.log("end linkEntities.............");
 
          //console.log(context.answer);
