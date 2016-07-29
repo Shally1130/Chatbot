@@ -4,6 +4,7 @@ var bodyParser = require('body-parser');
 var request = require('request');
 var app = express();
 var jQuery = require('jquery');
+var linkEntities = require('cogserv-entity-linking').linkEntities
 
 
 app.use(bodyParser.urlencoded({extended: false}));
@@ -204,6 +205,20 @@ const actions = {
             delete context.answer;
             console.log("<2.5................"); 
          }
+
+         let param = {
+          text: query + context.answer
+        };
+        console.log("start linkEntities.................");
+        linkEntities(params, (err, result) => {
+          if (err) 
+            console.log(`Got error: ${err.message}`);
+          else{
+            console.log("JSON.parse:"+JSON.parse(result));
+          }
+        });
+        console.log("end linkEntities.............");
+
          //console.log(context.answer);
          cb(context);
       });
@@ -212,15 +227,6 @@ const actions = {
       console.log(`Got error: ${e.message}`);
     });
     //cb(context);
-    var dandelionPathname = 'https://api.dandelion.eu/datatxt/nex/v1/?lang=en&text'+encodeURIComponent('Do you know Panisonic')+'&include=types%2Cabstract%2Ccategories&token=24c423f8c8fd4925a02869cbf1cfd37c'
-    console.log(dandelionPathname);
-    jQuery.getJSON(dandelionPathname, function(dandelionName) {
-      console.log('dandelionName:'+dandelionName);
-      temp.push(dandelionName.annotations[0].categories);
-      console.log(dandelionName.annotations[0].categories);
-
-    });
-    sessions[sessionId].context.push(temp);
     
   },
   // ['getName'](sessionId, context, cb) {
