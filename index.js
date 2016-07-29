@@ -26,9 +26,9 @@ app.get('/webhook', function (req, res) {
 });  
 
 const StringDecoder = require('string_decoder').StringDecoder;
-const Wit = require('node-wit').Wit
+const Wit = require('node-wit').Wit;
 const http = require('http');
-const linkEntities = require('cogserv-entity-linking').linkEntities
+const linkEntities = require('cogserv-entity-linking').linkEntities;
 
 // -----------
 
