@@ -219,8 +219,8 @@ const actions = {
         // });
         const body = {text: "Do you know Panisonic"}; // Given a specific paragraph of text within a document, the Entity Linking Intelligence Service will recognize and identify each separate entity based on the context 
         const params =  { 
-          "selection": "{string}",
-            "offset": "{string}",
+          "selection": "",
+            "offset": "",
         };
         entityLinking.linkEntity({
                 params,
