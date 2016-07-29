@@ -29,9 +29,9 @@ const StringDecoder = require('string_decoder').StringDecoder;
 const Wit = require('node-wit').Wit
 const http = require('http');
 const cognitiveServices = require('cognitive-services');
-const entityLinking = new cognitiveServices.entityLinking({
-   API_KEY: ed6f40191a22476195c4cb79b48924ca
-});
+// const entityLinking = new cognitiveServices.entityLinking({
+//    API_KEY: ed6f40191a22476195c4cb79b48924ca
+// });
 
 
 // Wit.ai parameters
