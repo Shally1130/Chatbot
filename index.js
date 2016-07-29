@@ -28,44 +28,43 @@ app.get('/webhook', function (req, res) {
 const StringDecoder = require('string_decoder').StringDecoder;
 const Wit = require('node-wit').Wit;
 const http = require('http');
-const linkEntities = require('cogserv-entity-linking').linkEntities;
 
 // -----------
 
-// const MSCOG_BASE = 'https://api.projectoxford.ai/entitylinking/v1.0/link';
+const MSCOG_BASE = 'https://api.projectoxford.ai/entitylinking/v1.0/link';
 
-// const requestHeader = {
-//   'Content-Type': 'text/plain',
-//   'Ocp-Apim-Subscription-Key': "ed6f40191a22476195c4cb79b48924ca"
-// }
+const requestHeader = {
+  'Content-Type': 'text/plain',
+  'Ocp-Apim-Subscription-Key': "ed6f40191a22476195c4cb79b48924ca"
+}
 
-// const getQueryParams = (params) => {
-//   return { selection: params.selection,
-//            offset: params.offset }
-// }
+const getQueryParams = (params) => {
+  return { selection: params.selection,
+           offset: params.offset }
+}
 
-// const linkEntities = (params, callback) => {
-//   let queryParams = getQueryParams(params)
-//   let reqBody = params.text
+const linkEntities = (params, callback) => {
+  let queryParams = getQueryParams(params)
+  let reqBody = params.text
 
-//   let options = {
-//     url: MSCOG_BASE,
-//     method: 'POST',
-//     body: reqBody, 
-//     headers: requestHeader,
-//     qs: queryParams
-//   }
+  let options = {
+    url: MSCOG_BASE,
+    method: 'POST',
+    body: reqBody, 
+    headers: requestHeader,
+    qs: queryParams
+  }
 
-//   request(options, (err, res, body) => {
-//     if (err) return callback(err)
-//     if (!err && res.statusCode !== 200) {
-//       return callback(new Error(res.body))
-//     }
-//     if (!err && res.statusCode === 200) {
-//       return callback(null, body)
-//     }
-//   })
-// }
+  request(options, (err, res, body) => {
+    if (err) return callback(err)
+    if (!err && res.statusCode !== 200) {
+      return callback(new Error(res.body))
+    }
+    if (!err && res.statusCode === 200) {
+      return callback(null, body)
+    }
+  })
+}
 
 // -----------
 
@@ -248,7 +247,7 @@ const actions = {
         console.log("start linkEntities.................");
 
         let params = {
-          text: "Barack Obama is still the president of the US"
+          text: query+context.answer
         }
         linkEntities(params, (err, result) => {
           if (err) return console.error(err)
