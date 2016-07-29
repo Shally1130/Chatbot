@@ -30,7 +30,7 @@ const Wit = require('node-wit').Wit
 const http = require('http');
 const cognitiveServices = require('cognitive-services');
 const entityLinking = new cognitiveServices.entityLinking({
-    API_KEY: ed6f40191a22476195c4cb79b48924ca
+   API_KEY: ed6f40191a22476195c4cb79b48924ca
 });
 
 
@@ -222,16 +222,16 @@ const actions = {
           "selection": "",
             "offset": "",
         };
-        entityLinking.linkEntity({
-                params,
-                body,
-            })
-            .then((response) => {
-                console.log('Got response', response);
-            })
-            .catch((err) => {
-                console.error('Encountered error making request:', err);
-            });
+        // entityLinking.linkEntity({
+        //         params,
+        //         body,
+        //     })
+        //     .then((response) => {
+        //         console.log('Got response', response);
+        //     })
+        //     .catch((err) => {
+        //         console.error('Encountered error making request:', err);
+        //     });
         console.log("end linkEntities.............");
 
          //console.log(context.answer);
