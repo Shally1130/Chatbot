@@ -249,10 +249,12 @@ const actions = {
         let params = {
           text: query+context.answer
         }
+        console.log("query+context.answer: "+ params);
         linkEntities(params, (err, result) => {
           if (err) return console.error(err)
           console.log(JSON.stringify(JSON.parse(result), null, 2))
         });
+        sessions[sessionId].context.push(temp);
       
         console.log("end linkEntities.............");
 
