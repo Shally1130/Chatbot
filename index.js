@@ -1,4 +1,5 @@
 "use strict";
+const cognitiveServices = require('cognitive-services');
 var express = require('express');
 var bodyParser = require('body-parser');
 var request = require('request');
@@ -28,7 +29,6 @@ app.get('/webhook', function (req, res) {
 const StringDecoder = require('string_decoder').StringDecoder;
 const Wit = require('node-wit').Wit
 const http = require('http');
-//const cognitiveServices = require('cognitive-services');
 // const entityLinking = new cognitiveServices.entityLinking({
 //    API_KEY: ed6f40191a22476195c4cb79b48924ca
 // });
