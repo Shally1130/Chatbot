@@ -1,5 +1,4 @@
 "use strict";
-const cognitiveServices = require('cognitive-services');
 var express = require('express');
 var bodyParser = require('body-parser');
 var request = require('request');
@@ -29,9 +28,45 @@ app.get('/webhook', function (req, res) {
 const StringDecoder = require('string_decoder').StringDecoder;
 const Wit = require('node-wit').Wit
 const http = require('http');
-// const entityLinking = new cognitiveServices.entityLinking({
-//    API_KEY: ed6f40191a22476195c4cb79b48924ca
-// });
+
+// -----------
+
+const MSCOG_BASE = 'https://api.projectoxford.ai/entitylinking/v1.0/link'
+
+const requestHeader = {
+  'Content-Type': 'text/plain',
+  'Ocp-Apim-Subscription-Key': "ed6f40191a22476195c4cb79b48924ca"
+}
+
+const getQueryParams = (params) => {
+  return { selection: params.selection,
+           offset: params.offset }
+}
+
+const linkEntities = (params, callback) => {
+  let queryParams = getQueryParams(params)
+  let reqBody = params.text
+
+  let options = {
+    url: MSCOG_BASE,
+    method: 'POST',
+    body: reqBody,
+    headers: requestHeader,
+    qs: queryParams
+  }
+
+  request(options, (err, res, body) => {
+    if (err) return callback(err)
+    if (!err && res.statusCode !== 200) {
+      return callback(new Error(res.body))
+    }
+    if (!err && res.statusCode === 200) {
+      return callback(null, body)
+    }
+  })
+}
+
+// -----------
 
 
 // Wit.ai parameters
@@ -210,6 +245,15 @@ const actions = {
          }
 
         console.log("start linkEntities.................");
+
+        let params = {
+          text: "Barack Obama is still the president of the US"
+        }
+        linkEntities(params, (err, result) => {
+          if (err) return console.error(err)
+          console.log(JSON.stringify(JSON.parse(result), null, 2))
+        });
+
         // linkEntities(params, (err, result) => {
         //   if (err) 
         //     console.log(`Got error: ${err.message}`);
