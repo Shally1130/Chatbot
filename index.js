@@ -22,7 +22,7 @@ app.get('/webhook', function (req, res) {
         res.send(req.query['hub.challenge']);
     } else {
         res.send('Invalid verify token');
-    }
+    } 
 });  
 
 const StringDecoder = require('string_decoder').StringDecoder;
