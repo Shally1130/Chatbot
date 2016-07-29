@@ -253,8 +253,12 @@ const actions = {
         linkEntities(params, (err, result) => {
           if (err) return console.error(err);
           //console.log(JSON.stringify(JSON.parse(result), null, 2));
-      		console.log("name: " + JSON.parse(result).entities[0].name);
-      		console.log("wikipediaId: " + JSON.parse(result).entities[0].wikipediaId);
+          var name = JSON.parse(result).entities[0].name;
+          var wikipediaId = JSON.parse(result).entities[0].wikipediaId;
+          temp.push(name);
+          temp.push(wikipediaId);
+          console.log("name: " + name);
+          console.log("wikipediaId: " + wikipediaId);
         });
         sessions[sessionId].context.push(temp);
       
