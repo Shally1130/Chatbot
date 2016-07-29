@@ -51,7 +51,7 @@ const linkEntities = require('cogserv-entity-linking').linkEntities;
 //   let options = {
 //     url: MSCOG_BASE,
 //     method: 'POST',
-//     body: reqBody,
+//     body: reqBody, 
 //     headers: requestHeader,
 //     qs: queryParams
 //   }
