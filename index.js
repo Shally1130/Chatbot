@@ -258,7 +258,7 @@ const actions = {
           for(int i=0; i<JSON.parse(result).entities.length;i++)
           {
           	name.push(JSON.parse(result).entities[i].name);
-          	wikipediaId.push(JSON.parse(result).entities[i].wikipediaId;)
+          	wikipediaId.push(JSON.parse(result).entities[i].wikipediaId);
           }
           // var name = JSON.parse(result).entities[0].name;
           // var wikipediaId = JSON.parse(result).entities[0].wikipediaId;
