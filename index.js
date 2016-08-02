@@ -256,6 +256,7 @@ const actions = {
           var name = [];
           var wikipediaId = [];
           var len = JSON.parse(result).entities.length;
+          console.log(JSON.parse(result));
           console.log("length: " + len);
           for(var i=0; i<len; i++)
           {
