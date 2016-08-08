@@ -224,7 +224,6 @@ function showMoreMessage(recipientId, text, url) {
                     "payload": {
                         "template_type": "button",
                         "text":   "Reply: "+ reply,
-                        //"subtitle": "Cute kitten picture",
                         "buttons": [
                           {
                             "type": "web_url",
