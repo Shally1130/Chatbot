@@ -145,6 +145,103 @@ You should get a success response:
 ##Set page access token in Heroku
 Go to you app’s `Settings` and set `Config Variable` PAGE_ACCESS_TOKEN to the value generated previously
 
+##Create a bot
+So far, we have a working bot server published and accessible over HTTPS, webhook is registered and we’re ready to make the bot do some actual work now.
+
+In order to receive messages, we need to register `POST` handler that loops over messages. Add this function call at the bottom of `index.js` file:
+
+```node
+
+// handler receiving messages
+app.post('/webhook', function (req, res) {
+  var events = req.body.entry[0].messaging;
+  for (var i = 0; i < events.length; i++) {
+    var event = events[i];
+    const context0 = {};
+    // We retrieve the Facebook user ID of the sender
+    const sender = event.sender.id;
+
+    // We retrieve the user's current session, or create one if it doesn't exist
+    // This is needed for our bot to figure out the conversation history
+    const sessionId = findOrCreateSession(sender);
+
+    // We retrieve the message content
+    //console.log("Event = " + event);
+    if (event.message && event.message.text) {
+    	sendMessage(sessionId, {text: "Echo: " + event.message.text});
+    }
+  }
+  res.sendStatus(200);
+});
+```
+It goes over message objects found in messaging property (they can be batched in one webhook call) and if there’s a message text available, it sends it back using the `sendMessage` function:
+
+```node
+// generic function sending messages
+function sendMessage(recipientId, message) { 
+  console.log('send message..................');
+    request({
+        url: 'https://graph.facebook.com/v2.6/me/messages',
+        qs: {access_token: process.env.PAGE_ACCESS_TOKEN},
+        method: 'POST',
+        json: {
+            recipient: {id: recipientId},
+            message: message,
+        }
+    }, function(error, response, body) {    
+        if (error) {
+            console.log('Error sending message: ', error);
+        } else if (response.body.error) {
+            console.log('Error: ', response.body.error);
+        }
+    });
+  console.log('exit send message..................');
+};
+```
+As you can see, we need the `recipient ID`, message object and `PAGE_ACCESS_TOKEN` to authorize every request.
+
+##Structured messages
+
+[Facebook Messenger Platform](https://developers.facebook.com/docs/messenger-platform) supports multiple types multimedia and templates attachments, like image, audio, video, file, generic template, button template and receipt template.
+
+Our codes use the `Button Template` with the [Send API](https://developers.facebook.com/docs/messenger-platform/send-api-reference#request) to send a text and buttons attachment to request input from the user. This buttons can open a URL to read more details about answer:
+
+```node
+function showMoreMessage(recipientId, text, url) {
+  console.log('show more message...........');
+  var reply="";
+  if(text.length>=310)
+  {
+  	reply += text.substring(0,300)+".......";
+  }
+  else
+  {
+  	reply = text;
+  }
+  var message = {
+                "attachment": {
+                    "type": "template",
+                    "payload": {
+                        "template_type": "button",
+                        "text":   "Reply: "+ reply,
+                        //"subtitle": "Cute kitten picture",
+                        "buttons": [
+                          {
+                            "type": "web_url",
+                            "url": url,
+                            "title": "Show More"
+                          }
+                        ]
+                    }
+                }
+            };
+  console.log('exit show more message...........');
+
+  sendMessage(recipientId, message);
+
+}
+```
+
 ##Git your bot
 Save index.js, `commit` & `deploy` to Heroku and write message to your Facebook Page. Then, see if it works:
 
@@ -254,6 +351,28 @@ const linkEntities = (params, callback) => {
     }
   })
 }
+```
+
+```node
+let params = {
+  text: query+context.answer
+}
+console.log("query+context.answer: "+ params);
+linkEntities(params, (err, result) => {
+  if (err) return console.error(err);
+  var name = [];
+  var wikipediaId = [];
+  var len = JSON.parse(result).entities.length;
+  for(var i=0; i<len; i++)
+  {
+    name.push(JSON.parse(result).entities[i].name);
+    wikipediaId.push(JSON.parse(result).entities[i].wikipediaId);
+  }
+  temp.push(name);
+  temp.push(wikipediaId);
+  console.log("name: " + name);
+  console.log("wikipediaId: " + wikipediaId);
+});
 ```
 
 
