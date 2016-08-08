@@ -96,7 +96,7 @@ $ git push heroku master
 Heroku creates our web app under given URL and deploys it to server after successful git push. Visit provided link to verify, that your app actually works.
 
 ![alt text][testbot]
-[testbot]: https://github.com/emory-irlab/QAChatBot/images/testbot.png
+[testbot]: https://github.com/emory-irlab/QAChatBot/blob/master/images/testbot.png
 
 #Facebook Setup
 ##Create Facebook Page
@@ -114,7 +114,7 @@ You can use an existing page or create new one.
 Your test Page is now ready:
 
 ![alt text][testPage]
-[testPage]: https://github.com/emory-irlab/QAChatBot/images/testpage.png
+[testPage]: https://github.com/emory-irlab/QAChatBot/blob/master/images/testpage.png
 
 ##Create Facebook App
 This is used for setting up your Facebook Application, registering callbacks and submitting for approval. Go to [Add a New App page](https://developers.facebook.com/quickstarts/), click `basic setup` link below app icons and fill in the form, select `Apps for Pages` as a category.
@@ -156,7 +156,7 @@ $ git push heroku master
 We also can see logs on Heroku, go to your `Heroku dashboard` and then `View logs`:
 
 ![alt text][logs]
-[logs]: https://github.com/emory-irlab/QAChatBot/images/logs.png
+[logs]: https://github.com/emory-irlab/QAChatBot/blob/master/images/logs.png
 
 #Wit.ai
 [Wit.ai quickstart](https://wit.ai/docs/quickstart) and [documentation](https://github.com/wit-ai/node-wit) has introduced clearly, there is no need to repeat. It is worth noting that because of version updating, `merge` function does not necessary anymore.
@@ -168,18 +168,18 @@ __Greeting Story__
 
 
 ![alt text][Greeting_1]
-[Greeting_1]: https://github.com/emory-irlab/QAChatBot/images/Greeting_1.png
+[Greeting_1]: https://github.com/emory-irlab/QAChatBot/blob/master/images/Greeting_1.png
 
 
 ![alt text][Greeting_2]
-[Greeting_2]: https://github.com/emory-irlab/QAChatBot/images/Greeting_2.png
+[Greeting_2]: https://github.com/emory-irlab/QAChatBot/blob/master/images/Greeting_2.png
 
 
 __Question and Answer__
 
 
-![alt text][Question and Answer_1]
-[Question and Answer_1]: https://github.com/emory-irlab/QAChatBot/images/Question and Answer_1.png
+![alt text][QA1]
+[QA1]: https://github.com/emory-irlab/QAChatBot/blob/master/images/QA1.png
 
 
 Note: There are two branches:
@@ -187,34 +187,34 @@ Note: There are two branches:
 1.For one, the confidence of answer is greater or equal to 2.5:
 
 
-![alt text][Question and Answer_2]
-[Question and Answer_2]: https://github.com/emory-irlab/QAChatBot/images/Question and Answer_2.png
+![alt text][QA2]
+[QA2]: https://github.com/emory-irlab/QAChatBot/blob/master/images/QA2.png
 
 2.Another one is the confidence of answer less than 2.5:
 
 
-![alt text][Question and Answer_3]
-[Question and Answer_3]: https://github.com/emory-irlab/QAChatBot/images/Question and Answer_3.png
+![alt text][QA3]
+[QA3]: https://github.com/emory-irlab/QAChatBot/blob/master/images/QA3.png
 
 Note: There are three conditions:  
 
 1. User does not satisfy the answer, chatbot add `badAnswer` to url and query a new answer again:
 
 
-![alt text][Question and Answer_4]
-[Question and Answer_4]: https://github.com/emory-irlab/QAChatBot/images/Question and Answer_4.png
+![alt text][QA4]
+[QA4]: https://github.com/emory-irlab/QAChatBot/blob/master/images/QA4.png
 
 2. User satisfy the answer:
 
 
-![alt text][Question and Answer_5]
-[Question and Answer_5]:https://github.com/emory-irlab/QAChatBot/images/Question and Answer_5.png
+![alt text][QA5]
+[QA5]:https://github.com/emory-irlab/QAChatBot/blob/master/images/QA5.png
 
 3. User ignore the feedback, query new question:
 
 
-![alt text][Question and Answer_6]
-[Question and Answer_6]:https://github.com/emory-irlab/QAChatBot/images/Question and Answer_6.png
+![alt text][QA6]
+[QA6]:https://github.com/emory-irlab/QAChatBot/blob/master/images/QA6.png
 
 #Entity Linking Intelligence Service
 Microsoft Cognitive Services provides [Entity Linking](https://www.microsoft.com/cognitive-services/en-us/entitylinking-api/documentation/overview), which users can easily get entity in a sentence:
