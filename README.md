@@ -314,7 +314,7 @@ __Note__: There are three conditions.
 [QA6]:https://github.com/emory-irlab/QAChatBot/blob/master/images/QA6.png
 
 #Entity Linking Intelligence Service
-Microsoft Cognitive Services provides [Entity Linking](https://www.microsoft.com/cognitive-services/en-us/entitylinking-api/documentation/overview), which users can easily get entity in a sentence:
+[Microsoft Cognitive Services](https://www.microsoft.com/cognitive-services) provides [Entity Linking](https://www.microsoft.com/cognitive-services/en-us/entitylinking-api/documentation/overview), which users can easily get entity in a sentence:
 
 ```node
 const MSCOG_BASE = 'https://api.projectoxford.ai/entitylinking/v1.0/link';
