@@ -164,7 +164,7 @@ We also can see logs on Heroku, go to your `Heroku dashboard` and then `View log
 There are two stories, for one is `Greeting`, and another is `Question and Answer`.
 
 
-1.__Greeting Story__:
+1. __Greeting Story__:
 
 
 ![alt text][Greeting_1]
@@ -175,28 +175,28 @@ There are two stories, for one is `Greeting`, and another is `Question and Answe
 [Greeting_2]: https://github.com/emory-irlab/QAChatBot/blob/master/images/Greeting_2.png
 
 
-2.__Question and Answer__:
+2. __Question and Answer__:
 
 
 ![alt text][QA1]
 [QA1]: https://github.com/emory-irlab/QAChatBot/blob/master/images/QA1.png
 
 
-###Note: There are two branches:
+####Note: There are two branches:
 
-1.For one, the confidence of answer is greater or equal to 2.5:
+1. For one, the confidence of answer is greater or equal to 2.5:
 
 
 ![alt text][QA2]
 [QA2]: https://github.com/emory-irlab/QAChatBot/blob/master/images/QA2.png
 
-2.Another one is the confidence of answer less than 2.5:
+2. Another one is the confidence of answer less than 2.5:
 
 
 ![alt text][QA3]
 [QA3]: https://github.com/emory-irlab/QAChatBot/blob/master/images/QA3.png
 
-###Note: There are three conditions:  
+####Note: There are three conditions:  
 
 1. User does not satisfy the answer, chatbot add `badAnswer` to url and query a new answer again:
 
