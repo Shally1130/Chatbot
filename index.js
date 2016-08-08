@@ -35,7 +35,7 @@ const MSCOG_BASE = 'https://api.projectoxford.ai/entitylinking/v1.0/link';
 
 const requestHeader = {
   'Content-Type': 'text/plain',
-  'Ocp-Apim-Subscription-Key': "ed6f40191a22476195c4cb79b48924ca"
+  'Ocp-Apim-Subscription-Key': "###################"
 }
 
 const getQueryParams = (params) => {
@@ -70,7 +70,7 @@ const linkEntities = (params, callback) => {
 
 
 // Wit.ai parameters
-const WIT_TOKEN = 'ZTDH4FZ7T7FWWTFR3Y5CXVYTCBE76OQS';     
+const WIT_TOKEN = '###################';     
 
 const firstEntityValue = (entities, entity) => {
   console.log('should be running......................');
