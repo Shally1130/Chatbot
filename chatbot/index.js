@@ -135,7 +135,7 @@ const actions = {
       {
         sendMessage(recipientId,  {text: "Reply: "+message});
       }
-    }
+    } 
     else
     {
     	sendMessage(recipientId,  {text: "Feedback: "+message});
