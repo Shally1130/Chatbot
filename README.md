@@ -161,10 +161,10 @@ We also can see logs on Heroku, go to your `Heroku dashboard` and then `View log
 #Wit.ai
 [Wit.ai quickstart](https://wit.ai/docs/quickstart) and [documentation](https://github.com/wit-ai/node-wit) has introduced clearly, there is no need to repeat. It is worth noting that because of version updating, `merge` function does not necessary anymore.
 
-There are two stories, for one is `Greeting`, and another is `Question and Answer`:
+There are two stories, for one is `Greeting`, and another is `Question and Answer`.
 
 
-__Greeting Story__
+1.__Greeting Story__:
 
 
 ![alt text][Greeting_1]
@@ -175,14 +175,14 @@ __Greeting Story__
 [Greeting_2]: https://github.com/emory-irlab/QAChatBot/blob/master/images/Greeting_2.png
 
 
-__Question and Answer__
+2.__Question and Answer__:
 
 
 ![alt text][QA1]
 [QA1]: https://github.com/emory-irlab/QAChatBot/blob/master/images/QA1.png
 
 
-Note: There are two branches:
+###Note: There are two branches:
 
 1.For one, the confidence of answer is greater or equal to 2.5:
 
@@ -196,7 +196,7 @@ Note: There are two branches:
 ![alt text][QA3]
 [QA3]: https://github.com/emory-irlab/QAChatBot/blob/master/images/QA3.png
 
-Note: There are three conditions:  
+###Note: There are three conditions:  
 
 1. User does not satisfy the answer, chatbot add `badAnswer` to url and query a new answer again:
 
