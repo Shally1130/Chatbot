@@ -182,7 +182,7 @@ There are two stories, for one is `Greeting`, and another is `Question and Answe
 [QA1]: https://github.com/emory-irlab/QAChatBot/blob/master/images/QA1.png
 
 
-####Note: There are two branches:
+__Note: There are two branches:__
 
 1. For one, the confidence of answer is greater or equal to 2.5:
 
@@ -196,7 +196,7 @@ There are two stories, for one is `Greeting`, and another is `Question and Answe
 ![alt text][QA3]
 [QA3]: https://github.com/emory-irlab/QAChatBot/blob/master/images/QA3.png
 
-####Note: There are three conditions:  
+__Note: There are three conditions:__  
 
 1. User does not satisfy the answer, chatbot add `badAnswer` to url and query a new answer again:
 
