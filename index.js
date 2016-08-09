@@ -39,7 +39,7 @@ const requestHeader = {
 }
 
 const getQueryParams = (params) => {
-  return { selection: params.selection,
+  return { selection: params.selection, 
            offset: params.offset }
 }
 
