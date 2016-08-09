@@ -249,14 +249,14 @@ const actions = {
         let params = {
           text: query+context.answer
         }
-        console.log("query+context.answer: "+ params);
+        console.log("query+context.answer: "+ params.text);
         linkEntities(params, (err, result) => {
           if (err) return console.error(err);
           //console.log(JSON.stringify(JSON.parse(result), null, 2));
           var name = [];
           var wikipediaId = [];
           var len = JSON.parse(result).entities.length;
-          console.log(JSON.parse(result));
+          //console.log(JSON.parse(result));
           console.log("length: " + len);
           for(var i=0; i<len; i++)
           {
