@@ -249,9 +249,10 @@ const actions = {
         let params = {
           text: query+context.answer
         }
-        console.log("query+context.answer: "+ params.text);
+        //console.log("query+context.answer: "+ params.text);
         linkEntities(params, (err, result) => {
           if (err) return console.error(err);
+          console.log("query+context.answer: "+ params.text);
           //console.log(JSON.stringify(JSON.parse(result), null, 2));
           var name = [];
           var wikipediaId = [];
