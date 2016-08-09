@@ -248,7 +248,7 @@ const actions = {
         console.log("start linkEntities.................");
 
         let params = {
-          text: query+context.answer
+          text: query+" "+context.answer
         }
         //console.log("query+context.answer: "+ params.text);
         linkEntities(params, (err, result) => {
