@@ -44,7 +44,7 @@ const getQueryParams = (params) => {
 }
 
 const linkEntities = (params, callback) => {
-  //let queryParams = getQueryParams(params)
+  let queryParams = getQueryParams(params)
   let reqBody = params.text
 
   let options = {
@@ -52,8 +52,9 @@ const linkEntities = (params, callback) => {
     method: 'POST',
     body: reqBody, 
     headers: requestHeader,
-    //qs: queryParams
+    qs: queryParams
   }
+  console.log("params.selection+params.text"+params.selection+params.text);
 
   request(options, (err, res, body) => {
     if (err) return callback(err)
