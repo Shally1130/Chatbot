@@ -54,7 +54,7 @@ const linkEntities = (params, callback) => {
     headers: requestHeader,
     qs: queryParams
   }
-  console.log("params.selection+params.text"+params.selection+params.text);
+
 
   request(options, (err, res, body) => {
     if (err) return callback(err)
@@ -254,6 +254,7 @@ const actions = {
         linkEntities(params, (err, result) => {
           if (err) return console.error(err);
           console.log("query+context.answer: "+ params.text);
+          console.log("params.selection+params.text"+params.selection+" "+params.text);
           //console.log(JSON.stringify(JSON.parse(result), null, 2));
           var name = [];
           var wikipediaId = [];
