@@ -44,7 +44,7 @@ const getQueryParams = (params) => {
 }
 
 const linkEntities = (params, callback) => {
-  let queryParams = getQueryParams(params)
+  //let queryParams = getQueryParams(params)
   let reqBody = params.text
 
   let options = {
@@ -52,7 +52,7 @@ const linkEntities = (params, callback) => {
     method: 'POST',
     body: reqBody, 
     headers: requestHeader,
-    qs: queryParams
+    //qs: queryParams
   }
 
 
@@ -254,7 +254,7 @@ const actions = {
         linkEntities(params, (err, result) => {
           if (err) return console.error(err);
           console.log("query+context.answer: "+ params.text);
-          console.log("params.selection+params.text"+params.selection+" "+params.text);
+          //console.log("params.selection+params.text"+params.selection+" "+params.text);
           //console.log(JSON.stringify(JSON.parse(result), null, 2));
           var name = [];
           var wikipediaId = [];
