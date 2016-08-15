@@ -276,7 +276,18 @@ const actions = {
         sessions[sessionId].context.push(temp);
       
         console.log("end linkEntities.............");
-        findPronoun(sessions);
+        //findPronoun(sessions);
+        const wikiHost = 'https://en.wikipedia.org/wiki';
+		 for(var i=0; i<1; i++)
+		 {
+		 	let wikiOptions = {
+		    url: wikiHost+'/'+sessions[3][i],
+		    method: 'POST',
+			}
+		  	request(wikiOptions, (err, res, body) => {
+		  		console.log(res);
+		  	})
+		 }
 
          //console.log(context.answer);
          cb(context);
