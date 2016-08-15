@@ -288,6 +288,7 @@ const actions = {
               words.forEach(function (word) {
                 if (!(index.hasOwnProperty(word))&&(word==='it'||word==='he'||word==='she'||word==='its'||word==='his'||word==='her')) {
                   index[word] = 0;
+                  console.log("index: "+index);
                 }
                 index[word]++;
               });
