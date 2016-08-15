@@ -284,19 +284,21 @@ const actions = {
               var data = extractor(res.body);
               var index = {},
               words = data.text.replace(/[.,?!;()"'-]/g, " ").replace(/\s+/g, " ").toLowerCase().split(" ");
-              console.log("word: "+words);
+              //console.log("word: "+words);
               words.forEach(function (word) {
                 if ((word==='it'||word==='he'||word==='she'||word==='its'||word==='his'||word==='her')&&!(index.hasOwnProperty(word))) {
                   index[word] = 1;
-                  console.log("index: "+index);
+                  //console.log("index: "+index);
                 }
                 else if((word==='it'||word==='he'||word==='she'||word==='its'||word==='his'||word==='her')&&(index.hasOwnProperty(word)))
                 {
                   index[word]++;
                 }
-                
               });
-              console.log("index: "+index);
+
+              console.log("index: "+index['it']+" " index['its']);
+              console.log("index: "+index['he']+" " index['his']);
+              console.log("index: "+index['she']+" " index['her']);
               if(index['it']+index['its']>oCount)
               {
                 console.log("index['it']+index['its']>oCount)");
