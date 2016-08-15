@@ -31,6 +31,135 @@ const StringDecoder = require('string_decoder').StringDecoder;
 const Wit = require('node-wit').Wit;
 const http = require('http');
 
+// ------sychrounize
+function Step() {
+  var steps = Array.prototype.slice.call(arguments),
+      pending, counter, results, lock;
+
+  // Define the main callback that's given as `this` to the steps.
+  function next() {
+    counter = pending = 0;
+
+    // Check if there are no steps left
+    if (steps.length === 0) {
+      // Throw uncaught errors
+      if (arguments[0]) {
+        throw arguments[0];
+      }
+      return;
+    }
+
+    // Get the next step to execute
+    var fn = steps.shift();
+    results = [];
+
+    // Run the step in a try..catch block so exceptions don't get out of hand.
+    try {
+      lock = true;
+      var result = fn.apply(next, arguments);
+    } catch (e) {
+      // Pass any exceptions on through the next callback
+      next(e);
+    }
+
+    if (counter > 0 && pending == 0) {
+      // If parallel() was called, and all parallel branches executed
+      // synchronously, go on to the next step immediately.
+      next.apply(null, results);
+    } else if (result !== undefined) {
+      // If a synchronous return is used, pass it to the callback
+      next(undefined, result);
+    }
+    lock = false;
+  }
+
+  // Add a special callback generator `this.parallel()` that groups stuff.
+  next.parallel = function () {
+    var index = 1 + counter++;
+    pending++;
+
+    return function () {
+      pending--;
+      // Compress the error from any result to the first argument
+      if (arguments[0]) {
+        results[0] = arguments[0];
+      }
+      // Send the other results as arguments
+      results[index] = arguments[1];
+      if (!lock && pending === 0) {
+        // When all parallel branches done, call the callback
+        next.apply(null, results);
+      }
+    };
+  };
+
+  // Generates a callback generator for grouped results
+  next.group = function () {
+    var localCallback = next.parallel();
+    var counter = 0;
+    var pending = 0;
+    var result = [];
+    var error = undefined;
+
+    function check() {
+      if (pending === 0) {
+        // When group is done, call the callback
+        localCallback(error, result);
+      }
+    }
+    process.nextTick(check); // Ensures that check is called at least once
+
+    // Generates a callback for the group
+    return function () {
+      var index = counter++;
+      pending++;
+      return function () {
+        pending--;
+        // Compress the error from any result to the first argument
+        if (arguments[0]) {
+          error = arguments[0];
+        }
+        // Send the other results as arguments
+        result[index] = arguments[1];
+        if (!lock) { check(); }
+      };
+    };
+  };
+
+  // Start the engine an pass nothing to the first step.
+  next();
+}
+
+// Tack on leading and tailing steps for input and output and return
+// the whole thing as a function.  Basically turns step calls into function
+// factories.
+Step.fn = function StepFn() {
+  var steps = Array.prototype.slice.call(arguments);
+  return function () {
+    var args = Array.prototype.slice.call(arguments);
+
+    // Insert a first step that primes the data stream
+    var toRun = [function () {
+      this.apply(null, args);
+    }].concat(steps);
+
+    // If the last arg is a function add it as a last step
+    if (typeof args[args.length-1] === 'function') {
+      toRun.push(args.pop());
+    }
+
+
+    Step.apply(null, toRun);
+  }
+}
+
+
+// Hook into commonJS module systems
+if (typeof module !== 'undefined' && "exports" in module) {
+  module.exports = Step;
+}
+
+
 // -----------
 
 const MSCOG_BASE = 'https://api.projectoxford.ai/entitylinking/v1.0/link';
@@ -216,6 +345,7 @@ const actions = {
     console.log("api call!!!!!!!!!!!!!!!!!!");
     //console.log("pathname"+pathname);
     var decoder = new StringDecoder();
+    //Step(
     http.get(options, (res) => {
       console.log(`Got response: ${res.statusCode}`);
       // consume response body
@@ -268,74 +398,82 @@ const actions = {
           var oNum = ""; //store the id which has the most occurances of object pronouns
           //console.log(JSON.parse(result));
           console.log("length: " + len);
-          for(var i=0; i<len; i++)
-          {
-          	name.push(JSON.parse(result).entities[i].name);
-            var tempname = JSON.parse(result).entities[i].name;
-          	wikipediaId.push(JSON.parse(result).entities[i].wikipediaId);
-            const wikiHost = 'https://en.wikipedia.org/wiki';
-            let wikiOptions = {
-            url: wikiHost+'/'+encodeURIComponent(JSON.parse(result).entities[i].wikipediaId),
-            method: 'POST',
-            }
-            request(wikiOptions, (err, res, body) => {
-              if(err)
+          Step(
+            function getInform()
+            {
+              for(var i=0; i<len; i++)
               {
-                console.log("Got an error ",err);
-              }
-              else
-              {
-                var data = extractor(res.body);
-                var index = {},
-                words = data.text.replace(/[.,?!;()"'-]/g, " ").replace(/\s+/g, " ").toLowerCase().split(" ");
-                index['his'] = 0;
-                index['he'] = 0;
-                index['its'] = 0;
-                index['it'] = 0;
-                index['she'] = 0;
-                index['her'] = 0;
-                //console.log("word: "+words);
-                words.forEach(function (word) {
-                  if (word==='it'||word==='he'||word==='she'||word==='its'||word==='his'||word==='her') {
-                    index[word]++;
-                    //console.log("index: "+index);
+                name.push(JSON.parse(result).entities[i].name);
+                var tempname = JSON.parse(result).entities[i].name;
+                wikipediaId.push(JSON.parse(result).entities[i].wikipediaId);
+                const wikiHost = 'https://en.wikipedia.org/wiki';
+                let wikiOptions = {
+                url: wikiHost+'/'+encodeURIComponent(JSON.parse(result).entities[i].wikipediaId),
+                method: 'POST',
+                }
+                request(wikiOptions, (err, res, body) => {
+                  if(err)
+                  {
+                    console.log("Got an error ",err);
                   }
-                });
-                if((index['it']+index['its'])>oCount)
-                {
-                  //console.log("index['it']+index['its']>oCount)");
-                  oCount = index['it']+index['its'];
-                  oNum = tempname;
-                  console.log("it: "+oCount +" "+oNum);
-                }
-                if((index['he']+index['his'])>mCount)
-                {
-                  //console.log("index['his']+index['he']>mCount)");
-                  mCount = index['he']+index['his'];
-                  mNum = tempname;
-                  console.log("he: "+mCount +" "+mNum);
-                }
-                if((index['her']+index['she'])>fCount)
-                {
-                  //console.log("index['her']+index['she']>fCount)");
-                  fCount = index['her']+index['she'];
-                  fNum = tempname;
-                  console.log("she: "+fCount +" "+fNum);
-                }
+                  else
+                  {
+                    var data = extractor(res.body);
+                    var index = {},
+                    words = data.text.replace(/[.,?!;()"'-]/g, " ").replace(/\s+/g, " ").toLowerCase().split(" ");
+                    index['his'] = 0;
+                    index['he'] = 0;
+                    index['its'] = 0;
+                    index['it'] = 0;
+                    index['she'] = 0;
+                    index['her'] = 0;
+                    //console.log("word: "+words);
+                    words.forEach(function (word) {
+                      if (word==='it'||word==='he'||word==='she'||word==='its'||word==='his'||word==='her') {
+                        index[word]++;
+                        //console.log("index: "+index);
+                      }
+                    });
+                    if((index['it']+index['its'])>oCount)
+                    {
+                      //console.log("index['it']+index['its']>oCount)");
+                      oCount = index['it']+index['its'];
+                      oNum = tempname;
+                      console.log("it: "+oCount +" "+oNum);
+                    }
+                    if((index['he']+index['his'])>mCount)
+                    {
+                      //console.log("index['his']+index['he']>mCount)");
+                      mCount = index['he']+index['his'];
+                      mNum = tempname;
+                      console.log("he: "+mCount +" "+mNum);
+                    }
+                    if((index['her']+index['she'])>fCount)
+                    {
+                      //console.log("index['her']+index['she']>fCount)");
+                      fCount = index['her']+index['she'];
+                      fNum = tempname;
+                      console.log("she: "+fCount +" "+fNum);
+                    }
+                  }
+                  //console.log(res.body);
+                })
               }
-              //console.log(res.body);
-            })
-          }
-          console.log("female, male, object: "+fNum+" "+mNum+" "+oNum);
-          pronouns.push(fNum);
-          pronouns.push(mNum);
-          pronouns.push(oNum);
-          temp.push(name);
-          temp.push(wikipediaId);
-          temp.push(pronouns);
-          console.log("name: " + name);
-          console.log("wikipediaId: " + wikipediaId);
-          console.log("pronouns: " + pronouns);
+            },
+            function storeInform()
+            {
+              console.log("female, male, object: "+fNum+" "+mNum+" "+oNum);
+              pronouns.push(fNum);
+              pronouns.push(mNum);
+              pronouns.push(oNum);
+              temp.push(name);
+              temp.push(wikipediaId);
+              temp.push(pronouns);
+              console.log("name: " + name);
+              console.log("wikipediaId: " + wikipediaId);
+              console.log("pronouns: " + pronouns);
+            }
+          );
         });
         sessions[sessionId].context.push(temp);
       
