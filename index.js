@@ -214,7 +214,7 @@ const actions = {
       path:  pathname
     };
     console.log("api call!!!!!!!!!!!!!!!!!!");
-    console.log("pathname"+pathname);
+    //console.log("pathname"+pathname);
     var decoder = new StringDecoder();
     http.get(options, (res) => {
       console.log(`Got response: ${res.statusCode}`);
@@ -236,10 +236,8 @@ const actions = {
             
             temp.push(query);
             temp.push(context.answer);
-            
-            
             context.url = data.substring(urlbeg + 11, urlend).trim();
-            console.log('score: '+parseFloat(data.substring(scorebeg + 12, scoreend)));
+            //console.log('score: '+parseFloat(data.substring(scorebeg + 12, scoreend)));
          }
          else
          { 
@@ -255,7 +253,7 @@ const actions = {
         //console.log("query+context.answer: "+ params.text);
         linkEntities(params, (err, result) => {
           if (err) return console.error(err);
-          console.log("query+context.answer: "+ params.text);
+          //console.log("query+context.answer: "+ params.text);
           //console.log("params.selection+params.text"+params.selection+" "+params.text);
           //console.log(JSON.stringify(JSON.parse(result), null, 2));
           var name = [];
@@ -299,19 +297,19 @@ const actions = {
               });
               if((index['it']+index['its'])>oCount)
               {
-                console.log("index['it']+index['its']>oCount)");
+                //console.log("index['it']+index['its']>oCount)");
                 oCount = index['it']+index['its'];
                 oNum = tempname;
               }
               if((index['he']+index['his'])>mCount)
               {
-                console.log("index['his']+index['he']>mCount)");
+                //console.log("index['his']+index['he']>mCount)");
                 mCount = index['he']+index['his'];
                 mNum = tempname;
               }
               if((index['her']+index['she'])>fCount)
               {
-                console.log("index['her']+index['she']>fCount)");
+                //console.log("index['her']+index['she']>fCount)");
                 fCount = index['her']+index['she'];
                 fNum = tempname;
               }
