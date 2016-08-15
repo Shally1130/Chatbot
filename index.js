@@ -281,29 +281,30 @@ const actions = {
             }
             request(wikiOptions, (err, res, body) => {
               var data = extractor(res.body);
-              var index = {},
-              words = data.text.replace(/[.,?!;()"'-]/g, " ").replace(/\s+/g, " ").toLowerCase().split(" ");
-              words.forEach(function (word) {
-                if (!(index.hasOwnProperty(word))&&(word==='it'||word==='he'||word==='she'||word==='its'||word==='his'||word==='her')) {
-                  index[word] = 0;
-                }
-                index[word]++;
-              });
-              if(index['it']+index['its']>oCount)
-              {
-                oCount = index['it']+index['its'];
-                oid = i;
-              }
-              if(index['he']+index['his']>oCount)
-              {
-                mCount = index['he']+index['his'];
-                mid = i;
-              }
-              if(index['her']+index['she']>oCount)
-              {
-                fCount = index['her']+index['she'];
-                fid = i;
-              }
+              // var index = {},
+              // words = data.text.replace(/[.,?!;()"'-]/g, " ").replace(/\s+/g, " ").toLowerCase().split(" ");
+              // words.forEach(function (word) {
+              //   if (!(index.hasOwnProperty(word))&&(word==='it'||word==='he'||word==='she'||word==='its'||word==='his'||word==='her')) {
+              //     index[word] = 0;
+              //   }
+              //   index[word]++;
+              // });
+              // if(index['it']+index['its']>oCount)
+              // {
+              //   oCount = index['it']+index['its'];
+              //   oid = i;
+              // }
+              // if(index['he']+index['his']>oCount)
+              // {
+              //   mCount = index['he']+index['his'];
+              //   mid = i;
+              // }
+              // if(index['her']+index['she']>oCount)
+              // {
+              //   fCount = index['her']+index['she'];
+              //   fid = i;
+              // }
+              console.log("data: "+data.text);
               //console.log(res.body);
             })
           }
