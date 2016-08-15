@@ -4,7 +4,7 @@ var bodyParser = require('body-parser');
 var request = require('request');
 var app = express();
 var jQuery = require('jquery');
-
+var wikipedia = require("node-wikipedia");
 
 
 app.use(bodyParser.urlencoded({extended: false}));
@@ -265,6 +265,10 @@ const actions = {
           {
           	name.push(JSON.parse(result).entities[i].name);
           	wikipediaId.push(JSON.parse(result).entities[i].wikipediaId);
+            wikipedia.page.data(JSON.parse(result).entities[i].wikipediaId, { content: true }, function(response) {
+              // structured information on the page for Clifford Brown (wikilinks, references, categories, etc.)
+              console.log(response);
+            });
           }
           // var name = JSON.parse(result).entities[0].name;
           // var wikipediaId = JSON.parse(result).entities[0].wikipediaId;
@@ -287,18 +291,6 @@ const actions = {
     //cb(context);
     
   },
-  // ['getName'](sessionId, context, cb) {
-  //   var size = sessions[sessionId].context.length;
-  //   var dandelionPathname = 'https://api.dandelion.eu/datatxt/nex/v1/?lang=en&text'+encodeURIComponent('Do you know Panisonic')+'&include=types%2Cabstract%2Ccategories&token=24c423f8c8fd4925a02869cbf1cfd37c'
-  //   console.log(dandelionPathname)
-  //   jQuery.getJSON(dandelionPathname, function(dandelionName) {
-  //     console.log('dandelionName:'+dandelionName);
-  //     console.log('console.log(dandelionName.annotations[0].categories'+dandelionName.annotations[0].categories);
-  //     sessions[sessionId].context.get(size-1).push(dandelionName.annotations[0].categories);
-      
-  //   });
-    
-  // },
 
 };
 
