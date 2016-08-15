@@ -293,17 +293,17 @@ const actions = {
               if(index['it']+index['its']>oCount)
               {
                 oCount = index['it']+index['its'];
-                oNum = i;
+                oNum = JSON.parse(result).entities[i].name;
               }
               if(index['he']+index['his']>mCount)
               {
                 mCount = index['he']+index['his'];
-                mNum = i;
+                mNum = JSON.parse(result).entities[i].name;
               }
               if(index['her']+index['she']>fCount)
               {
                 fCount = index['her']+index['she'];
-                fNum = i;
+                fNum = JSON.parse(result).entities[i].name;
               }
               //console.log(res.body);
             })
