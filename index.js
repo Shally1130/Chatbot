@@ -279,42 +279,49 @@ const actions = {
             method: 'POST',
             }
             request(wikiOptions, (err, res, body) => {
-              var data = extractor(res.body);
-              var index = {},
-              words = data.text.replace(/[.,?!;()"'-]/g, " ").replace(/\s+/g, " ").toLowerCase().split(" ");
-              index['his'] = 0;
-              index['he'] = 0;
-              index['its'] = 0;
-              index['it'] = 0;
-              index['she'] = 0;
-              index['her'] = 0;
-              //console.log("word: "+words);
-              words.forEach(function (word) {
-                if (word==='it'||word==='he'||word==='she'||word==='its'||word==='his'||word==='her') {
-                  index[word]++;
-                  //console.log("index: "+index);
+              if(err)
+              {
+                console.log("Got an error ",err);
+              }
+              else
+              {
+                var data = extractor(res.body);
+                var index = {},
+                words = data.text.replace(/[.,?!;()"'-]/g, " ").replace(/\s+/g, " ").toLowerCase().split(" ");
+                index['his'] = 0;
+                index['he'] = 0;
+                index['its'] = 0;
+                index['it'] = 0;
+                index['she'] = 0;
+                index['her'] = 0;
+                //console.log("word: "+words);
+                words.forEach(function (word) {
+                  if (word==='it'||word==='he'||word==='she'||word==='its'||word==='his'||word==='her') {
+                    index[word]++;
+                    //console.log("index: "+index);
+                  }
+                });
+                if((index['it']+index['its'])>oCount)
+                {
+                  //console.log("index['it']+index['its']>oCount)");
+                  oCount = index['it']+index['its'];
+                  oNum = tempname;
+                  console.log("it: "+oCount +" "+oNum);
                 }
-              });
-              if((index['it']+index['its'])>oCount)
-              {
-                //console.log("index['it']+index['its']>oCount)");
-                oCount = index['it']+index['its'];
-                oNum = tempname;
-                console.log("it: "+oCount +" "+oNum);
-              }
-              if((index['he']+index['his'])>mCount)
-              {
-                //console.log("index['his']+index['he']>mCount)");
-                mCount = index['he']+index['his'];
-                mNum = tempname;
-                console.log("he: "+mCount +" "+mNum);
-              }
-              if((index['her']+index['she'])>fCount)
-              {
-                //console.log("index['her']+index['she']>fCount)");
-                fCount = index['her']+index['she'];
-                fNum = tempname;
-                console.log("she: "+fCount +" "+fNum);
+                if((index['he']+index['his'])>mCount)
+                {
+                  //console.log("index['his']+index['he']>mCount)");
+                  mCount = index['he']+index['his'];
+                  mNum = tempname;
+                  console.log("he: "+mCount +" "+mNum);
+                }
+                if((index['her']+index['she'])>fCount)
+                {
+                  //console.log("index['her']+index['she']>fCount)");
+                  fCount = index['her']+index['she'];
+                  fNum = tempname;
+                  console.log("she: "+fCount +" "+fNum);
+                }
               }
               //console.log(res.body);
             })
