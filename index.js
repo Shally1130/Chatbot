@@ -309,9 +309,9 @@ const actions = {
             })
           }
           console.log("female, male, object: "+fNum+" "+mNum+" "+oNum);
-          pronouns.push(fId);
-          pronouns.push(mId);
-          pronouns.push(oId);
+          pronouns.push(fNum);
+          pronouns.push(mNum);
+          pronouns.push(oNum);
           temp.push(name);
           temp.push(wikipediaId);
           temp.push(pronouns);
