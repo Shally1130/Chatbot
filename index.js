@@ -404,7 +404,7 @@ const actions = {
               for(var i=0; i<len; i++)
               {
                 name.push(JSON.parse(result).entities[i].name);
-                var tempname = JSON.parse(result).entities[i].name;
+                var tempname = name[i];
                 wikipediaId.push(JSON.parse(result).entities[i].wikipediaId);
                 const wikiHost = 'https://en.wikipedia.org/wiki';
                 let wikiOptions = {
