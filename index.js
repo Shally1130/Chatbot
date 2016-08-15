@@ -292,6 +292,7 @@ const actions = {
                 }
                 index[word]++;
               });
+              console.log("index: "+index);
               if(index['it']+index['its']>oCount)
               {
                 oCount = index['it']+index['its'];
