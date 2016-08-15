@@ -267,12 +267,12 @@ const actions = {
           {
           	name.push(JSON.parse(result).entities[i].name);
           	wikipediaId.push(JSON.parse(result).entities[i].wikipediaId);
-            wikipedia.page.data("Anaconda", { content: true }, function(response) {
+            wikipedia.page.data(JSON.parse(result).entities[i].wikipediaId), { content: true }, function(response) {
               // structured information on the page for Clifford Brown (wikilinks, references, categories, etc.)
               var data = extractor.lazy(response);
-              console.log(data.text());
+              console.log("data:"+data.text());
             });
-          } 
+          }
           // var name = JSON.parse(result).entities[0].name;
           // var wikipediaId = JSON.parse(result).entities[0].wikipediaId;
           temp.push(name);
