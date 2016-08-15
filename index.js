@@ -265,9 +265,9 @@ const actions = {
           var fCount = 0; //count female pronoun
           var mCount = 0; //count male pronoun
           var oCount = 0; //count object pronoun
-          var fNum; //store the id which has the most occurances of female pronouns
-          var mNum; //store the id which has the most occurances of male pronouns
-          var oNum; //store the id which has the most occurances of object pronouns
+          var fNum = ""; //store the id which has the most occurances of female pronouns
+          var mNum = ""; //store the id which has the most occurances of male pronouns
+          var oNum = ""; //store the id which has the most occurances of object pronouns
           //console.log(JSON.parse(result));
           console.log("length: " + len);
           for(var i=0; i<len; i++)
