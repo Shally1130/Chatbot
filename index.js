@@ -262,9 +262,9 @@ const actions = {
           var wikipediaId = [];
           var pronouns = [];
           var len = JSON.parse(result).entities.length;
-          var fCount; //count female pronoun
-          var mCount; //count male pronoun
-          var oCount; //count object pronoun
+          var fCount = 0; //count female pronoun
+          var mCount = 0; //count male pronoun
+          var oCount = 0; //count object pronoun
           var fId; //store the id which has the most occurances of female pronouns
           var mId; //store the id which has the most occurances of male pronouns
           var oId; //store the id which has the most occurances of object pronouns
@@ -295,12 +295,12 @@ const actions = {
                 oCount = index['it']+index['its'];
                 oId = i;
               }
-              if(index['he']+index['his']>oCount)
+              if(index['he']+index['his']>mCount)
               {
                 mCount = index['he']+index['his'];
                 mId = i;
               }
-              if(index['her']+index['she']>oCount)
+              if(index['her']+index['she']>fCount)
               {
                 fCount = index['her']+index['she'];
                 fId = i;
