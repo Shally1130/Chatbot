@@ -278,7 +278,7 @@ const actions = {
         //console.log("end linkEntities.............");
         //findPronoun(sessions);
         const wikiHost = 'https://en.wikipedia.org/wiki';
-        console.log('temp: '+temp[3].length+"content: ");
+        console.log('temp: '+temp);
 		 for(var i=0; i<1; i++)
 		 {
 		 	let wikiOptions = {
