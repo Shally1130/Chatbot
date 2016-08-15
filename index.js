@@ -265,9 +265,9 @@ const actions = {
           var fCount = 0; //count female pronoun
           var mCount = 0; //count male pronoun
           var oCount = 0; //count object pronoun
-          var fId; //store the id which has the most occurances of female pronouns
-          var mId; //store the id which has the most occurances of male pronouns
-          var oId; //store the id which has the most occurances of object pronouns
+          var fNum; //store the id which has the most occurances of female pronouns
+          var mNum; //store the id which has the most occurances of male pronouns
+          var oNum; //store the id which has the most occurances of object pronouns
           //console.log(JSON.parse(result));
           console.log("length: " + len);
           for(var i=0; i<len; i++)
@@ -293,22 +293,22 @@ const actions = {
               if(index['it']+index['its']>oCount)
               {
                 oCount = index['it']+index['its'];
-                oId = i;
+                oNum = i;
               }
               if(index['he']+index['his']>mCount)
               {
                 mCount = index['he']+index['his'];
-                mId = i;
+                mNum = i;
               }
               if(index['her']+index['she']>fCount)
               {
                 fCount = index['her']+index['she'];
-                fId = i;
+                fNum = i;
               }
               //console.log(res.body);
             })
           }
-          console.log("female, male, object: "+fId+" "+mId+" "+oId);
+          console.log("female, male, object: "+fNum+" "+mNum+" "+oNum);
           pronouns.push(fId);
           pronouns.push(mId);
           pronouns.push(oId);
