@@ -305,17 +305,29 @@ const actions = {
 
 function findPronoun(sessions)
 {
-	for(var i=0; i<1; i++)
-	{
-		var wikiOptions = {
-	      host: 'en.wikipedia.org/wiki',
-	      path:  '/'+sessions[3][i]
-	    };
-	    http.get(wikiOptions, (res) => {
-	    	console.log(res);
-	    }).on('error', (e) => {
-      console.log(`Got error: ${e.message}`);
-    });	
+	const host = 'https://en.wikipedia.org/wiki';
+	// for(var i=0; i<1; i++)
+	// {
+	// 	var wikiOptions = {
+	//       host: 'en.wikipedia.org',
+	//       path:  '/wiki/'+sessions[3][i]
+	//     };
+	//     http.get(wikiOptions, (res) => {
+	//     	console.log(res);
+	//     }).on('error', (e) => {
+ //      console.log(`Got error: ${e.message}`);
+ //    });	
+	 for(var i=0; i<1; i++)
+	 {
+	 	let wikiOptions = {
+	    url: host+'/'+sessions[3][i],
+	    method: 'POST',
+		}
+	  	request(options, (err, res, body) => {
+	  		console.log(res);
+	  	})
+	 }
+ 	
 	
 }
 
