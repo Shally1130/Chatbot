@@ -282,7 +282,7 @@ const actions = {
             request(wikiOptions, (err, res, body) => {
               var data = extractor(res.body);
               var index = {},
-              words = data.replace(/[.,?!;()"'-]/g, " ").replace(/\s+/g, " ").toLowerCase().split(" ");
+              words = data.text.replace(/[.,?!;()"'-]/g, " ").replace(/\s+/g, " ").toLowerCase().split(" ");
               words.forEach(function (word) {
                 if (!(index.hasOwnProperty(word))&&(word==='it'||word==='he'||word==='she'||word==='its'||word==='his'||word==='her')) {
                   index[word] = 0;
