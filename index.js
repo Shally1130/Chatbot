@@ -265,6 +265,15 @@ const actions = {
           {
           	name.push(JSON.parse(result).entities[i].name);
           	wikipediaId.push(JSON.parse(result).entities[i].wikipediaId);
+          	const wikiHost = 'https://en.wikipedia.org/wiki';
+	        console.log('temp: '+temp);
+		 	let wikiOptions = {
+		    url: wikiHost+'/'+JSON.parse(result).entities[i].wikipediaId,
+		    method: 'POST',
+			}
+		  	request(wikiOptions, (err, res, body) => {
+		  		console.log(res);
+		  	})
           }
           // var name = JSON.parse(result).entities[0].name;
           // var wikipediaId = JSON.parse(result).entities[0].wikipediaId;
