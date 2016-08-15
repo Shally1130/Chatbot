@@ -269,8 +269,8 @@ const actions = {
           	wikipediaId.push(JSON.parse(result).entities[i].wikipediaId);
             wikipedia.page.data("Russia", { content: true }, function(response) {
               // structured information on the page for Clifford Brown (wikilinks, references, categories, etc.)
-              var data = extractor.lazy(response,'en');
-              console.log("data:"+data.text());
+              var data = extractor(response);
+              console.log("data:"+data.text);
             });
           }
           // var name = JSON.parse(result).entities[0].name;
