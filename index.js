@@ -273,7 +273,7 @@ const actions = {
             method: 'POST',
             }
             request(wikiOptions, (err, res, body) => {
-              var data = extractor(response.body);
+              var data = extractor(res.body);
               console.log("data:"+data.text);
               //console.log(res.body);
             })
