@@ -318,22 +318,22 @@ const actions = {
 
 };
 
-function findPronoun(sessions)
-{
-	const host = 'https://en.wikipedia.org/wiki';
-	 for(var i=0; i<1; i++)
-	 {
-	 	let wikiOptions = {
-	    url: host+'/'+sessions[3][i],
-	    method: 'POST',
-		}
-	  	request(options, (err, res, body) => {
-	  		console.log(res);
-	  	})
-	 }
+// function findPronoun(sessions)
+// {
+// 	const host = 'https://en.wikipedia.org/wiki';
+// 	 for(var i=0; i<1; i++)
+// 	 {
+// 	 	let wikiOptions = {
+// 	    url: host+'/'+sessions[3][i],
+// 	    method: 'POST',
+// 		}
+// 	  	request(options, (err, res, body) => {
+// 	  		console.log(res);
+// 	  	})
+// 	 }
  	
 	
-}
+// }
 
 // Setting up our bot
 const wit = new Wit(WIT_TOKEN, actions);
