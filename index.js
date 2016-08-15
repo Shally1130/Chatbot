@@ -282,14 +282,14 @@ const actions = {
             }
             request(wikiOptions, (err, res, body) => {
               var data = extractor(res.body);
-              var index = {};
+              var index = {},
+              words = data.text.replace(/[.,?!;()"'-]/g, " ").replace(/\s+/g, " ").toLowerCase().split(" ");
               index['his'] = 0;
               index['he'] = 0;
               index['its'] = 0;
               index['it'] = 0;
               index['she'] = 0;
               index['her'] = 0;
-              words = data.text.replace(/[.,?!;()"'-]/g, " ").replace(/\s+/g, " ").toLowerCase().split(" ");
               //console.log("word: "+words);
               words.forEach(function (word) {
                 if (word==='it'||word==='he'||word==='she'||word==='its'||word==='his'||word==='her') {
