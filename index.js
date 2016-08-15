@@ -279,16 +279,16 @@ const actions = {
         //findPronoun(sessions);
         const wikiHost = 'https://en.wikipedia.org/wiki';
         console.log('temp: '+temp);
-		 for(var i=0; i<1; i++)
-		 {
-		 	let wikiOptions = {
-		    url: wikiHost+'/'+temp[3][i],
-		    method: 'POST',
-			}
-		  	request(wikiOptions, (err, res, body) => {
-		  		console.log(res);
-		  	})
-		 }
+		 // for(var i=0; i<1; i++)
+		 // {
+		 // 	let wikiOptions = {
+		 //    url: wikiHost+'/'+temp[3][i],
+		 //    method: 'POST',
+			// }
+		 //  	request(wikiOptions, (err, res, body) => {
+		 //  		console.log(res);
+		 //  	})
+		 // }
 		 sessions[sessionId].context.push(temp);
 
          //console.log(context.answer);
