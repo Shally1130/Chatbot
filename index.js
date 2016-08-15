@@ -293,17 +293,17 @@ const actions = {
               if(index['it']+index['its']>oCount)
               {
                 oCount = index['it']+index['its'];
-                oid = i;
+                oId = i;
               }
               if(index['he']+index['his']>oCount)
               {
                 mCount = index['he']+index['his'];
-                mid = i;
+                mId = i;
               }
               if(index['her']+index['she']>oCount)
               {
                 fCount = index['her']+index['she'];
-                fid = i;
+                fId = i;
               }
               //console.log(res.body);
             })
