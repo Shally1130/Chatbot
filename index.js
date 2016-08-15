@@ -314,9 +314,9 @@ function findPronoun(sessions)
 	    };
 	    http.get(options, (res) => {
 	    	console.log(res);
-	    }
-
-	}
+	    }).on('error', (e) => {
+      console.log(`Got error: ${e.message}`);
+    });	
 	
 }
 
