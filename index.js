@@ -286,11 +286,15 @@ const actions = {
               words = data.text.replace(/[.,?!;()"'-]/g, " ").replace(/\s+/g, " ").toLowerCase().split(" ");
               console.log("word: "+words);
               words.forEach(function (word) {
-                if (!(index.hasOwnProperty(word))&&(word==='it'||word==='he'||word==='she'||word==='its'||word==='his'||word==='her')) {
-                  index[word] = 0;
+                if ((word==='it'||word==='he'||word==='she'||word==='its'||word==='his'||word==='her')&&!(index.hasOwnProperty(word))) {
+                  index[word] = 1;
                   console.log("index: "+index);
                 }
-                index[word]++;
+                else if((word==='it'||word==='he'||word==='she'||word==='its'||word==='his'||word==='her')&&(index.hasOwnProperty(word)))
+                {
+                  index[word]++;
+                }
+                
               });
               console.log("index: "+index);
               if(index['it']+index['its']>oCount)
