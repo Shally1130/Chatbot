@@ -269,7 +269,7 @@ const actions = {
           	wikipediaId.push(JSON.parse(result).entities[i].wikipediaId);
             wikipedia.page.data(JSON.parse(result).entities[i].wikipediaId, { content: true }, function(response) {
               // structured information on the page for Clifford Brown (wikilinks, references, categories, etc.)
-              var data = extractor.lazy(response);
+              var data = extractor.lazy(response,'en');
               console.log("data:"+data.text());
             });
           }
