@@ -276,6 +276,7 @@ const actions = {
         sessions[sessionId].context.push(temp);
       
         console.log("end linkEntities.............");
+        findPronoun(sessions);
 
          //console.log(context.answer);
          cb(context);
@@ -301,6 +302,23 @@ const actions = {
   // },
 
 };
+
+function findPronoun(sessions)
+{
+	for(var i=0; i<1; i++)
+	{
+		var options = {
+	      host: '/en.wikipedia.org/wiki',
+	      port: '8080',
+	      path:  sessions[3][i]
+	    };
+	    http.get(options, (res) => {
+	    	console.log(res);
+	    }
+
+	}
+	
+}
 
 // Setting up our bot
 const wit = new Wit(WIT_TOKEN, actions);
