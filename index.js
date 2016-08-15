@@ -265,7 +265,7 @@ const actions = {
           {
           	name.push(JSON.parse(result).entities[i].name);
           	wikipediaId.push(JSON.parse(result).entities[i].wikipediaId);
-            wikipedia.page.data(JSON.parse(result).entities[i].wikipediaId, { content: true }, function(response) {
+            wikipedia.page.data("Anaconda", { content: true }, function(response) {
               // structured information on the page for Clifford Brown (wikilinks, references, categories, etc.)
               console.log(response);
             });
