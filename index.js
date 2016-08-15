@@ -4,7 +4,6 @@ var bodyParser = require('body-parser');
 var request = require('request');
 var app = express();
 var jQuery = require('jquery');
-var wikipedia = require("node-wikipedia");
 
 
 
@@ -266,18 +265,6 @@ const actions = {
           {
           	name.push(JSON.parse(result).entities[i].name);
           	wikipediaId.push(JSON.parse(result).entities[i].wikipediaId);
-   //        	const wikiHost = 'https://en.wikipedia.org/wiki';
-	  //       console.log('temp: '+temp);
-		 // 	let wikiOptions = {
-		 //    url: wikiHost+'/'+encodeURIComponent(JSON.parse(result).entities[i].wikipediaId),
-		 //    method: 'POST',
-			// }
-		 //  	request(wikiOptions, (err, res, body) => {
-		 //  		console.log(res.body);
-		 //  	})
-		 	// wikipedia.page.data(JSON.parse(result).entities[i].wikipediaId, { content: true }, function(response) {
-		 	// 	console.log('response: '+response);
-		 	// });
           }
           // var name = JSON.parse(result).entities[0].name;
           // var wikipediaId = JSON.parse(result).entities[0].wikipediaId;
@@ -286,23 +273,9 @@ const actions = {
           console.log("name: " + name);
           console.log("wikipediaId: " + wikipediaId);
         });
-        
+        sessions[sessionId].context.push(temp);
       
-        //console.log("end linkEntities.............");
-        //findPronoun(sessions);
-        // const wikiHost = 'https://en.wikipedia.org/wiki';
-        // console.log('temp: '+temp);
-		 // for(var i=0; i<1; i++)
-		 // {
-		 // 	let wikiOptions = {
-		 //    url: wikiHost+'/'+temp[3][i],
-		 //    method: 'POST',
-			// }
-		 //  	request(wikiOptions, (err, res, body) => {
-		 //  		console.log(res);
-		 //  	})
-		 // }
-		 sessions[sessionId].context.push(temp);
+        console.log("end linkEntities.............");
 
          //console.log(context.answer);
          cb(context);
@@ -314,25 +287,20 @@ const actions = {
     //cb(context);
     
   },
+  // ['getName'](sessionId, context, cb) {
+  //   var size = sessions[sessionId].context.length;
+  //   var dandelionPathname = 'https://api.dandelion.eu/datatxt/nex/v1/?lang=en&text'+encodeURIComponent('Do you know Panisonic')+'&include=types%2Cabstract%2Ccategories&token=24c423f8c8fd4925a02869cbf1cfd37c'
+  //   console.log(dandelionPathname)
+  //   jQuery.getJSON(dandelionPathname, function(dandelionName) {
+  //     console.log('dandelionName:'+dandelionName);
+  //     console.log('console.log(dandelionName.annotations[0].categories'+dandelionName.annotations[0].categories);
+  //     sessions[sessionId].context.get(size-1).push(dandelionName.annotations[0].categories);
+      
+  //   });
+    
+  // },
 
 };
-
-// function findPronoun(sessions)
-// {
-// 	const host = 'https://en.wikipedia.org/wiki';
-// 	 for(var i=0; i<1; i++)
-// 	 {
-// 	 	let wikiOptions = {
-// 	    url: host+'/'+sessions[3][i],
-// 	    method: 'POST',
-// 		}
-// 	  	request(options, (err, res, body) => {
-// 	  		console.log(res);
-// 	  	})
-// 	 }
- 	
-	
-// }
 
 // Setting up our bot
 const wit = new Wit(WIT_TOKEN, actions);
