@@ -399,8 +399,7 @@ const actions = {
           //console.log(JSON.parse(result));
           console.log("length: " + len);
           Step(
-            function getInform()
-            {
+            function getInform(){
               for(var i=0; i<len; i++)
               {
                 name.push(JSON.parse(result).entities[i].name);
@@ -460,8 +459,7 @@ const actions = {
                 })
               }
             },
-            function storeInform()
-            {
+            function storeInform(){
               console.log("female, male, object: "+fNum+" "+mNum+" "+oNum);
               pronouns.push(fNum);
               pronouns.push(mNum);
