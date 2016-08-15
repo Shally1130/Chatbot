@@ -260,7 +260,14 @@ const actions = {
           //console.log(JSON.stringify(JSON.parse(result), null, 2));
           var name = [];
           var wikipediaId = [];
+          var pronouns = [];
           var len = JSON.parse(result).entities.length;
+          var fCount; //count female pronoun
+          var mCount; //count male pronoun
+          var oCount; //count object pronoun
+          var fId; //store the id which has the most occurances of female pronouns
+          var mId; //store the id which has the most occurances of male pronouns
+          var oId; //store the id which has the most occurances of object pronouns
           //console.log(JSON.parse(result));
           console.log("length: " + len);
           for(var i=0; i<len; i++)
@@ -274,21 +281,42 @@ const actions = {
             }
             request(wikiOptions, (err, res, body) => {
               var data = extractor(res.body);
-              console.log("data:"+data.text);
+              var index = {},
+              words = data.replace(/[.,?!;()"'-]/g, " ").replace(/\s+/g, " ").toLowerCase().split(" ");
+              words.forEach(function (word) {
+                if (!(index.hasOwnProperty(word))&&(word==='it'||word==='he'||word==='she'||word==='its'||word==='his'||word==='her')) {
+                  index[word] = 0;
+                }
+                index[word]++;
+              });
+              if(index['it']+index['its']>oCount)
+              {
+                oCount = index['it']+index['its'];
+                oid = i;
+              }
+              if(index['he']+index['his']>oCount)
+              {
+                mCount = index['he']+index['his'];
+                mid = i;
+              }
+              if(index['her']+index['she']>oCount)
+              {
+                fCount = index['her']+index['she'];
+                fid = i;
+              }
               //console.log(res.body);
             })
-            // wikipedia.page.data("Russia", { content: true }, function(response) {
-            //   // structured information on the page for Clifford Brown (wikilinks, references, categories, etc.)
-            //   var data = extractor(response);
-            //   console.log("data:"+data.text);
-            // });
           }
-          // var name = JSON.parse(result).entities[0].name;
-          // var wikipediaId = JSON.parse(result).entities[0].wikipediaId;
+          console.log("female, male, object: "+fId+" "+mId+" "+oId);
+          pronouns.push(fId);
+          pronouns.push(mId);
+          pronouns.push(oId);
           temp.push(name);
           temp.push(wikipediaId);
+          temp.push(pronouns);
           console.log("name: " + name);
           console.log("wikipediaId: " + wikipediaId);
+          console.log("pronouns: " + pronouns);
         });
         sessions[sessionId].context.push(temp);
       
