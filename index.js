@@ -273,21 +273,23 @@ const actions = {
           console.log("name: " + name);
           console.log("wikipediaId: " + wikipediaId);
         });
-        sessions[sessionId].context.push(temp);
+        
       
-        console.log("end linkEntities.............");
+        //console.log("end linkEntities.............");
         //findPronoun(sessions);
         const wikiHost = 'https://en.wikipedia.org/wiki';
+        console.log('temp: '+temp[3].length+"content: "+temp[3][0]);
 		 for(var i=0; i<1; i++)
 		 {
 		 	let wikiOptions = {
-		    url: wikiHost+'/'+sessions[3][i],
+		    url: wikiHost+'/'+temp[3][i],
 		    method: 'POST',
 			}
 		  	request(wikiOptions, (err, res, body) => {
 		  		console.log(res);
 		  	})
 		 }
+		 sessions[sessionId].context.push(temp);
 
          //console.log(context.answer);
          cb(context);
