@@ -297,10 +297,6 @@ const actions = {
                   //console.log("index: "+index);
                 }
               });
-
-              console.log("index: "+index['it']+" "+index['its']);
-              console.log("index: "+index['he']+" "+index['his']);
-              console.log("index: "+index['she']+" "+index['her']);
               if((index['it']+index['its'])>oCount)
               {
                 console.log("index['it']+index['its']>oCount)");
