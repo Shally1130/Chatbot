@@ -275,9 +275,9 @@ const actions = {
 		 //  	request(wikiOptions, (err, res, body) => {
 		 //  		console.log(res.body);
 		 //  	})
-		 	wikipedia.page.data(JSON.parse(result).entities[i].wikipediaId, { content: true }, function(response) {
-		 		console.log('response: '+response);
-		 	});
+		 	// wikipedia.page.data(JSON.parse(result).entities[i].wikipediaId, { content: true }, function(response) {
+		 	// 	console.log('response: '+response);
+		 	// });
           }
           // var name = JSON.parse(result).entities[0].name;
           // var wikipediaId = JSON.parse(result).entities[0].wikipediaId;
