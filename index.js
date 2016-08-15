@@ -300,18 +300,21 @@ const actions = {
                 //console.log("index['it']+index['its']>oCount)");
                 oCount = index['it']+index['its'];
                 oNum = tempname;
+                console.log("it: "+oCount +" "+oNum);
               }
               if((index['he']+index['his'])>mCount)
               {
                 //console.log("index['his']+index['he']>mCount)");
                 mCount = index['he']+index['his'];
                 mNum = tempname;
+                console.log("he: "+mCount +" "+mNum);
               }
               if((index['her']+index['she'])>fCount)
               {
                 //console.log("index['her']+index['she']>fCount)");
                 fCount = index['her']+index['she'];
                 fNum = tempname;
+                console.log("she: "+fCount +" "+fNum);
               }
               //console.log(res.body);
             })
