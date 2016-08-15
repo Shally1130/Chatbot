@@ -299,16 +299,19 @@ const actions = {
               console.log("index: "+index);
               if(index['it']+index['its']>oCount)
               {
+                console.log("index['it']+index['its']>oCount)");
                 oCount = index['it']+index['its'];
                 oNum = tempname;
               }
               if(index['he']+index['his']>mCount)
               {
+                console.log("index['his']+index['he']>mCount)");
                 mCount = index['he']+index['his'];
                 mNum = tempname;
               }
               if(index['her']+index['she']>fCount)
               {
+                console.log("index['her']+index['she']>fCount)");
                 fCount = index['her']+index['she'];
                 fNum = tempname;
               }
