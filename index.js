@@ -268,11 +268,11 @@ const actions = {
           	const wikiHost = 'https://en.wikipedia.org/wiki';
 	        console.log('temp: '+temp);
 		 	let wikiOptions = {
-		    url: wikiHost+'/'+JSON.parse(result).entities[i].wikipediaId,
+		    url: wikiHost+'/'+encodeURIComponent(JSON.parse(result).entities[i].wikipediaId),
 		    method: 'POST',
 			}
 		  	request(wikiOptions, (err, res, body) => {
-		  		console.log(res);
+		  		console.log(res.body);
 		  	})
           }
           // var name = JSON.parse(result).entities[0].name;
