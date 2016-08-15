@@ -4,7 +4,7 @@ var bodyParser = require('body-parser');
 var request = require('request');
 var app = express();
 var jQuery = require('jquery');
-var wikipedia = require("node-wikipedia");
+
 
 
 
@@ -29,6 +29,7 @@ app.get('/webhook', function (req, res) {
 const StringDecoder = require('string_decoder').StringDecoder;
 const Wit = require('node-wit').Wit;
 const http = require('http');
+const wikipedia = require("node-wikipedia");
 
 // -----------
 
@@ -275,7 +276,7 @@ const actions = {
 		 //  	request(wikiOptions, (err, res, body) => {
 		 //  		console.log(res.body);
 		 //  	})
-		 	wikipedia.page.data("Clifford_Brown", { content: true }, function(response) {
+		 	wikipedia.page.data(JSON.parse(result).entities[i].wikipediaId, { content: true }, function(response) {
 		 		console.log('response: '+response);
 		 	})
           }
@@ -290,8 +291,8 @@ const actions = {
       
         //console.log("end linkEntities.............");
         //findPronoun(sessions);
-        const wikiHost = 'https://en.wikipedia.org/wiki';
-        console.log('temp: '+temp);
+        // const wikiHost = 'https://en.wikipedia.org/wiki';
+        // console.log('temp: '+temp);
 		 // for(var i=0; i<1; i++)
 		 // {
 		 // 	let wikiOptions = {
@@ -314,35 +315,12 @@ const actions = {
     //cb(context);
     
   },
-  // ['getName'](sessionId, context, cb) {
-  //   var size = sessions[sessionId].context.length;
-  //   var dandelionPathname = 'https://api.dandelion.eu/datatxt/nex/v1/?lang=en&text'+encodeURIComponent('Do you know Panisonic')+'&include=types%2Cabstract%2Ccategories&token=24c423f8c8fd4925a02869cbf1cfd37c'
-  //   console.log(dandelionPathname)
-  //   jQuery.getJSON(dandelionPathname, function(dandelionName) {
-  //     console.log('dandelionName:'+dandelionName);
-  //     console.log('console.log(dandelionName.annotations[0].categories'+dandelionName.annotations[0].categories);
-  //     sessions[sessionId].context.get(size-1).push(dandelionName.annotations[0].categories);
-      
-  //   });
-    
-  // },
 
 };
 
 function findPronoun(sessions)
 {
 	const host = 'https://en.wikipedia.org/wiki';
-	// for(var i=0; i<1; i++)
-	// {
-	// 	var wikiOptions = {
-	//       host: 'en.wikipedia.org',
-	//       path:  '/wiki/'+sessions[3][i]
-	//     };
-	//     http.get(wikiOptions, (res) => {
-	//     	console.log(res);
-	//     }).on('error', (e) => {
- //      console.log(`Got error: ${e.message}`);
- //    });	
 	 for(var i=0; i<1; i++)
 	 {
 	 	let wikiOptions = {
