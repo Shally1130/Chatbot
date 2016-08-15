@@ -4,7 +4,7 @@ var bodyParser = require('body-parser');
 var request = require('request');
 var app = express();
 var jQuery = require('jquery');
-
+var wikipedia = require("node-wikipedia");
 
 
 
@@ -29,7 +29,6 @@ app.get('/webhook', function (req, res) {
 const StringDecoder = require('string_decoder').StringDecoder;
 const Wit = require('node-wit').Wit;
 const http = require('http');
-const wikipedia = require("node-wikipedia");
 
 // -----------
 
