@@ -4,6 +4,7 @@ var bodyParser = require('body-parser');
 var request = require('request');
 var app = express();
 var jQuery = require('jquery');
+var wikipedia = require("node-wikipedia");
 
 
 
@@ -265,15 +266,18 @@ const actions = {
           {
           	name.push(JSON.parse(result).entities[i].name);
           	wikipediaId.push(JSON.parse(result).entities[i].wikipediaId);
-          	const wikiHost = 'https://en.wikipedia.org/wiki';
-	        console.log('temp: '+temp);
-		 	let wikiOptions = {
-		    url: wikiHost+'/'+encodeURIComponent(JSON.parse(result).entities[i].wikipediaId),
-		    method: 'POST',
-			}
-		  	request(wikiOptions, (err, res, body) => {
-		  		console.log(res.body);
-		  	})
+   //        	const wikiHost = 'https://en.wikipedia.org/wiki';
+	  //       console.log('temp: '+temp);
+		 // 	let wikiOptions = {
+		 //    url: wikiHost+'/'+encodeURIComponent(JSON.parse(result).entities[i].wikipediaId),
+		 //    method: 'POST',
+			// }
+		 //  	request(wikiOptions, (err, res, body) => {
+		 //  		console.log(res.body);
+		 //  	})
+		 	wikipedia.page.data("Clifford_Brown", { content: true }, function(response) {
+		 		console.log('response: '+response);
+		 	})
           }
           // var name = JSON.parse(result).entities[0].name;
           // var wikipediaId = JSON.parse(result).entities[0].wikipediaId;
