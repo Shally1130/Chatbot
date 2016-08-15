@@ -273,6 +273,7 @@ const actions = {
           for(var i=0; i<len; i++)
           {
           	name.push(JSON.parse(result).entities[i].name);
+            var tempname = name[i];
           	wikipediaId.push(JSON.parse(result).entities[i].wikipediaId);
             const wikiHost = 'https://en.wikipedia.org/wiki';
             let wikiOptions = {
@@ -293,17 +294,17 @@ const actions = {
               if(index['it']+index['its']>oCount)
               {
                 oCount = index['it']+index['its'];
-                oNum = JSON.parse(result).entities[i].name;
+                oNum = tempname;
               }
               if(index['he']+index['his']>mCount)
               {
                 mCount = index['he']+index['his'];
-                mNum = JSON.parse(result).entities[i].name;
+                mNum = tempname;
               }
               if(index['her']+index['she']>fCount)
               {
                 fCount = index['her']+index['she'];
-                fNum = JSON.parse(result).entities[i].name;
+                fNum = tempname;
               }
               //console.log(res.body);
             })
