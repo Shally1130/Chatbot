@@ -5,6 +5,8 @@ var request = require('request');
 var app = express();
 var jQuery = require('jquery');
 var wikipedia = require("node-wikipedia");
+var extractor = require('unfluff');
+
 
 
 app.use(bodyParser.urlencoded({extended: false}));
@@ -267,7 +269,8 @@ const actions = {
           	wikipediaId.push(JSON.parse(result).entities[i].wikipediaId);
             wikipedia.page.data("Anaconda", { content: true }, function(response) {
               // structured information on the page for Clifford Brown (wikilinks, references, categories, etc.)
-              console.log(response);
+              var data = extractor.lazy(response);
+              console.log(data.text());
             });
           } 
           // var name = JSON.parse(result).entities[0].name;
