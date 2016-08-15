@@ -282,36 +282,38 @@ const actions = {
             }
             request(wikiOptions, (err, res, body) => {
               var data = extractor(res.body);
-              var index = {},
+              var index = {};
+              index['his'] = 0;
+              index['he'] = 0;
+              index['its'] = 0;
+              index['it'] = 0;
+              index['she'] = 0;
+              index['her'] = 0;
               words = data.text.replace(/[.,?!;()"'-]/g, " ").replace(/\s+/g, " ").toLowerCase().split(" ");
               //console.log("word: "+words);
               words.forEach(function (word) {
-                if ((word==='it'||word==='he'||word==='she'||word==='its'||word==='his'||word==='her')&&!(index.hasOwnProperty(word))) {
-                  index[word] = 1;
-                  //console.log("index: "+index);
-                }
-                else if((word==='it'||word==='he'||word==='she'||word==='its'||word==='his'||word==='her')&&(index.hasOwnProperty(word)))
-                {
+                if (word==='it'||word==='he'||word==='she'||word==='its'||word==='his'||word==='her') {
                   index[word]++;
+                  //console.log("index: "+index);
                 }
               });
 
               console.log("index: "+index['it']+" "+index['its']);
               console.log("index: "+index['he']+" "+index['his']);
               console.log("index: "+index['she']+" "+index['her']);
-              if(index['it']+index['its']>oCount)
+              if((index['it']+index['its'])>oCount)
               {
                 console.log("index['it']+index['its']>oCount)");
                 oCount = index['it']+index['its'];
                 oNum = tempname;
               }
-              if(index['he']+index['his']>mCount)
+              if((index['he']+index['his'])>mCount)
               {
                 console.log("index['his']+index['he']>mCount)");
                 mCount = index['he']+index['his'];
                 mNum = tempname;
               }
-              if(index['her']+index['she']>fCount)
+              if((index['her']+index['she'])>fCount)
               {
                 console.log("index['her']+index['she']>fCount)");
                 fCount = index['her']+index['she'];
