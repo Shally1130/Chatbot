@@ -307,12 +307,11 @@ function findPronoun(sessions)
 {
 	for(var i=0; i<1; i++)
 	{
-		var options = {
-	      host: '/en.wikipedia.org/wiki',
-	      port: '8080',
-	      path:  sessions[3][i]
+		var wikiOptions = {
+	      host: 'en.wikipedia.org/wiki',
+	      path:  '/'+sessions[3][i]
 	    };
-	    http.get(options, (res) => {
+	    http.get(wikiOptions, (res) => {
 	    	console.log(res);
 	    }).on('error', (e) => {
       console.log(`Got error: ${e.message}`);
