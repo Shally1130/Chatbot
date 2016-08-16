@@ -323,7 +323,7 @@ const actions = {
                           //console.log("index['her']+index['she']>fCount)");
                           fCount = index['her']+index['she'];
                           fNum = tempname;
-                          //console.log("she: "+fCount +" "+fNum);
+                          // console.log("she: "+fCount +" "+fNum);
                         }
                       }
                       //console.log(res.body);
