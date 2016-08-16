@@ -273,6 +273,7 @@ const actions = {
                 for(var i=0; i<len; i++){
                   name.push(JSON.parse(result).entities[i].name);
                   var tempname = name[i];
+                  console.log("tempname: "+tempname);
                   wikipediaId.push(JSON.parse(result).entities[i].wikipediaId);
                   const wikiHost = 'https://en.wikipedia.org/wiki';
                   let wikiOptions = {
@@ -327,7 +328,7 @@ const actions = {
                   })
                 }
                 callback(null, 'one');
-              },5000);
+              },8000);
             },
             function storeInform(callback){
               setTimeout( function() { 
