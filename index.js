@@ -332,7 +332,7 @@ const actions = {
                   }
                 }
                 forLoop(0);
-                callback(null, 'one');
+                //callback(null, 'one');
               },5000);
             },
             function storeInform(callback){
@@ -348,7 +348,7 @@ const actions = {
                 console.log("wikipediaId: " + wikipediaId);
                 console.log("pronouns: " + pronouns);
                 sessions[sessionId].context.push(temp);
-                callback(null, 'two');
+                //callback(null, 'two');
               },2000);
             }
           ],
@@ -357,8 +357,6 @@ const actions = {
               // results is now equal to ['one', 'two']
               if(err)
                 console.log("Got error: "+ err);
-              else
-                console.log("results: "+results);
             }
           );
         });
