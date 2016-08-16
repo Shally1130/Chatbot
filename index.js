@@ -194,20 +194,19 @@ const actions = {
     else {
         console.log("parse question and answer...............");
         console.log("context.query = " + query);
-        if(query!= null)
-        {
+        if(query!= null){
         	pathname = '/?qid=1&title=' + encodeURIComponent(query)+ '&body=Some%20additional%20information%20on%20the%20question&category=Knowledge';
-    		console.log("context.query = "+ query);
-    		console.log("two conditions............"+pathname);
+      		console.log("context.query = "+ query);
+      		console.log("two conditions............"+pathname);
         }
-    	else{
-    		console.log("the value of yes_no is 'N'");
-    		query = sessions[sessionId].context[size-1][0];
-    		//pathname = '/?qid=1&title=' + encodeURIComponent(query)+ '&body=Some%20additional%20information%20on%20the%20question&category=Knowledge';
+      	else{
+      		console.log("the value of yes_no is 'N'");
+      		query = sessions[sessionId].context[size-1][0];
+      		//pathname = '/?qid=1&title=' + encodeURIComponent(query)+ '&body=Some%20additional%20information%20on%20the%20question&category=Knowledge';
 	      	pathname += '&badanswer=';
 	      	pathname +=encodeURIComponent(sessions[sessionId].context[size-1][1]);
 	      	console.log("yes_no" + pathname);
-    	}
+        }
 	  }
     var options = {
       host: 'carbonite.mathcs.emory.edu',
@@ -231,9 +230,8 @@ const actions = {
          var urlend = data.indexOf("</resources>");
          //console.log(data.substring(beg + 9, end));
          context.score = data.substring(scorebeg + 12, scoreend);
-         if(parseFloat(context.score)>=2.5)
-         {
-         	delete context.nonAnswer;
+         if(parseFloat(context.score)>=2.5){
+         	  delete context.nonAnswer;
             context.answer = data.substring(beg + 9, end).trim();
             
             temp.push(query);
@@ -241,8 +239,7 @@ const actions = {
             context.url = data.substring(urlbeg + 11, urlend).trim();
             //console.log('score: '+parseFloat(data.substring(scorebeg + 12, scoreend)));
          }
-         else
-         { 
+         else{ 
             delete context.answer;
             console.log("<2.5................"); 
          }
@@ -272,8 +269,7 @@ const actions = {
           console.log("length: " + len);
           async.series([
             function getInform(){
-              for(var i=0; i<len; i++)
-              {
+              for(var i=0; i<len; i++){
                 name.push(JSON.parse(result).entities[i].name);
                 var tempname = name[i];
                 wikipediaId.push(JSON.parse(result).entities[i].wikipediaId);
@@ -283,8 +279,7 @@ const actions = {
                 method: 'POST',
                 }
                 request(wikiOptions, (err, res, body) => {
-                  if(err)
-                  {
+                  if(err){
                     console.log("Got an error ",err);
                   }
                   else
@@ -345,15 +340,15 @@ const actions = {
               sessions[sessionId].context.push(temp);
             }
           ],
-                    // optional callback
+           // optional callback
           function(err, results) {
               // results is now equal to ['one', 'two']
               if(err)
                 console.log("Got error: "+ err);
             }
-        );
+          );
+        });
         
-      
         console.log("end linkEntities.............");
 
          //console.log(context.answer);
@@ -363,10 +358,8 @@ const actions = {
     }).on('error', (e) => {
       console.log(`Got error: ${e.message}`);
     });
-    //cb(context);
-    
+    //cb(context); 
   },
-
 };
 
 // Setting up our bot
