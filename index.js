@@ -331,6 +331,7 @@ const actions = {
                     })
                   }
                 }
+                forLoop(0);
                 callback(null, 'one');
               },5000);
             },
