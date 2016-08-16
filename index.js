@@ -332,7 +332,7 @@ const actions = {
                   }
                 }
                 callback(null, 'one');
-              },8000);
+              },5000);
               i = 0;
             },
             function storeInform(callback){
