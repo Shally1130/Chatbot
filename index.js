@@ -268,9 +268,9 @@ const actions = {
           var oNum = ""; //store the id which has the most occurances of object pronouns
           //console.log(JSON.parse(result));
           console.log("length: " + len);
-          // async.series([
-          //   function getInform(callback){
-          //     setTimeout( function() { 
+          async.series([
+            function getInform(callback){
+              setTimeout( function() { 
                 var forLoop = function(i){
                   if(i<len){
                     name.push(JSON.parse(result).entities[i].name);
@@ -333,10 +333,10 @@ const actions = {
                 }
                 forLoop(0);
                 //callback(null, 'one');
-            //   },10000);
-            // },
-            // function storeInform(callback){
-            //   setTimeout( function() { 
+              },4000);
+            },
+            function storeInform(callback){
+              setTimeout( function() { 
                 console.log("female, male, object: "+fNum+" "+mNum+" "+oNum);
                 pronouns.push(fNum);
                 pronouns.push(mNum);
@@ -349,16 +349,16 @@ const actions = {
                 console.log("pronouns: " + pronouns);
                 sessions[sessionId].context.push(temp);
                 //callback(null, 'two');
-          //     },2000);
-          //   }
-          // ],
-          //  // optional callback
-          // function(err, results) {
-          //     // results is now equal to ['one', 'two']
-          //     if(err)
-          //       console.log("Got error: "+ err);
-          //   }
-          // );
+              },2000);
+            }
+          ],
+           // optional callback
+          function(err, results) {
+              // results is now equal to ['one', 'two']
+              if(err)
+                console.log("Got error: "+ err);
+            }
+          );
         });
         
         console.log("end linkEntities.............");
