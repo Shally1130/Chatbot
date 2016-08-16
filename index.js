@@ -342,6 +342,7 @@ const actions = {
               console.log("name: " + name);
               console.log("wikipediaId: " + wikipediaId);
               console.log("pronouns: " + pronouns);
+              sessions[sessionId].context.push(temp);
             }
           ],
                     // optional callback
@@ -351,7 +352,7 @@ const actions = {
                 console.log("Got error: "+ err);
             }
         );
-        sessions[sessionId].context.push(temp);
+        
       
         console.log("end linkEntities.............");
 
