@@ -333,7 +333,6 @@ const actions = {
                 }
                 callback(null, 'one');
               },5000);
-              i = 0;
             },
             function storeInform(callback){
               setTimeout( function() { 
