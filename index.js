@@ -329,7 +329,6 @@ const actions = {
                       //console.log(res.body);
                       forLoop(i+1);
                     })
-                    
                   }
                 }
                 callback(null, 'one');
