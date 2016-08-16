@@ -344,7 +344,7 @@ const actions = {
                     console.log("wikipediaId: " + wikipediaId);
                     console.log("pronouns: " + pronouns);
                     sessions[sessionId].context.push(temp);
-                  }
+                  } 
                 }
                 forLoop(0);
                 //callback(null, 'one');
