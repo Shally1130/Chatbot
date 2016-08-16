@@ -268,7 +268,7 @@ const actions = {
           //console.log(JSON.parse(result));
           console.log("length: " + len);
           async.series([
-            function getInform(){
+            function getInform(callback){
               for(var i=0; i<len; i++){
                 name.push(JSON.parse(result).entities[i].name);
                 var tempname = name[i];
@@ -325,8 +325,9 @@ const actions = {
                   //console.log(res.body);
                 })
               }
+              callback(null, 'one');
             },
-            function storeInform(){
+            function storeInform(callback){
               console.log("female, male, object: "+fNum+" "+mNum+" "+oNum);
               pronouns.push(fNum);
               pronouns.push(mNum);
@@ -338,6 +339,7 @@ const actions = {
               console.log("wikipediaId: " + wikipediaId);
               console.log("pronouns: " + pronouns);
               sessions[sessionId].context.push(temp);
+              callback(null, 'two');
             }
           ],
            // optional callback
@@ -345,6 +347,8 @@ const actions = {
               // results is now equal to ['one', 'two']
               if(err)
                 console.log("Got error: "+ err);
+              else
+                console.log("results: "+results);
             }
           );
         });
