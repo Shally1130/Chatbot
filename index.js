@@ -344,7 +344,13 @@ const actions = {
               console.log("pronouns: " + pronouns);
             }
           ],
-        });
+                    // optional callback
+          function(err, results) {
+              // results is now equal to ['one', 'two']
+              if(err)
+                console.log("Got error: "+ err);
+            }
+        );
         sessions[sessionId].context.push(temp);
       
         console.log("end linkEntities.............");
