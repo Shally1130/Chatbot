@@ -376,7 +376,7 @@ const actions = {
         //         console.log("Got error: "+ err);
         //     }
         //   );
-        // });
+         });
         
         console.log("end linkEntities.............");
 
