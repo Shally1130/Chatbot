@@ -328,7 +328,7 @@ const actions = {
                       }
                       //console.log(res.body);
                     })
-                    forLoop(i++);
+                    forLoop(++i);
                   }
                 }
                 callback(null, 'one');
