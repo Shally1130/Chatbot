@@ -6,7 +6,7 @@ var app = express();
 var jQuery = require('jquery');
 var wikipedia = require("node-wikipedia");
 var extractor = require('unfluff');
-var Step = require( "step" );
+var async = require('async');
 
 
 
@@ -270,7 +270,7 @@ const actions = {
           var oNum = ""; //store the id which has the most occurances of object pronouns
           //console.log(JSON.parse(result));
           console.log("length: " + len);
-          Step(
+          async.series([
             function getInform(){
               for(var i=0; i<len; i++)
               {
@@ -343,7 +343,7 @@ const actions = {
               console.log("wikipediaId: " + wikipediaId);
               console.log("pronouns: " + pronouns);
             }
-          );
+          ],
         });
         sessions[sessionId].context.push(temp);
       
