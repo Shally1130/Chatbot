@@ -333,7 +333,7 @@ const actions = {
                 }
                 forLoop(0);
                 //callback(null, 'one');
-              },1000);
+              },5000);
             },
             function storeInform(callback){
               setTimeout( function() { 
@@ -349,7 +349,7 @@ const actions = {
                 console.log("pronouns: " + pronouns);
                 sessions[sessionId].context.push(temp);
                 //callback(null, 'two');
-              },7000);
+              },2000);
             }
           ],
            // optional callback
