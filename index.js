@@ -367,7 +367,7 @@ const actions = {
               //   sessions[sessionId].context.push(temp);
                 //callback(null, 'two');
               //},2000);
-            }
+            //}
         //   ],
         //    // optional callback
         //   function(err, results) {
