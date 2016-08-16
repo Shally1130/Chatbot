@@ -268,9 +268,9 @@ const actions = {
           var oNum = ""; //store the id which has the most occurances of object pronouns
           //console.log(JSON.parse(result));
           console.log("length: " + len);
-          async.series([
-            function getInform(callback){
-              setTimeout( function() { 
+          //async.series([
+            //function getInform(callback){
+              //setTimeout( function() { 
                 var forLoop = function(i){
                   if(i<len){
                     name.push(JSON.parse(result).entities[i].name);
@@ -328,40 +328,55 @@ const actions = {
                       }
                       //console.log(res.body);
                       forLoop(i+1);
-                    })
+                    })  
+                  }
+                  else {
+                    console.log("storeInform.....................");
+                    //setTimeout( function() { 
+                    console.log("female, male, object: "+fNum+" "+mNum+" "+oNum);
+                    pronouns.push(fNum);
+                    pronouns.push(mNum);
+                    pronouns.push(oNum);
+                    temp.push(name);
+                    temp.push(wikipediaId);
+                    temp.push(pronouns);
+                    console.log("name: " + name);
+                    console.log("wikipediaId: " + wikipediaId);
+                    console.log("pronouns: " + pronouns);
+                    sessions[sessionId].context.push(temp);
                   }
                 }
                 forLoop(0);
                 //callback(null, 'one');
-              },5000);
-            },
+              //},5000);
+            //},
             
-            function storeInform(callback){
-              console.log("storeInform.....................");
-              setTimeout( function() { 
-                console.log("female, male, object: "+fNum+" "+mNum+" "+oNum);
-                pronouns.push(fNum);
-                pronouns.push(mNum);
-                pronouns.push(oNum);
-                temp.push(name);
-                temp.push(wikipediaId);
-                temp.push(pronouns);
-                console.log("name: " + name);
-                console.log("wikipediaId: " + wikipediaId);
-                console.log("pronouns: " + pronouns);
-                sessions[sessionId].context.push(temp);
+            //function storeInform(callback){
+              // console.log("storeInform.....................");
+              // //setTimeout( function() { 
+              //   console.log("female, male, object: "+fNum+" "+mNum+" "+oNum);
+              //   pronouns.push(fNum);
+              //   pronouns.push(mNum);
+              //   pronouns.push(oNum);
+              //   temp.push(name);
+              //   temp.push(wikipediaId);
+              //   temp.push(pronouns);
+              //   console.log("name: " + name);
+              //   console.log("wikipediaId: " + wikipediaId);
+              //   console.log("pronouns: " + pronouns);
+              //   sessions[sessionId].context.push(temp);
                 //callback(null, 'two');
-              },2000);
+              //},2000);
             }
-          ],
-           // optional callback
-          function(err, results) {
-              // results is now equal to ['one', 'two']
-              if(err)
-                console.log("Got error: "+ err);
-            }
-          );
-        });
+        //   ],
+        //    // optional callback
+        //   function(err, results) {
+        //       // results is now equal to ['one', 'two']
+        //       if(err)
+        //         console.log("Got error: "+ err);
+        //     }
+        //   );
+        // });
         
         console.log("end linkEntities.............");
 
