@@ -333,7 +333,7 @@ const actions = {
                 }
                 forLoop(0);
                 //callback(null, 'one');
-              },5000);
+              },10000);
             },
             function storeInform(callback){
               setTimeout( function() { 
