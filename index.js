@@ -349,7 +349,7 @@ const actions = {
                 console.log("pronouns: " + pronouns);
                 sessions[sessionId].context.push(temp);
                 //callback(null, 'two');
-              },5000);
+              },7000);
             }
           ],
            // optional callback
