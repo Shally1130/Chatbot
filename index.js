@@ -258,6 +258,7 @@ const actions = {
           var name = [];
           var wikipediaId = [];
           var pronouns = [];
+          var i = 0;
           var len = JSON.parse(result).entities.length;
           var fCount = 0; //count female pronoun
           var mCount = 0; //count male pronoun
@@ -270,65 +271,69 @@ const actions = {
           async.series([
             function getInform(callback){
               setTimeout( function() { 
-                for(var i=0; i<len; i++){
-                  name.push(JSON.parse(result).entities[i].name);
-                  var tempname = name[i];
-                  console.log("tempname: "+tempname);
-                  wikipediaId.push(JSON.parse(result).entities[i].wikipediaId);
-                  const wikiHost = 'https://en.wikipedia.org/wiki';
-                  let wikiOptions = {
-                  url: wikiHost+'/'+encodeURIComponent(JSON.parse(result).entities[i].wikipediaId),
-                  method: 'POST',
-                  }
-                  request(wikiOptions, (err, res, body) => {
-                    if(err){
-                      console.log("Got an error ",err);
+                var forLoop = function(i){
+                  if(i<len){
+                    name.push(JSON.parse(result).entities[i].name);
+                    var tempname = name[i];
+                    console.log("tempname: "+tempname);
+                    wikipediaId.push(JSON.parse(result).entities[i].wikipediaId);
+                    const wikiHost = 'https://en.wikipedia.org/wiki';
+                    let wikiOptions = {
+                    url: wikiHost+'/'+encodeURIComponent(JSON.parse(result).entities[i].wikipediaId),
+                    method: 'POST',
                     }
-                    else
-                    {
-                      var data = extractor(res.body);
-                      var index = {},
-                      words = data.text.replace(/[.,?!;()"'-]/g, " ").replace(/\s+/g, " ").toLowerCase().split(" ");
-                      index['his'] = 0;
-                      index['he'] = 0;
-                      index['its'] = 0;
-                      index['it'] = 0;
-                      index['she'] = 0;
-                      index['her'] = 0;
-                      //console.log("word: "+words);
-                      words.forEach(function (word) {
-                        if (word==='it'||word==='he'||word==='she'||word==='its'||word==='his'||word==='her') {
-                          index[word]++;
-                          //console.log("index: "+index);
+                    request(wikiOptions, (err, res, body) => {
+                      if(err){
+                        console.log("Got an error ",err);
+                      }
+                      else
+                      {
+                        var data = extractor(res.body);
+                        var index = {},
+                        words = data.text.replace(/[.,?!;()"'-]/g, " ").replace(/\s+/g, " ").toLowerCase().split(" ");
+                        index['his'] = 0;
+                        index['he'] = 0;
+                        index['its'] = 0;
+                        index['it'] = 0;
+                        index['she'] = 0;
+                        index['her'] = 0;
+                        //console.log("word: "+words);
+                        words.forEach(function (word) {
+                          if (word==='it'||word==='he'||word==='she'||word==='its'||word==='his'||word==='her') {
+                            index[word]++;
+                            //console.log("index: "+index);
+                          }
+                        });
+                        if((index['it']+index['its'])>oCount)
+                        {
+                          //console.log("index['it']+index['its']>oCount)");
+                          oCount = index['it']+index['its'];
+                          oNum = tempname;
+                          console.log("it: "+oCount +" "+oNum);
                         }
-                      });
-                      if((index['it']+index['its'])>oCount)
-                      {
-                        //console.log("index['it']+index['its']>oCount)");
-                        oCount = index['it']+index['its'];
-                        oNum = tempname;
-                        console.log("it: "+oCount +" "+oNum);
+                        if((index['he']+index['his'])>mCount)
+                        {
+                          //console.log("index['his']+index['he']>mCount)");
+                          mCount = index['he']+index['his'];
+                          mNum = tempname;
+                          console.log("he: "+mCount +" "+mNum);
+                        }
+                        if((index['her']+index['she'])>fCount)
+                        {
+                          //console.log("index['her']+index['she']>fCount)");
+                          fCount = index['her']+index['she'];
+                          fNum = tempname;
+                          console.log("she: "+fCount +" "+fNum);
+                        }
                       }
-                      if((index['he']+index['his'])>mCount)
-                      {
-                        //console.log("index['his']+index['he']>mCount)");
-                        mCount = index['he']+index['his'];
-                        mNum = tempname;
-                        console.log("he: "+mCount +" "+mNum);
-                      }
-                      if((index['her']+index['she'])>fCount)
-                      {
-                        //console.log("index['her']+index['she']>fCount)");
-                        fCount = index['her']+index['she'];
-                        fNum = tempname;
-                        console.log("she: "+fCount +" "+fNum);
-                      }
-                    }
-                    //console.log(res.body);
-                  })
+                      //console.log(res.body);
+                    })
+                    forLoop(i++);
+                  }
                 }
                 callback(null, 'one');
               },8000);
+              i = 0;
             },
             function storeInform(callback){
               setTimeout( function() { 
