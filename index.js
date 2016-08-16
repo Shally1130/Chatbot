@@ -6,7 +6,7 @@ var app = express();
 var jQuery = require('jquery');
 var wikipedia = require("node-wikipedia");
 var extractor = require('unfluff');
-var Step = require( "step.js" );
+var Step = require( "step" );
 
 
 
