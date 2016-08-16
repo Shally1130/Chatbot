@@ -335,8 +335,9 @@ const actions = {
                 //callback(null, 'one');
               },5000);
             },
-            console.log("storeInform.....................");
+            
             function storeInform(callback){
+              console.log("storeInform.....................");
               setTimeout( function() { 
                 console.log("female, male, object: "+fNum+" "+mNum+" "+oNum);
                 pronouns.push(fNum);
