@@ -18,6 +18,9 @@ app.listen((process.env.PORT || 3000));
 app.get('/', function (req, res) {
   res.send('This is TestBot Server');  
 }); 
+app.get('/privacy', function (req, res) {
+  res.send('TestBot may collect your personal information. This product is meant for educational purposes only.');  
+}); 
 
 // Facebook Webhook
 app.get('/webhook', function (req, res) {
