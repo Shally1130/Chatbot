@@ -374,7 +374,7 @@ linkEntities(params, (err, result) => {
 });
 ```
 ##About counting pronouns
-Use wikipediaIds which extracted above to request wikipedia, then count the female, male, object pronouns occurences of each page and store the results in sessions.
+Use `wikipediaIds` which extracted above to request `wikipedia`, then count the `female, male, object pronouns` occurences of each page and store the results in sessions.
 
 ```node
 var pronouns = [];
