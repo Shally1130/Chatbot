@@ -373,6 +373,88 @@ linkEntities(params, (err, result) => {
   console.log("wikipediaId: " + wikipediaId);
 });
 ```
+##About counting pronouns
+Use wikipediaIds which extracted above to request wikipedia, then count the pronouns occurences of each page and store the results in sessions.
+
+```node
+var pronouns = [];
+var i = 0;
+var len = JSON.parse(result).entities.length;
+var fCount = 0; //count female pronoun
+var mCount = 0; //count male pronoun
+var oCount = 0; //count object pronoun
+var fNum = ""; //store the id which has the most occurances of female pronouns
+var mNum = ""; //store the id which has the most occurances of male pronouns
+var oNum = ""; //store the id which has the most occurances of object pronouns
+console.log("length: " + len);
+var forLoop = function(i){
+  if(i<len){
+    name.push(JSON.parse(result).entities[i].name);
+    var tempname = name[i];
+    console.log("tempname: "+tempname);
+    wikipediaId.push(JSON.parse(result).entities[i].wikipediaId);
+    const wikiHost = 'https://en.wikipedia.org/wiki';
+    let wikiOptions = {
+      url: wikiHost+'/'+encodeURIComponent(JSON.parse(result).entities[i].wikipediaId),
+      method: 'POST',
+    }
+    request(wikiOptions, (err, res, body) => {
+      if(err){
+        console.log("Got an error ",err);
+      }
+      else
+      {
+        var data = extractor(res.body);
+        var index = {},
+        words = data.text.replace(/[.,?!;()"'-]/g, " ").replace(/\s+/g, " ").toLowerCase().split(" ");
+        index['his'] = 0;
+        index['he'] = 0;
+        index['its'] = 0;
+        index['it'] = 0;
+        index['she'] = 0;
+        index['her'] = 0;
+        words.forEach(function (word) {
+          if (word==='it'||word==='he'||word==='she'||word==='its'||word==='his'||word==='her') {
+            index[word]++;
+          }
+        });
+        if((index['it']+index['its'])>oCount)
+        {
+          oCount = index['it']+index['its'];
+          oNum = tempname;
+        }
+        if((index['he']+index['his'])>mCount)
+        {
+          mCount = index['he']+index['his'];
+          mNum = tempname;
+        }
+        if((index['her']+index['she'])>fCount)
+        {
+          fCount = index['her']+index['she'];
+          fNum = tempname;
+        }
+      }
+      //console.log(res.body);
+      forLoop(i+1);
+    })  
+  }
+  else {
+    console.log("storeInform.....................");
+    console.log("female, male, object: "+fNum+" "+mNum+" "+oNum);
+    pronouns.push(fNum);
+    pronouns.push(mNum);
+    pronouns.push(oNum);
+    temp.push(name);
+    temp.push(wikipediaId);
+    temp.push(pronouns);
+    console.log("name: " + name);
+    console.log("wikipediaId: " + wikipediaId);
+    console.log("pronouns: " + pronouns);
+    sessions[sessionId].context.push(temp);
+  } 
+}
+forLoop(0);
+```
 
 
 
